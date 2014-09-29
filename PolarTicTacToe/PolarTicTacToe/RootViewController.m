@@ -27,6 +27,17 @@
     return self;
 }
 
++(BOOL) canUpdateSquare:(int *) point :(int *)board
+{
+    int x = point[0];
+    int y = point[1];
+    BOOL update = FALSE;
+    
+    
+    
+    return update;
+}
+
 -(IBAction) newGame:(id)sender
 {
     weRX = true;

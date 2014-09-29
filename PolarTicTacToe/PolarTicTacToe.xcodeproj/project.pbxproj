@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B034EAA619D9AE6D005A8751 /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B034EAA519D9AE6D005A8751 /* goodPolarImage.png */; };
+		B034EAA919D9B060005A8751 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAA819D9B060005A8751 /* Utilities.m */; };
+		B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */; };
+		B034EAAF19D9B093005A8751 /* Search.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAE19D9B093005A8751 /* Search.m */; };
 		B0E6E16E19C68F2E00F5B0EA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E6E16D19C68F2E00F5B0EA /* Cocoa.framework */; };
 		B0E6E17819C68F2E00F5B0EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0E6E17619C68F2E00F5B0EA /* InfoPlist.strings */; };
 		B0E6E17A19C68F2E00F5B0EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E6E17919C68F2E00F5B0EA /* main.m */; };
@@ -20,7 +24,6 @@
 		B0E6E19819C68F2E00F5B0EA /* PolarTicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E6E19719C68F2E00F5B0EA /* PolarTicTacToeTests.m */; };
 		B0E6E1A419C6903500F5B0EA /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E6E1A219C6903500F5B0EA /* RootViewController.m */; };
 		B0E6E1A519C6903500F5B0EA /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E6E1A319C6903500F5B0EA /* RootViewController.xib */; };
-		B0E6E1A719C6914B00F5B0EA /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B0E6E1A619C6914B00F5B0EA /* goodPolarImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B034EAA519D9AE6D005A8751 /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = ../../../../Documents/goodPolarImage.png; sourceTree = "<group>"; };
+		B034EAA719D9B060005A8751 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		B034EAA819D9B060005A8751 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		B034EAAA19D9B077005A8751 /* HeuristicFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeuristicFunctions.h; sourceTree = "<group>"; };
+		B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeuristicFunctions.m; sourceTree = "<group>"; };
+		B034EAAD19D9B093005A8751 /* Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Search.h; sourceTree = "<group>"; };
+		B034EAAE19D9B093005A8751 /* Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Search.m; sourceTree = "<group>"; };
 		B0E6E16A19C68F2E00F5B0EA /* PolarTicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolarTicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E6E16D19C68F2E00F5B0EA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B0E6E17019C68F2E00F5B0EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -56,7 +66,6 @@
 		B0E6E1A119C6903500F5B0EA /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		B0E6E1A219C6903500F5B0EA /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		B0E6E1A319C6903500F5B0EA /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
-		B0E6E1A619C6914B00F5B0EA /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = ../../../../../Documents/goodPolarImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +137,13 @@
 				B0E6E1A119C6903500F5B0EA /* RootViewController.h */,
 				B0E6E1A219C6903500F5B0EA /* RootViewController.m */,
 				B0E6E1A319C6903500F5B0EA /* RootViewController.xib */,
-				B0E6E1A619C6914B00F5B0EA /* goodPolarImage.png */,
+				B034EAA719D9B060005A8751 /* Utilities.h */,
+				B034EAA819D9B060005A8751 /* Utilities.m */,
+				B034EAAA19D9B077005A8751 /* HeuristicFunctions.h */,
+				B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */,
+				B034EAAD19D9B093005A8751 /* Search.h */,
+				B034EAAE19D9B093005A8751 /* Search.m */,
+				B034EAA519D9AE6D005A8751 /* goodPolarImage.png */,
 				B0E6E18519C68F2E00F5B0EA /* Images.xcassets */,
 				B0E6E17419C68F2E00F5B0EA /* Supporting Files */,
 			);
@@ -242,8 +257,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E6E17819C68F2E00F5B0EA /* InfoPlist.strings in Resources */,
-				B0E6E1A719C6914B00F5B0EA /* goodPolarImage.png in Resources */,
 				B0E6E18619C68F2E00F5B0EA /* Images.xcassets in Resources */,
+				B034EAA619D9AE6D005A8751 /* goodPolarImage.png in Resources */,
 				B0E6E1A519C6903500F5B0EA /* RootViewController.xib in Resources */,
 				B0E6E17E19C68F2E00F5B0EA /* Credits.rtf in Resources */,
 				B0E6E18419C68F2E00F5B0EA /* MainMenu.xib in Resources */,
@@ -266,7 +281,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E6E18119C68F2E00F5B0EA /* AppDelegate.m in Sources */,
+				B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */,
 				B0E6E17A19C68F2E00F5B0EA /* main.m in Sources */,
+				B034EAAF19D9B093005A8751 /* Search.m in Sources */,
+				B034EAA919D9B060005A8751 /* Utilities.m in Sources */,
 				B0E6E1A419C6903500F5B0EA /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +496,7 @@
 				B0E6E19D19C68F2E00F5B0EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0E6E19E19C68F2E00F5B0EA /* Build configuration list for PBXNativeTarget "PolarTicTacToeTests" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +505,7 @@
 				B0E6E1A019C68F2E00F5B0EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>00ECFED6-C329-4B55-B84C-1C5B65C898A8</string>
+	<string>24301904-3676-458E-909A-024C04756C56</string>
 	<key>IDESourceControlProjectName</key>
 	<string>PolarTicTacToe</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>66C8784F-E769-4577-97D3-3A9F0156B211</key>
-		<string>https://github.com/fredkneeland/BrainBuilder.git</string>
+		<key>BF8A9E85-652A-4A38-972D-F6F922A59BAE</key>
+		<string>https://github.com/fredkneeland/AIObjectiveC.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>PolarTicTacToe/PolarTicTacToe.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>66C8784F-E769-4577-97D3-3A9F0156B211</key>
+		<key>BF8A9E85-652A-4A38-972D-F6F922A59BAE</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/fredkneeland/BrainBuilder.git</string>
+	<string>https://github.com/fredkneeland/AIObjectiveC.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>66C8784F-E769-4577-97D3-3A9F0156B211</string>
+	<string>BF8A9E85-652A-4A38-972D-F6F922A59BAE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>66C8784F-E769-4577-97D3-3A9F0156B211</string>
+			<string>BF8A9E85-652A-4A38-972D-F6F922A59BAE</string>
 			<key>IDESourceControlWCCName</key>
-			<string>BrainBuilder</string>
+			<string>AIObjectiveC</string>
 		</dict>
 	</array>
 </dict>

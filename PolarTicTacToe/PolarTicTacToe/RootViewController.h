@@ -12,6 +12,7 @@
 {
     IBOutlet NSTextField *label;
     BOOL weRX;
+    NSArray *board;
     
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;
@@ -200,5 +201,6 @@
 -(IBAction) region11_3:(id)sender;
 
 //-(void) upDateChangedStates();
++(BOOL) canUpdateSquare:(int *) point :(int *)board;
 
 @end
