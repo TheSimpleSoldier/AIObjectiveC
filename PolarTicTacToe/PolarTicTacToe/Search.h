@@ -10,6 +10,7 @@
 
 @interface Search : NSObject
 
-+(int *) getNextSpot:(int *)gameBoard;
++(int *) getNextSpot:(int *)gameBoard:(int *)type;
++(int *) strictMinMaxSearch:(int *)gameBoard: (int)team;
 
 @end

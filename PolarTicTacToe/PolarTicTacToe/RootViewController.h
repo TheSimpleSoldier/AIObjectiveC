@@ -11,8 +11,14 @@
 @interface RootViewController : NSViewController
 {
     IBOutlet NSTextField *label;
+    IBOutlet NSPopUpButton *gameChooser;
     BOOL weRX;
-    NSArray *board;
+    BOOL player1Human;
+    BOOL player2Human;
+    int *board;
+    int xTeamVal;
+    int oTeamVal;
+    int numbOfMoves;
     
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;
@@ -76,6 +82,7 @@
 }
 
 @property(nonatomic, retain) NSTextField *label;
+@property(nonatomic, retain) NSPopUpButton *gameChooser;
 
 @property(nonatomic, retain) NSTextField *label0_0;
 @property(nonatomic, retain) NSTextField *label0_1;
@@ -137,7 +144,6 @@
 @property(nonatomic, retain) NSTextField *label11_2;
 @property(nonatomic, retain) NSTextField *label11_3;
 
--(IBAction) buttonPressed:(id)sender;
 -(IBAction) newGame:(id)sender;
 
 -(IBAction) region0_0:(id)sender;
@@ -201,6 +207,9 @@
 -(IBAction) region11_3:(id)sender;
 
 //-(void) upDateChangedStates();
-+(BOOL) canUpdateSquare:(int *) point :(int *)board;
+
+-(BOOL) validateUserMove:(int)x :(int)y;
+-(void) upDateLabel:(int)x :(int)y;
+-(void) reset;
 
 @end

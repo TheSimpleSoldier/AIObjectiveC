@@ -12,5 +12,6 @@
 
 +(int) teamWon:(int *)gameBoard :(int *) team;
 +(BOOL) moveValid:(int *)move :(int *)gameBoard;
++(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team;
 
 @end

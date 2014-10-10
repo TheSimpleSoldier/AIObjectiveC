@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01B513619E86DCA00AEC066 /* RandomAI.m in Sources */ = {isa = PBXBuildFile; fileRef = B01B513519E86DCA00AEC066 /* RandomAI.m */; };
 		B034EAA619D9AE6D005A8751 /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B034EAA519D9AE6D005A8751 /* goodPolarImage.png */; };
 		B034EAA919D9B060005A8751 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAA819D9B060005A8751 /* Utilities.m */; };
 		B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B01B513419E86DCA00AEC066 /* RandomAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomAI.h; sourceTree = "<group>"; };
+		B01B513519E86DCA00AEC066 /* RandomAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomAI.m; sourceTree = "<group>"; };
 		B034EAA519D9AE6D005A8751 /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = ../../../../Documents/goodPolarImage.png; sourceTree = "<group>"; };
 		B034EAA719D9B060005A8751 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		B034EAA819D9B060005A8751 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 				B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */,
 				B034EAAD19D9B093005A8751 /* Search.h */,
 				B034EAAE19D9B093005A8751 /* Search.m */,
+				B01B513419E86DCA00AEC066 /* RandomAI.h */,
+				B01B513519E86DCA00AEC066 /* RandomAI.m */,
 				B034EAA519D9AE6D005A8751 /* goodPolarImage.png */,
 				B0E6E18519C68F2E00F5B0EA /* Images.xcassets */,
 				B0E6E17419C68F2E00F5B0EA /* Supporting Files */,
@@ -283,6 +288,7 @@
 				B0E6E18119C68F2E00F5B0EA /* AppDelegate.m in Sources */,
 				B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */,
 				B0E6E17A19C68F2E00F5B0EA /* main.m in Sources */,
+				B01B513619E86DCA00AEC066 /* RandomAI.m in Sources */,
 				B034EAAF19D9B093005A8751 /* Search.m in Sources */,
 				B034EAA919D9B060005A8751 /* Utilities.m in Sources */,
 				B0E6E1A419C6903500F5B0EA /* RootViewController.m in Sources */,

@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RootViewController">
             <connections>
+                <outlet property="gameChooser" destination="U9b-Yf-vAq" id="W40-kG-H07"/>
                 <outlet property="label" destination="YTA-eN-XeS" id="Drp-RO-FpQ"/>
                 <outlet property="label0_0" destination="hVX-1S-spY" id="Q1P-kR-1c5"/>
                 <outlet property="label0_1" destination="i8E-AZ-bZK" id="T7g-lV-GvL"/>
@@ -86,9 +87,6 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="buttonPressed:" target="-2" id="jOJ-VR-gUn"/>
-                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVX-1S-spY">
                     <rect key="frame" x="436" y="676" width="27" height="30"/>
@@ -1061,6 +1059,21 @@
                         <action selector="region11_3:" target="-2" id="WDg-qZ-gdO"/>
                     </connections>
                 </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9b-Yf-vAq">
+                    <rect key="frame" x="788" y="752" width="186" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="human verse human" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="pIU-se-X8e" id="VjR-ar-lM4">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <menu key="menu" title="OtherViews" id="Al0-rC-dsK">
+                            <items>
+                                <menuItem title="human verse human" state="on" id="pIU-se-X8e"/>
+                                <menuItem title="human verse computer" id="2Vq-YQ-Doi"/>
+                                <menuItem title="computer versus human" id="a38-4t-565"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
             </subviews>
         </customView>
     </objects>
