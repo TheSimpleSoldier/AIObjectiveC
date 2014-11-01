@@ -13,39 +13,33 @@
 
 +(int *) getNextMove:(int *)board
 {
-    int *newArray = (int *)malloc(sizeof(int) * 48);
-    for (int i = 0; i < 48; i++)
+    int size = 0;
+    int *avaliableMoves = [Utilities getAllAvaliableMoves:board :&size];
+    int *nextMove = (int *)malloc(sizeof(int) * 2);
+    
+    if (size == 0)
     {
-        int x = i / 12;
-        int y = i % 12;
-        int *move = (int *)malloc(sizeof(int) * 2);
-        move[0] = x;
-        move[1] = y;
-        if ([Utilities moveValid:move :board])
-        {
-            newArray[i] = 1;
-        }
+        NSLog(@"Houston we have a problem");
     }
     
-    int *nextMove = (int *)malloc(sizeof(int) * 2);
-    nextMove[0] = -123;
+    NSString *stringer = [[NSString alloc] initWithFormat:@"%i", size];
+    NSLog(stringer);
     
     int j = 0;
     while (nextMove[0] == -123)
     {
-        if (newArray[j] == 1)
+        int random = arc4random()%size;
+        if (random == 1)
         {
-            int random = arc4random()%48;
-            if (random == 1)
-            {
-                nextMove[0] = j / 12;
-                nextMove[1] = j % 12;
-                return nextMove;
-            }
+            nextMove[0] = avaliableMoves[j] / 4;
+            nextMove[1] = avaliableMoves[j] % 4;
+            return nextMove;
         }
         
-        j = (j + 1) % 48;
+        j = (j + 1) % size;
     }
+    stringer = [[NSString alloc] initWithFormat:@"%i, %i", nextMove[0], nextMove[1]];
+    NSLog(stringer);
     return nextMove;
 }
 
