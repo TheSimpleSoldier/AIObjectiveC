@@ -12,6 +12,8 @@
 		B034EAA919D9B060005A8751 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAA819D9B060005A8751 /* Utilities.m */; };
 		B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */; };
 		B034EAAF19D9B093005A8751 /* Search.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAE19D9B093005A8751 /* Search.m */; };
+		B07350941A06F3B400936E42 /* MinMaxAI.m in Sources */ = {isa = PBXBuildFile; fileRef = B07350931A06F3B400936E42 /* MinMaxAI.m */; };
+		B07350971A06F40000936E42 /* AlphaBetaAI.m in Sources */ = {isa = PBXBuildFile; fileRef = B07350961A06F40000936E42 /* AlphaBetaAI.m */; };
 		B0E6E16E19C68F2E00F5B0EA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E6E16D19C68F2E00F5B0EA /* Cocoa.framework */; };
 		B0E6E17819C68F2E00F5B0EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0E6E17619C68F2E00F5B0EA /* InfoPlist.strings */; };
 		B0E6E17A19C68F2E00F5B0EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E6E17919C68F2E00F5B0EA /* main.m */; };
@@ -47,6 +49,10 @@
 		B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeuristicFunctions.m; sourceTree = "<group>"; };
 		B034EAAD19D9B093005A8751 /* Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Search.h; sourceTree = "<group>"; };
 		B034EAAE19D9B093005A8751 /* Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Search.m; sourceTree = "<group>"; };
+		B07350921A06F3B400936E42 /* MinMaxAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinMaxAI.h; sourceTree = "<group>"; };
+		B07350931A06F3B400936E42 /* MinMaxAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinMaxAI.m; sourceTree = "<group>"; };
+		B07350951A06F40000936E42 /* AlphaBetaAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphaBetaAI.h; sourceTree = "<group>"; };
+		B07350961A06F40000936E42 /* AlphaBetaAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlphaBetaAI.m; sourceTree = "<group>"; };
 		B0E6E16A19C68F2E00F5B0EA /* PolarTicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolarTicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0E6E16D19C68F2E00F5B0EA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B0E6E17019C68F2E00F5B0EA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -148,6 +154,10 @@
 				B034EAAE19D9B093005A8751 /* Search.m */,
 				B01B513419E86DCA00AEC066 /* RandomAI.h */,
 				B01B513519E86DCA00AEC066 /* RandomAI.m */,
+				B07350921A06F3B400936E42 /* MinMaxAI.h */,
+				B07350931A06F3B400936E42 /* MinMaxAI.m */,
+				B07350951A06F40000936E42 /* AlphaBetaAI.h */,
+				B07350961A06F40000936E42 /* AlphaBetaAI.m */,
 				B034EAA519D9AE6D005A8751 /* goodPolarImage.png */,
 				B0E6E18519C68F2E00F5B0EA /* Images.xcassets */,
 				B0E6E17419C68F2E00F5B0EA /* Supporting Files */,
@@ -286,12 +296,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E6E18119C68F2E00F5B0EA /* AppDelegate.m in Sources */,
+				B07350941A06F3B400936E42 /* MinMaxAI.m in Sources */,
 				B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */,
 				B0E6E17A19C68F2E00F5B0EA /* main.m in Sources */,
 				B01B513619E86DCA00AEC066 /* RandomAI.m in Sources */,
 				B034EAAF19D9B093005A8751 /* Search.m in Sources */,
 				B034EAA919D9B060005A8751 /* Utilities.m in Sources */,
 				B0E6E1A419C6903500F5B0EA /* RootViewController.m in Sources */,
+				B07350971A06F40000936E42 /* AlphaBetaAI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

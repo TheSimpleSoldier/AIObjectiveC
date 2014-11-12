@@ -12,6 +12,7 @@
 {
     IBOutlet NSTextField *label;
     IBOutlet NSPopUpButton *gameChooser;
+    IBOutlet NSPopUpButton *searchType;
     BOOL weRX;
     BOOL player1Human;
     BOOL player2Human;
@@ -19,6 +20,7 @@
     int xTeamVal;
     int oTeamVal;
     int numbOfMoves;
+    int searchTypeVal;
     
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;
@@ -83,6 +85,7 @@
 
 @property(nonatomic, retain) NSTextField *label;
 @property(nonatomic, retain) NSPopUpButton *gameChooser;
+@property(nonatomic, retain) NSPopUpButton *searchType;
 
 @property(nonatomic, retain) NSTextField *label0_0;
 @property(nonatomic, retain) NSTextField *label0_1;

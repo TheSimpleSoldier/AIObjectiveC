@@ -10,6 +10,6 @@
 
 @interface HeuristicFunctions : NSObject
 
-+(int) getValue:(int *)gameBoard :(int *)position :(int)team;
++(int) getValue:(int *)gameBoard :(int)team;
 
 @end

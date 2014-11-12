@@ -9,6 +9,8 @@
 #import "RootViewController.h"
 #import "Utilities.h"
 #import "RandomAI.h"
+#import "MinMaxAI.h"
+#import "AlphaBetaAI.h"
 
 @interface RootViewController ()
 
@@ -19,7 +21,7 @@
 @synthesize label0_0, label0_1, label0_2, label0_3, label10_0, label10_1, label10_2, label10_3, label11_0, label11_1, label11_2, label11_3, label1_0, label1_1, label1_2, label1_3;
 @synthesize label2_0, label2_1, label2_2, label2_3, label3_0, label3_1, label3_2, label3_3, label4_0, label4_1, label4_2, label4_3, label5_0, label5_1, label5_2, label5_3, label6_0;
 @synthesize label6_1, label6_2, label6_3, label7_0, label7_1, label7_2, label7_3, label8_0, label8_1, label8_2, label8_3, label9_0, label9_1, label9_2, label9_3;
-@synthesize gameChooser;
+@synthesize gameChooser, searchType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -267,12 +269,37 @@
         
         if (weRX && !player1Human)
         {
-            int *aiMove = [RandomAI getNextMove:board];
+            
+            int *aiMove;
+            if (searchTypeVal == 0)
+            {
+                aiMove = [RandomAI getNextMove:board];
+            }
+            else if (searchTypeVal == 1)
+            {
+                aiMove = [MinMaxAI getNextMove:board:1];
+            }
+            else
+            {
+                aiMove = [AlphaBetaAI getNextMove:board:1];
+            }
             [self upDateLabel:aiMove[0] :aiMove[1]];
         }
         else if (!weRX && !player2Human)
         {
-            int *aiMove = [RandomAI getNextMove:board];
+            int *aiMove;
+            if (searchTypeVal == 0)
+            {
+                aiMove = [RandomAI getNextMove:board];
+            }
+            else if (searchTypeVal == 1)
+            {
+                aiMove = [MinMaxAI getNextMove:board:2];
+            }
+            else
+            {
+                aiMove = [AlphaBetaAI getNextMove:board:2];
+            }
             [self upDateLabel:aiMove[0] :aiMove[1]];
         }
         
@@ -287,6 +314,7 @@
 -(void) reset
 {
     NSInteger index = [gameChooser indexOfSelectedItem];
+    searchTypeVal = (int) [searchType indexOfSelectedItem];
     NSString *string = [[NSString alloc] initWithFormat:@"%li", (long)index];
     
     [label setStringValue:string];

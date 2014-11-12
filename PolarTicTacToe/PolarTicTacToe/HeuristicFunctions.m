@@ -7,15 +7,16 @@
 //
 
 #import "HeuristicFunctions.h"
+#import "Utilities.h"
 
 @implementation HeuristicFunctions
 
 //Value will center around 0. 999 means that team won, -999 means the team lost. negative numbers mean the other team is doing better.
-+(int) getValue:(int *)gameBoard :(int *)position :(int)team
++(int) getValue:(int *)gameBoard :(int)team
 {
     int value = 0;
 
-    int winner = [Utilities teamWon:gameBoard];
+    int winner = 0;//[Utilities teamWon:gameBoard:team];
 
     //Check to see if anybody has won yet
     if(winner == 1)
@@ -38,11 +39,11 @@
 	        int y = 1;
 	        for(a = 0; a < 4; a++)
 	        {
-	            if(gameboard[k*4 + a] == 1)
+	            if(gameBoard[k*4 + a] == 1)
 	            {
 	                y = 0;
 	            }
-	            else if(gameboard[k*4 + a] == 2)
+	            else if(gameBoard[k*4 + a] == 2)
 	            {
 	                x = 0;
 	            }
@@ -65,11 +66,11 @@
 	        int y = 1;
 	        for(a = 0; a < 4; a++)
 	        {
-	                if(gameboard[((k + a) % 12)*4 + a] == 1)
+	                if(gameBoard[((k + a) % 12)*4 + a] == 1)
 	                {
 	                    y = 0;
 	                }
-	                else if(gameboard[((k + a) % 12)*4 + a] == 2)
+	                else if(gameBoard[((k + a) % 12)*4 + a] == 2)
 	                {
 	                    x = 0;
 	                }
@@ -88,11 +89,11 @@
 	        y = 1;
 	        for(a = 0; a < 4; a++)
 	        {
-	                if(gameboard[((12 + k - a) % 12)*4 + a] == 1)
+	                if(gameBoard[((12 + k - a) % 12)*4 + a] == 1)
 	                {
 	                    y = 0;
 	                }
-	                else if(gameboard[((12 + k - a) % 12)*4 + a] == 2)
+	                else if(gameBoard[((12 + k - a) % 12)*4 + a] == 2)
 	                {
 	                    x = 0;
 	                }
@@ -119,11 +120,11 @@
 	
 	            for(t = 0; t < 4; t++)
 	            {
-	                if(gameboard[((k + t) % 12)*4 + a] == 1)
+	                if(gameBoard[((k + t) % 12)*4 + a] == 1)
 	                {
 	                    y = 0;
 	                }
-	                else if(gameboard[((k + t) % 12)*4 + a] == 2)
+	                else if(gameBoard[((k + t) % 12)*4 + a] == 2)
 	                {
 	                    x = 0;
 	                }

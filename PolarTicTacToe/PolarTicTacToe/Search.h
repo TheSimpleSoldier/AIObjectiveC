@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+int searchDepth;
 @interface Search : NSObject
-{
-    int searchDepth;
-}
 
-+(int *) getNextSpot:(int *)gameBoard:(int *)type;
-+(int) strictMinMaxSearch:(int *)gameBoard: (int)team: (int)round: (int *)move;
++(int *) getNextSpot:(int *)gameBoard :(int)team;
++(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round;
 
 @end

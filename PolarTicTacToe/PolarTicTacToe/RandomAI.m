@@ -26,6 +26,7 @@
     NSLog(stringer);
     
     int j = 0;
+    nextMove[0] = -123;
     while (nextMove[0] == -123)
     {
         int random = arc4random()%size;

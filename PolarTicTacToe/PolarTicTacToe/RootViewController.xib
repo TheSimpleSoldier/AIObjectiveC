@@ -57,6 +57,7 @@
                 <outlet property="label9_1" destination="2KL-CR-Fbu" id="t8p-zx-sTc"/>
                 <outlet property="label9_2" destination="5Tv-tZ-A3U" id="pVF-1w-V0Q"/>
                 <outlet property="label9_3" destination="TlN-Yp-Rt3" id="kL8-RY-g0D"/>
+                <outlet property="searchType" destination="pyd-Kg-iFJ" id="gov-rc-AUE"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -1062,14 +1063,29 @@
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9b-Yf-vAq">
                     <rect key="frame" x="788" y="752" width="186" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="human verse human" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="pIU-se-X8e" id="VjR-ar-lM4">
+                    <popUpButtonCell key="cell" type="push" title="human verse computer" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="2Vq-YQ-Doi" id="VjR-ar-lM4">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="Al0-rC-dsK">
                             <items>
-                                <menuItem title="human verse human" state="on" id="pIU-se-X8e"/>
-                                <menuItem title="human verse computer" id="2Vq-YQ-Doi"/>
+                                <menuItem title="human verse human" id="pIU-se-X8e"/>
+                                <menuItem title="human verse computer" state="on" id="2Vq-YQ-Doi"/>
                                 <menuItem title="computer versus human" id="a38-4t-565"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyd-Kg-iFJ">
+                    <rect key="frame" x="788" y="721" width="186" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Random" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="tnC-Ce-kwK" id="Ib5-ug-y39">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="Oez-XH-Rf1">
+                            <items>
+                                <menuItem title="Random" state="on" id="tnC-Ce-kwK"/>
+                                <menuItem title="Min-max" id="Ybp-Pm-MZD"/>
+                                <menuItem title="Alpha-Beta" id="TLc-bf-XxV"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
