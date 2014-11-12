@@ -14,5 +14,6 @@
 +(NSMutableSet *) resolveVars: (NSMutableString *)first : (NSMutableString *)second;
 +(BOOL) moveValid:(int *)move :(int *)gameBoard;
 +(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team;
++(int *) getAllAvaliableMoves:(int *)board: (int *)size;
 
 @end

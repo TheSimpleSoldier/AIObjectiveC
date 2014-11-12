@@ -45,7 +45,7 @@
             {
                 for (int i = -1; i <= 1; i++)
                 {
-                    if (y + i < 0 || y + i > 3)
+                    if ((y + i) < 0 || (y + i) > 3)
                     {
                         
                     }
@@ -59,7 +59,7 @@
             {
                 for (int i = -1; i <= 1; i++)
                 {
-                    if (y + i < 0 || y + i > 3)
+                    if ((y + i) < 0 || (y + i) > 3)
                     {
                         
                     }
@@ -78,7 +78,6 @@
 +(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team
 {
     gameBoard[(move[0] * 4) + (move[1])] = team;
-    
     return gameBoard;
 }
 
@@ -336,6 +335,39 @@
     }
 
     return toReturn;
+}
+
++(int *) getAllAvaliableMoves:(int *)board :(int *)size
+{
+    int *newArray = (int *)malloc(sizeof(int) * 48);
+    int totalSize = 0;
+    for (int i = 0; i < 48; i++)
+    {
+        int x = i / 4;
+        int y = i % 4;
+        int *move = (int *)malloc(sizeof(int) * 2);
+        move[0] = x;
+        move[1] = y;
+        if ([Utilities moveValid:move :board])
+        {
+            newArray[i] = 1;
+            totalSize++;
+        }
+    }
+    
+    int *avaliableMoves = (int *)malloc(sizeof(int) * totalSize);
+    int k = 0;
+    for (int j = 0; j < totalSize; j++)
+    {
+        while (newArray[k] == 0)
+        {
+            k++;
+        }
+        avaliableMoves[j] = k;
+    }
+    
+    *size = totalSize;
+    return avaliableMoves;
 }
 
 @end
