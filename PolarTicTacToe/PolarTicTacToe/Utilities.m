@@ -81,24 +81,19 @@
     return gameBoard;
 }
 
-//for clarity, ? is or, ; is and, and ~ is not
-//Variable inside function are all points on the vertical and horizonal of the board.
-//Functions for identity: isX(x,y) says spot has an x, isO(x,y) says spot has an o
-//functions for position: sameVertical(w,x,y,z) says that the points are next to each other vertically
-//                        sameHorizontal(w,x,y,z) says the points are next to each othe horizontally
-//                        sameDiagonalLeft(w,x,y,z) says the points form a back slash diagonally
-//                        sameDiagonalRight(w,x,y,z) says the points form a forward slash diagonally 
-//
-//There are 8 queries we are trying to prove, 4 for x, 4 for o,
-//the only difference is whether the last conditions are isX or isO so only the x check will be shown
-//vertical: sameVertical(a,b,c,d);sameVertical(c,d,e,f);sameVertical(e,f,g,h);isX(a,b);isX(c,d);isX(e,f);isX(g,h)
-//horizontal: sameHorizontal(a,b,c,d);sameHorizontal(c,d,e,f);sameHorizontal(e,f,g,h);isX(a,b);isX(c,d);isX(e,f);isX(g,h)
-//diagonalLeft: sameDiagonalLeft(a,b,c,d);sameDiagonalLeft(c,d,e,f);sameDiagonalLeft(e,f,g,h);isX(a,b);isX(c,d);isX(e,f);isX(g,h)
-//diagonalRight: sameDiagonalRight(a,b,c,d);sameDiagonalRight(c,d,e,f);sameDiagonalRight(e,f,g,h);isX(a,b);isX(c,d);isX(e,f);isX(g,h)
+//a-l represent the first 12 numbers for the variables
+//N represents there is no variable there
+//u represents if the point is an x
+//v represents if the point is an o
+//w represents if two points are on the same vertical
+//x represents if two points are on the same horizontal
+//y represents if two points are on the same diagonal left
+//z represents if two points are on the same diagonal right
+//anything else means unknown
 +(int) teamWon:(int *)gameBoard
 {
-	//The following takes the game board to make the knowlege base
-	NSMutableSet *knowlegeBase = [[NSMutableSet alloc] init];
+	//The following takes the game board to make the knowledge base
+	NSMutableArray *knowledgeBase = [[NSMutableArray alloc] init];
 	int k, a, t;
 	for(k = 0; k < 12; k++)
 	{
@@ -107,234 +102,210 @@
 			//if it is an x
 			if(gameBoard[k*4 + a] == 1)
 			{
-				NSMutableString *tempString = [NSMutableString stringWithFormat: @"isX(%i,%i)", k, a];
-				[knowlegeBase addObject: tempString];
+				NSString *tempString = [NSString stringWithFormat: @"u%c%cNN ", k + 97, a + 97];
+				[knowledgeBase addObject: tempString];
+                //[tempString release];
 			}
 			//if it is an o
 			else if(gameBoard[k*4 + a] == 2)
 			{
-				NSMutableString *tempString = [NSMutableString stringWithFormat: @"isO(%i,%i)", k, a];
-				[knowlegeBase addObject: tempString];
+				NSString *tempString = [NSString stringWithFormat: @"v%c%cNN ", k + 97, a + 97];
+				[knowledgeBase addObject: tempString];
+                //[tempString release];
 			}
 			
 			//if they are horizontally next to each other
 			if(gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((k + 1) % 12)*4 + a])
 			{
-				NSMutableString *tempString = [NSMutableString stringWithFormat: @"sameHorizontal(%i,%i,%i,%i)", k, a, ((k + 1) % 12), a];
-				[knowlegeBase addObject: tempString];
-				
+				NSString *tempString = [NSString stringWithFormat: @"x%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, a + 97];
+				[knowledgeBase addObject: tempString];
+                //[tempString release];
 			}
 			//if they are vertically next to each other
 			else if(a < 3 && gameBoard[k*4 + a] != 0 &&gameBoard[k*4 + a] == gameBoard[k*4 + a + 1])
 			{
-				NSMutableString *tempString = [NSMutableString stringWithFormat: @"sameVertical(%i,%i,%i,%i)", k, a, k, (a + 1)];
-				[knowlegeBase addObject: tempString];
+				NSString *tempString = [NSString stringWithFormat: @"w%c%c%c%c ", k + 97, a + 97, k + 97, (a + 1) + 97];
+				[knowledgeBase addObject: tempString];
+                //[tempString release];
 			}
 			//if they are diagonalRight
 			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((k + 1) % 12)*4 + a + 1])
 			{
-				NSMutableString *tempString = [NSMutableString stringWithFormat: @"sameDiagonalRight(%i,%i,%i,%i)", k, a, ((k + 1) % 12), (a + 1)];
-				[knowlegeBase addObject: tempString];
+				NSString *tempString = [NSString stringWithFormat: @"z%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, (a + 1) + 97];
+				[knowledgeBase addObject: tempString];
+                //[tempString release];
 			}
 			//if they are diagonalLeft
 			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((12 + k - 1) % 12)*4 + a + 1])
 			{
-				NSMutableString *tempString = [NSMutableString stringWithFormat: @"sameDiagonalLeft(%i,%i,%i,%i)", k, a, ((12 + k - 1) % 12), (a + 1)];
-				[knowlegeBase addObject: tempString];
+				NSString *tempString = [NSString stringWithFormat: @"y%c%c%c%c ", k + 97, a + 97, ((12 + k - 1) % 12) + 97, (a + 1) + 97];
+				[knowledgeBase addObject: tempString];
+                //[tempString release];
 			}
 		}
 	}
 	
 	//now we create our 8 negated queries to run
-	NSMutableString *verticalX = [NSMutableString stringWithString:
-    @"~sameVertical(a,0,a,1)?~sameVertical(a,1,a,2)?~sameVertical(a,2,a,3)?~isX(a,0)?~isX(a,1)?~isX(a,2)?~isX(a,3)"];
-	NSMutableString *horizontalX = [NSMutableString stringWithString:
-    @"~sameHorizontal(a,b,c,b)?~sameHorizontal(c,b,e,b)?~sameHorizontal(e,b,g,b)?~isX(a,b)?~isX(c,b)?~isX(e,b)?~isX(g,b)"];
-	NSMutableString *diagRightX = [NSMutableString stringWithString:
-    @"~sameDiagonalRight(a,0,c,1)?~sameDiagonalRight(c,1,e,2)?~sameDiagonalRight(e,2,g,3)?~isX(a,0)?~isX(c,1)?~isX(e,2)?~isX(g,3)"];
-	NSMutableString *diagLeftX = [NSMutableString stringWithString:
-    @"~sameDiagonalLeft(a,0,c,1)?~sameDiagonalLeft(c,1,e,2)?~sameDiagonalLeft(e,2,g,3)?~isX(a,0)?~isX(c,1)?~isX(e,2)?~isX(g,3)"];
+	NSString *verticalX = @"wmamb~?wmbmc~?wmcmd~?umaNN~?umbNN~?umcNN~?umdNN~";
+	NSString *horizontalX = @"xnmom~?xompm~?xpmqm~?unmNN~?uomNN~?upmNN~?uqmNN~";
+	NSString *diagRightX = @"zmanb~?znboc~?zocpd~?umaNN~?unbNN~?uocNN~?updNN~";
+	NSString *diagLeftX = @"ymanb~?ynboc~?yocpd~?umaNN~?unbNN~?uocNN~?updNN~";
 	
-	NSMutableString *verticalO = [NSMutableString stringWithString:
-    @"~sameVertical(a,0,a,1)?~sameVertical(a,1,a,2)?~sameVertical(a,2,a,3)?~isO(a,0)?~isO(a,1)?~isO(a,2)?~isO(a,3)"];
-	NSMutableString *horizontalO = [NSMutableString stringWithString:
-    @"~sameHorizontal(a,b,c,b)?~sameHorizontal(c,b,e,b)?~sameHorizontal(e,b,g,b)?~isO(a,b)?~isO(c,b)?~isO(e,b)?~isO(g,b)"];
-	NSMutableString *diagRightO = [NSMutableString stringWithString:
-    @"~sameDiagonalRight(a,0,c,1)?~sameDiagonalRight(c,1,e,2)?~sameDiagonalRight(e,2,g,3)?~isO(a,0)?~isO(c,1)?~isO(e,2)?~isO(g,3)"];
-	NSMutableString *diagLeftO = [NSMutableString stringWithString:
-    @"~sameDiagonalLeft(a,0,c,1)?~sameDiagonalLeft(c,1,e,2)?~sameDiagonalLeft(e,2,g,3)?~isO(a,0)?~isO(c,1)?~isO(e,2)?~isO(g,3)"];
+	NSString *verticalO = @"wmamb~?wmbmc~?wmcmd~?vmaNN~?vmbNN~?vmcNN~?vmdNN~";
+	NSString *horizontalO = @"xnmom~?xompm~?xpmqm~?vnmNN~?vomNN~?vpmNN~?vqmNN~";
+	NSString *diagRightO = @"zmanb~?znboc~?zocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~";
+	NSString *diagLeftO = @"ymanb~?ynboc~?yocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~";
 	
-	NSMutableArray *queries = [[NSMutableArray alloc] init];
-	[queries addObject: verticalX];
-	[queries addObject: horizontalX];
-	[queries addObject: diagRightX];
-	[queries addObject: diagLeftX];
-	[queries addObject: verticalO];
-	[queries addObject: horizontalO];
-	[queries addObject: diagRightO];
-	[queries addObject: diagLeftO];
-	
-	
+    NSArray *knowledge = [knowledgeBase copy];
+    //[knowledgeBase release];
+	NSArray *queries = [NSArray arrayWithObjects:verticalX, horizontalX, diagRightX, diagLeftX, verticalO, horizontalO, diagRightO, diagLeftO, nil];
+    /*[verticalX release];
+    [horizontalX release];
+    [diagRightX release];
+    [diagLeftX release];
+    [verticalO release];
+    [horizontalO release];
+    [diagRightO release];
+    [diagLeftO release];
+     */
+
 	//now we run resolution on all the queries and the first to return true we use to return the answer
-	//if none of them return, we return 0, or no winner
+	//if none of them return, we return 0 since there is no winner
 	for(k = 0; k < 8; k++)
 	{
         //start of resolution algorithm
-		NSMutableSet *clauses = [[NSMutableSet alloc] init];
-        [clauses addObjectsFromArray: [knowlegeBase allObjects]];
-		[clauses addObject: [queries objectAtIndex: k]];
-        NSMutableSet *new = [[NSMutableSet alloc] init];
-        
+        //In order to optimize, we will only deal with the newest iteration of clauses.
+        NSArray *clauses = [NSArray arrayWithObjects:[queries objectAtIndex:k], nil];
         while(true)
         {
-            int clauseCount = [clauses count];
-            NSArray *tempClauses = [clauses allObjects];
-            for(a = 0; a < clauseCount; a++)
+            NSMutableSet *new = [[NSMutableSet alloc] init];
+            int kcount = [knowledge count];
+            int ncount = [clauses count];
+            for(a = 0; a < kcount; a++)
             {
-                for(t = 0; t < clauseCount; t++)
+                for(t = 0; t < ncount; t++)
                 {
-                    if(a != t)
-                    {
-                        NSMutableSet *resolvents = [[NSMutableSet alloc] init];
-                        resolvents = [Utilities resolveVars: [tempClauses objectAtIndex: a] :[tempClauses objectAtIndex: t]]; 
+                    NSSet *resolvents = [Utilities resolveVars: [knowledge objectAtIndex: a] :[clauses objectAtIndex: t]]; 
 
-                        for(NSString *i in resolvents)
+                    for(NSString *i in resolvents)
+                    {
+                        if([i isEqualToString:@" "])
                         {
-                            if([i isEqualToString:@" "])
+                            if(k < 4)
                             {
-                                if(k < 4)
-                                {
-                                    return 1;
-                                }
-                                else
-                                {
-                                    return 2;
-                                }
+                                return 1;
+                            }
+                            else
+                            {
+                                return 2;
                             }
                         }
-
-                        [new unionSet: resolvents];
                     }
+
+                    [new unionSet: resolvents];
+                    //[resolvents release];
                 }
             }
 
-            NSMutableSet *temp1 = [[NSMutableSet alloc] init];
-            [temp1 setSet: clauses];
-            [temp1 minusSet: new];
-            NSMutableSet *temp2 = [[NSMutableSet alloc] init];
-            [temp2 setSet: new];
-            [temp1 minusSet: clauses];
-            if([temp1 count] > 0 || [temp2 count] == 0)
+            if([new count] == 0)
             {
                 break;
             }
-            [clauses unionSet: new];
+            //[clauses release];
+            clauses = [NSArray arrayWithArray:[new allObjects]];
+            //[new release];
+            //[NSThread sleepForTimeInterval:5];
         }
 
 	}
+
+    //[knowledge release];
+    //[queries release];
 
     return 0;
 }
 
 //Since all the clauses are nicely formatted, a full unification rule is not neccessary.
 //For efficiency, a smaller, more efficient version will be used.
-+(NSMutableSet *) resolveVars: (NSMutableString *)first : (NSMutableString *)second
++(NSSet *) resolveVars:(NSString *)first :(NSString *)second
 {
     NSMutableSet *toReturn = [[NSMutableSet alloc] init];
 
     //Splits string into clauses separated by or.
-    NSMutableArray *firstArray = [NSMutableArray arrayWithArray: [first componentsSeparatedByString:@"?"]];
-    NSMutableArray *secondArray = [NSMutableArray arrayWithArray: [second componentsSeparatedByString:@"?"]];
+    //First one doesn't need it since it will always be just one function.
+    NSArray *secondArray = [NSArray arrayWithArray:[second componentsSeparatedByString:@"?"]];
 
-    int k, a;
-    for(k= 0; k < [firstArray count]; k++)
+    int k;
+    int count = [secondArray count];
+    for(k = 0; k < count; k++)
     {
-        //index 0 of temp 1 is function name.
-        NSArray *temp1 = [[firstArray objectAtIndex: k] componentsSeparatedByString:@"("];
-
-        for(a = 0; a < [secondArray count]; a++)
+        //if they negate each other, perform unification.
+        if([first characterAtIndex:0] == [[secondArray objectAtIndex:k] characterAtIndex:0] && [[secondArray objectAtIndex:k] characterAtIndex:5] == '~')
         {
-            //index 0 of temp 2 is function name.
-            NSArray *temp2 = [[secondArray objectAtIndex: a] componentsSeparatedByString:@"("];
-
-            //if they negate each other, perform unification.
-            if([[temp1 objectAtIndex: 0] isEqualToString: [NSString stringWithFormat:@"%@%@", @"~", [temp1 objectAtIndex: 0]]] ||
-            [[temp2 objectAtIndex: 0] isEqualToString: [NSString stringWithFormat:@"%@%@", @"~", [temp1 objectAtIndex: 0]]])
+            int t;
+            int i = 0;
+            for(t = 0; t < 4; t++)
             {
-                //first figure out the substitution string, which is just the first strings args and the second strings args.
-                NSString *args1 = [[[temp1 objectAtIndex: 1] componentsSeparatedByString:@")"] objectAtIndex: 0];
-                NSString *args2 = [[[temp2 objectAtIndex: 1] componentsSeparatedByString:@")"] objectAtIndex: 0];
-                NSArray *argArray1 = [args1 componentsSeparatedByString:@","];
-                NSArray *argArray2 = [args2 componentsSeparatedByString:@","];
-
-                //this part is substituting the first for the second
-                int t;
-                int i = 0;
-                for(t = 0; t < [argArray1 count]; t++)
+                char firstChar = [first characterAtIndex:(t + 1)];
+                char secondChar = [[secondArray objectAtIndex:k] characterAtIndex:(t + 1)];
+                //if they are not the same and the second one is a number
+                if(firstChar != secondChar && secondChar < 109)
                 {
-                    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-                    NSNumber *number = [formatter numberFromString:[argArray2 objectAtIndex: t]];
-                    //[formatter release];
-                    if(!!number)
+                    i = 1;
+                }
+            }
+
+            if(i == 0)
+            {
+                NSMutableString *resolved = [NSMutableString stringWithString:@""];
+                int inserted = 0;
+                for(t = 0; t < [secondArray count]; t++)
+                {
+                    if(t != k)
                     {
-                        if(![[argArray1 objectAtIndex: t] isEqualToString: [argArray2 objectAtIndex: t]])
+                        NSString *replacement = [NSString stringWithFormat:@"%@", [secondArray objectAtIndex:t]];
+                        for(i = 0; i < 4; i++)
                         {
-                            i = 1;
+                            NSString *firstChar = [NSString stringWithFormat:@"%c", [first characterAtIndex:(i + 1)]];
+                            NSString *secondChar = [NSString stringWithFormat:@"%c", [[secondArray objectAtIndex:k] characterAtIndex:(i + 1)]];
+                            if([[secondArray objectAtIndex:t] characterAtIndex:0] > 108)
+                            {
+                                NSString *newString = [replacement stringByReplacingOccurrencesOfString:secondChar withString:firstChar];
+                                /*[replacement release];
+                                [firstChar release];
+                                [secondChar release];
+                                replacement = newString; */
+                            }
                         }
+                        [resolved appendFormat:@"%@", replacement];
+                        if(t < [secondArray count] - 1 && k != [secondArray count] - 1)
+                        {
+                            [resolved appendString:@"?"];
+                        }
+                        else if(t < [secondArray count] - 2)
+                        {
+                            [resolved appendString:@"?"];
+                        }
+                        //[replacement release];
+                        inserted = 1;
                     }
                 }
 
-                if(i == 0)
+                if(inserted == 0)
                 {
-                    NSMutableString *resolved = [NSMutableString stringWithString:@""];
-                    int inserted = 0;
-                    for(t = 0; t < [firstArray count]; t++)
-                    {
-                        if(t != k)
-                        {
-                            [resolved appendFormat:@"%@", [firstArray objectAtIndex: t]];
-                            if(t < [firstArray count] - 1)
-                            {
-                                [resolved appendString:@"?"];
-                            }
-                            inserted = 1;
-                        }
-                    }
-                    for(t = 0; t < [secondArray count]; t++)
-                    {
-                        if(t != a)
-                        {
-                            NSMutableString *replacement = [NSMutableString stringWithFormat:@"%@", [secondArray objectAtIndex: t]];
-                            for(i = 0; i < [argArray1 count]; i++)
-                            {
-                                NSString *toReplace1 = [NSString stringWithFormat:@"%@,", [argArray2 objectAtIndex: i]];
-                                NSString *toReplace2 = [NSString stringWithFormat:@"%@)", [argArray2 objectAtIndex: i]];
-                                NSString *toReplaceWith1 = [NSString stringWithFormat:@"%@,", [argArray1 objectAtIndex: i]];
-                                NSString *toReplaceWith2 = [NSString stringWithFormat:@"%@)", [argArray1 objectAtIndex: i]];
-                                [replacement setString:[replacement stringByReplacingOccurrencesOfString:toReplace1 withString:toReplaceWith1]]; 
-                                [replacement setString:[replacement stringByReplacingOccurrencesOfString:toReplace2 withString:toReplaceWith2]];
-                            }
-                            [resolved appendFormat:@"%@", replacement];
-                            if(t < [secondArray count] - 1)
-                            {
-                                [resolved appendString:@"?"];
-                            }
-                            inserted = 1;
-                        }
-                    }
-
-                    if(inserted == 0)
-                    {
-                        [resolved appendString:@" "];
-                    }
-
-                    [toReturn addObject:resolved];
+                    [resolved appendString:@" "];
                 }
+
+                [toReturn addObject:[NSString stringWithString:resolved]];
+                //[resolved release];
             }
         }
     }
 
-    return toReturn;
+    //[secondArray release];
+    NSSet *returned = [NSSet setWithArray:[toReturn allObjects]];
+    //[toReturn release];
+    return returned;
 }
 
 +(int *) getAllAvaliableMoves:(int *)board :(int *)size
