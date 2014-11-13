@@ -10,8 +10,8 @@
 
 @interface Utilities : NSObject
 
-+(int) teamWon:(int *)gameBoard :(int *)team;
-+(NSMutableSet *) resolveVars: (NSMutableString *)first : (NSMutableString *)second;
++(int) teamWon:(int *)gameBoard;
++(NSSet *) resolveVars:(NSString *)first :(NSString *)second;
 +(BOOL) moveValid:(int *)move :(int *)gameBoard;
 +(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team;
 +(int *) getAllAvaliableMoves:(int *)board: (int *)size;
