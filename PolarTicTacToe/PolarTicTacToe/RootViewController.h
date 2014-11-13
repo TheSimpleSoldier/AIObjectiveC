@@ -214,5 +214,6 @@
 -(BOOL) validateUserMove:(int)x :(int)y;
 -(void) upDateLabel:(int)x :(int)y;
 -(void) reset;
+-(void) printBoard;
 
 @end

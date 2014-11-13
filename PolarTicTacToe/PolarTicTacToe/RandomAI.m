@@ -23,24 +23,37 @@
     }
     
     NSString *stringer = [[NSString alloc] initWithFormat:@"%i", size];
-    NSLog(stringer);
+    //NSLog(stringer);
     
     int j = 0;
-    nextMove[0] = -123;
-    while (nextMove[0] == -123)
+    bool done = false;
+    while (!done)
     {
         int random = arc4random()%size;
-        if (random == 1)
+        if (random <= 1)
         {
             nextMove[0] = avaliableMoves[j] / 4;
             nextMove[1] = avaliableMoves[j] % 4;
-            return nextMove;
+            //NSLog(@"Found move");
+            if ([Utilities moveValid:nextMove :board])
+            {
+                done = true;
+                return nextMove;
+            }
+            else
+            {
+                NSLog(@"Tried an invalid move");
+            }
         }
         
         j = (j + 1) % size;
+        if (j == 0)
+        {
+            NSLog(@"J == 0");
+        }
     }
     stringer = [[NSString alloc] initWithFormat:@"%i, %i", nextMove[0], nextMove[1]];
-    NSLog(stringer);
+    //NSLog(stringer);
     return nextMove;
 }
 

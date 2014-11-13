@@ -16,7 +16,7 @@
 {
     int value = 0;
 
-    int winner = 0;//[Utilities teamWon:gameBoard:team];
+    int winner = 0;//[Utilities teamWon:gameBoard];
 
     //Check to see if anybody has won yet
     if(winner == 1)
@@ -28,6 +28,7 @@
         value = -999;
     }
     //Nobody has won yet, so look for how many unrestricted lines each player has and determine who is in better shape from there
+    //Look for how many unrestricted lines each player has and determine who is in better shape from there
     else
     {
         int k, a, t;
