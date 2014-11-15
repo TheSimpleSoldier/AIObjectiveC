@@ -25,14 +25,24 @@
     {
         move[0] = avaliableMoves[i] / 4;
         move[1] = avaliableMoves[i] % 4;
-        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        int score = [self strictMinMaxSearch:newGameBoard :team :1];
         if (![Utilities moveValid:move :gameBoard])
         {
             NSLog(@"Move not valid");
+            continue;
+        }
+        
+        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
+        int score = [self strictMinMaxSearch:newGameBoard :team :1];
+        if (i == 0)
+        {
+            NSLog(@"Initialized Spot");
+            maxScore = score;
+            nextSpot[0] = move[0];
+            nextSpot[1] = move[1];
         }
         else if (score > maxScore)
         {
+            NSLog(@"Modifing Score");
             maxScore = score;
             nextSpot[0] = move[0];
             nextSpot[1] = move[1];

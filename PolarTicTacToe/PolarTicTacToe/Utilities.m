@@ -144,6 +144,8 @@
 			}
 		}
 	}
+    
+    NSLog(@"knowledge base: %@", knowledgeBase);
 	
 	//now we create our 8 negated queries to run
 	NSString *verticalX = @"wmamb~?wmbmc~?wmcmd~?umaNN~?umbNN~?umcNN~?umdNN~";
