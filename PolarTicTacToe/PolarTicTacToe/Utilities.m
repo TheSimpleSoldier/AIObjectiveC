@@ -104,14 +104,14 @@
 			{
 				NSString *tempString = [NSString stringWithFormat: @"u%c%cNN ", k + 97, a + 97];
 				[knowledgeBase addObject: tempString];
-                //[tempString release];
+                [tempString release];
 			}
 			//if it is an o
 			else if(gameBoard[k*4 + a] == 2)
 			{
 				NSString *tempString = [NSString stringWithFormat: @"v%c%cNN ", k + 97, a + 97];
 				[knowledgeBase addObject: tempString];
-                //[tempString release];
+                [tempString release];
 			}
 			
 			//if they are horizontally next to each other
@@ -119,49 +119,59 @@
 			{
 				NSString *tempString = [NSString stringWithFormat: @"x%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, a + 97];
 				[knowledgeBase addObject: tempString];
-                //[tempString release];
+                [tempString release];
 			}
 			//if they are vertically next to each other
 			else if(a < 3 && gameBoard[k*4 + a] != 0 &&gameBoard[k*4 + a] == gameBoard[k*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"w%c%c%c%c ", k + 97, a + 97, k + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
-                //[tempString release];
+                [tempString release];
 			}
 			//if they are diagonalRight
 			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((k + 1) % 12)*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"z%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
-                //[tempString release];
+                [tempString release];
 			}
 			//if they are diagonalLeft
 			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((12 + k - 1) % 12)*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"y%c%c%c%c ", k + 97, a + 97, ((12 + k - 1) % 12) + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
-                //[tempString release];
+                [tempString release];
 			}
 		}
 	}
     
     NSLog(@"knowledge base: %@", knowledgeBase);
 	
+    NSLog(@"Knowledge base: %@", knowledgeBase);
+
 	//now we create our 8 negated queries to run
-	NSString *verticalX = @"wmamb~?wmbmc~?wmcmd~?umaNN~?umbNN~?umcNN~?umdNN~";
-	NSString *horizontalX = @"xnmom~?xompm~?xpmqm~?unmNN~?uomNN~?upmNN~?uqmNN~";
-	NSString *diagRightX = @"zmanb~?znboc~?zocpd~?umaNN~?unbNN~?uocNN~?updNN~";
-	NSString *diagLeftX = @"ymanb~?ynboc~?yocpd~?umaNN~?unbNN~?uocNN~?updNN~";
+	NSString *verticalX = [NSString stringWithString:
+    @"wmamb~?wmbmc~?wmcmd~?umaNN~?umbNN~?umcNN~?umdNN~"];
+	NSString *horizontalX = [NSString stringWithString:
+    @"xnmom~?xompm~?xpmqm~?unmNN~?uomNN~?upmNN~?uqmNN~"];
+	NSString *diagRightX = [NSString stringWithString:
+    @"zmanb~?znboc~?zocpd~?umaNN~?unbNN~?uocNN~?updNN~"];
+	NSString *diagLeftX = [NSString stringWithString:
+    @"ymanb~?ynboc~?yocpd~?umaNN~?unbNN~?uocNN~?updNN~"];
 	
-	NSString *verticalO = @"wmamb~?wmbmc~?wmcmd~?vmaNN~?vmbNN~?vmcNN~?vmdNN~";
-	NSString *horizontalO = @"xnmom~?xompm~?xpmqm~?vnmNN~?vomNN~?vpmNN~?vqmNN~";
-	NSString *diagRightO = @"zmanb~?znboc~?zocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~";
-	NSString *diagLeftO = @"ymanb~?ynboc~?yocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~";
+	NSString *verticalO = [NSString stringWithString:
+    @"wmamb~?wmbmc~?wmcmd~?vmaNN~?vmbNN~?vmcNN~?vmdNN~"];
+	NSString *horizontalO = [NSString stringWithString:
+    @"xnmom~?xompm~?xpmqm~?vnmNN~?vomNN~?vpmNN~?vqmNN~"];
+	NSString *diagRightO = [NSString stringWithString:
+    @"zmanb~?znboc~?zocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~"];
+	NSString *diagLeftO = [NSString stringWithString:
+    @"ymanb~?ynboc~?yocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~"];
 	
     NSArray *knowledge = [knowledgeBase copy];
-    //[knowledgeBase release];
+    [knowledgeBase release];
 	NSArray *queries = [NSArray arrayWithObjects:verticalX, horizontalX, diagRightX, diagLeftX, verticalO, horizontalO, diagRightO, diagLeftO, nil];
-    /*[verticalX release];
+    [verticalX release];
     [horizontalX release];
     [diagRightX release];
     [diagLeftX release];
@@ -169,7 +179,7 @@
     [horizontalO release];
     [diagRightO release];
     [diagLeftO release];
-     */
+
 
 	//now we run resolution on all the queries and the first to return true we use to return the answer
 	//if none of them return, we return 0 since there is no winner
@@ -205,7 +215,7 @@
                     }
 
                     [new unionSet: resolvents];
-                    //[resolvents release];
+                    [resolvents release];
                 }
             }
 
@@ -213,16 +223,16 @@
             {
                 break;
             }
-            //[clauses release];
+            [clauses release];
             clauses = [NSArray arrayWithArray:[new allObjects]];
-            //[new release];
+            [new release];
             //[NSThread sleepForTimeInterval:5];
         }
 
 	}
 
-    //[knowledge release];
-    //[queries release];
+    [knowledge release];
+    [queries release];
 
     return 0;
 }
@@ -273,10 +283,10 @@
                             if([[secondArray objectAtIndex:t] characterAtIndex:0] > 108)
                             {
                                 NSString *newString = [replacement stringByReplacingOccurrencesOfString:secondChar withString:firstChar];
-                                /*[replacement release];
+                                [replacement release];
                                 [firstChar release];
                                 [secondChar release];
-                                replacement = newString; */
+                                replacement = newString;
                             }
                         }
                         [resolved appendFormat:@"%@", replacement];
@@ -288,7 +298,7 @@
                         {
                             [resolved appendString:@"?"];
                         }
-                        //[replacement release];
+                        [replacement release];
                         inserted = 1;
                     }
                 }
@@ -299,14 +309,14 @@
                 }
 
                 [toReturn addObject:[NSString stringWithString:resolved]];
-                //[resolved release];
+                [resolved release];
             }
         }
     }
 
-    //[secondArray release];
+    [secondArray release];
     NSSet *returned = [NSSet setWithArray:[toReturn allObjects]];
-    //[toReturn release];
+    [toReturn release];
     return returned;
 }
 
@@ -347,5 +357,3 @@
     *size = totalSize;
     return avaliableMoves;
 }
-
-@end
