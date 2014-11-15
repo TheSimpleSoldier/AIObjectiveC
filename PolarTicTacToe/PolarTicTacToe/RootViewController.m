@@ -263,13 +263,13 @@
         [current setTextColor:[NSColor redColor]];
     }
     
-    /*
-    int redWinner = [Utilities teamWon:board];
     
-    if (redWinner != 0)
+    int winner = [Utilities teamWon:board];
+    
+    if (winner != 0)
     {
         [label setStringValue:@"Winner"];
-    }*/
+    }
     
     //NSLog(@"Right before AI section");
     

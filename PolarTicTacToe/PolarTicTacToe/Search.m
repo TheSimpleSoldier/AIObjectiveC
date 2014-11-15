@@ -15,9 +15,10 @@
 +(int *) getNextSpot:(int *)gameBoard :(int)team;
 {
     int *nextSpot = (int *)malloc(sizeof(int) * 2);
-    searchDepth = 0;
+    searchDepth = 3;
     int size = 0;
-    int *avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
+    int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
+    avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
     int maxScore = -999;
     int *move = (int *)malloc(sizeof(int) * 2);
     
@@ -25,22 +26,29 @@
     {
         move[0] = avaliableMoves[i] / 4;
         move[1] = avaliableMoves[i] % 4;
-        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        int score = [self strictMinMaxSearch:newGameBoard :team :1];
         if (![Utilities moveValid:move :gameBoard])
         {
             NSLog(@"Move not valid");
+            continue;
         }
-        else if (score > maxScore)
+        
+        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
+        int score = [self strictMinMaxSearch:newGameBoard :team :1];
+        if (i == 0)
         {
+            NSLog(@"Initialized Spot");
             maxScore = score;
             nextSpot[0] = move[0];
             nextSpot[1] = move[1];
         }
-        //free(newGameBoard);
+        else if (score > maxScore)
+        {
+            NSLog(@"Modifing Score");
+            maxScore = score;
+            nextSpot[0] = move[0];
+            nextSpot[1] = move[1];
+        }
     }
-    
-    //free(avaliableMoves);
     
     return nextSpot;
 }
@@ -66,26 +74,30 @@
         for (int i = 0; i < size; i++)
         {
             int *newGameBoard;
+            int *nextMove = (int *)malloc(sizeof(int) * 2);
+            nextMove[0] = avaliableMoves[i] / 4;
+            nextMove[1] = avaliableMoves[i] % 4;
             // opponents move
             if (round % 2 == 1)
             {
-                newGameBoard = [Utilities upDateGameBoard:&avaliableMoves[i] :gameBoard :opponent];
+                newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :opponent];
             }
             // our move
             else
             {
-                newGameBoard = [Utilities upDateGameBoard:&avaliableMoves[i] :gameBoard :team];
+                newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :team];
             }
         
-            
+            int nextMoveVal;
             if (i == 0)
             {
                 currentVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
+                nextMoveVal = currentVal;
             }
             // opponents move go with min
             else if (round % 2 == 1)
             {
-                int nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
+                nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
                 if (nextMoveVal < currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -101,14 +113,12 @@
                 }
             }
         }
-        
-        //free(avaliableMoves);
         return currentVal;
     }
     else
     {
         NSLog(@"calling Heuristic");
-        int value = arc4random()%100;//[HeuristicFunctions getValue:gameBoard :team];
+        int value = /*arc4random()%100;//*/[HeuristicFunctions getValue:gameBoard :team];
         return value;
     }
 }

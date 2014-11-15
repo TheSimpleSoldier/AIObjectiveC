@@ -18,6 +18,7 @@
     
     if (gameBoard[x*4 + y] != 0)
     {
+        NSLog(@"already taken");
         update = FALSE;
     }
     else
@@ -77,8 +78,23 @@
 
 +(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team
 {
-    gameBoard[(move[0] * 4) + (move[1])] = team;
-    return gameBoard;
+    int *newGameBoard = (int *)malloc(sizeof(int) * 48);
+    for (int i = 0; i < 48; i++)
+    {
+        newGameBoard[i] = gameBoard[i];
+    }
+    
+    if (((move[0] * 4) + move[1]) > 47)
+    {
+        NSLog(@"going off the board");
+    }
+    else
+    {
+        int x = move[0];
+        int y = move[1];
+        newGameBoard[(x * 4) + (y)] = team;
+    }
+    return newGameBoard;
 }
 
 //a-l represent the first 12 numbers for the variables
@@ -104,14 +120,12 @@
 			{
 				NSString *tempString = [NSString stringWithFormat: @"u%c%cNN ", k + 97, a + 97];
 				[knowledgeBase addObject: tempString];
-                [tempString release];
 			}
 			//if it is an o
 			else if(gameBoard[k*4 + a] == 2)
 			{
 				NSString *tempString = [NSString stringWithFormat: @"v%c%cNN ", k + 97, a + 97];
 				[knowledgeBase addObject: tempString];
-                [tempString release];
 			}
 			
 			//if they are horizontally next to each other
@@ -119,31 +133,29 @@
 			{
 				NSString *tempString = [NSString stringWithFormat: @"x%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, a + 97];
 				[knowledgeBase addObject: tempString];
-                [tempString release];
 			}
 			//if they are vertically next to each other
 			else if(a < 3 && gameBoard[k*4 + a] != 0 &&gameBoard[k*4 + a] == gameBoard[k*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"w%c%c%c%c ", k + 97, a + 97, k + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
-                [tempString release];
 			}
 			//if they are diagonalRight
 			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((k + 1) % 12)*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"z%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
-                [tempString release];
 			}
 			//if they are diagonalLeft
 			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((12 + k - 1) % 12)*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"y%c%c%c%c ", k + 97, a + 97, ((12 + k - 1) % 12) + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
-                [tempString release];
 			}
 		}
 	}
+    
+    NSLog(@"knowledge base: %@", knowledgeBase);
 	
     NSLog(@"Knowledge base: %@", knowledgeBase);
 
@@ -167,16 +179,7 @@
     @"ymanb~?ynboc~?yocpd~?vmaNN~?vnbNN~?vocNN~?vpdNN~"];
 	
     NSArray *knowledge = [knowledgeBase copy];
-    [knowledgeBase release];
 	NSArray *queries = [NSArray arrayWithObjects:verticalX, horizontalX, diagRightX, diagLeftX, verticalO, horizontalO, diagRightO, diagLeftO, nil];
-    [verticalX release];
-    [horizontalX release];
-    [diagRightX release];
-    [diagLeftX release];
-    [verticalO release];
-    [horizontalO release];
-    [diagRightO release];
-    [diagLeftO release];
 
 
 	//now we run resolution on all the queries and the first to return true we use to return the answer
@@ -213,7 +216,6 @@
                     }
 
                     [new unionSet: resolvents];
-                    [resolvents release];
                 }
             }
 
@@ -221,16 +223,11 @@
             {
                 break;
             }
-            [clauses release];
             clauses = [NSArray arrayWithArray:[new allObjects]];
-            [new release];
             //[NSThread sleepForTimeInterval:5];
         }
 
 	}
-
-    [knowledge release];
-    [queries release];
 
     return 0;
 }
@@ -281,9 +278,6 @@
                             if([[secondArray objectAtIndex:t] characterAtIndex:0] > 108)
                             {
                                 NSString *newString = [replacement stringByReplacingOccurrencesOfString:secondChar withString:firstChar];
-                                [replacement release];
-                                [firstChar release];
-                                [secondChar release];
                                 replacement = newString;
                             }
                         }
@@ -296,7 +290,6 @@
                         {
                             [resolved appendString:@"?"];
                         }
-                        [replacement release];
                         inserted = 1;
                     }
                 }
@@ -307,14 +300,11 @@
                 }
 
                 [toReturn addObject:[NSString stringWithString:resolved]];
-                [resolved release];
             }
         }
     }
 
-    [secondArray release];
     NSSet *returned = [NSSet setWithArray:[toReturn allObjects]];
-    [toReturn release];
     return returned;
 }
 
