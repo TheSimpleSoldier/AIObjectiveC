@@ -183,6 +183,11 @@
                     value--;
                 }
             }
+
+            if(winner == 1)
+            {
+                break;
+            }
         }
     }
     
@@ -192,6 +197,11 @@
     }
 
     return value;
+}
+
++(int) decisionTreeChecker:(int *)gameboard :(int)team
+{
+    
 }
 
 @end
