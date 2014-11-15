@@ -37,10 +37,7 @@
             nextSpot[0] = move[0];
             nextSpot[1] = move[1];
         }
-        //free(newGameBoard);
     }
-    
-    //free(avaliableMoves);
     
     return nextSpot;
 }
