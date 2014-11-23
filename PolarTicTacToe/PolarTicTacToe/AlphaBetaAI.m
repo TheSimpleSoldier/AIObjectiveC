@@ -13,7 +13,7 @@
 
 +(int *) getNextMove:(int *)board :(int)team
 {
-    return [Search getNextSpot:board :team];
+    return [Search getNextSpotAlphaBeta:board :team];
 }
 
 @end
