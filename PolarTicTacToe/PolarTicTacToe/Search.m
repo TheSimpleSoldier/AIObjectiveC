@@ -15,12 +15,13 @@
 +(int *) getNextSpot:(int *)gameBoard :(int)team;
 {
     int *nextSpot = (int *)malloc(sizeof(int) * 2);
-    searchDepth = 3;
+    searchDepth = 6;
     int size = 0;
     int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
     avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
     int maxScore = -999;
     int *move = (int *)malloc(sizeof(int) * 2);
+    NSLog(@"Next Round of Searching");
     
     for (int i = 0; i < size; i++)
     {
@@ -33,7 +34,9 @@
         }
         
         int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        int score = [self strictMinMaxSearch:newGameBoard :team :1];
+        int score = [self strictMinMaxSearch:newGameBoard :team :0];
+        NSString *helper = [[NSString alloc] initWithFormat:@"move:%i, %i, score: %i", move[0], move[1], score];
+        NSLog(helper);
         if (i == 0)
         {
             NSLog(@"Initialized Spot");
@@ -57,7 +60,7 @@
 {
     if (round < searchDepth)
     {
-        NSLog(@"going down recursively");
+        //NSLog(@"going down recursively");
         int size = 0;
         int currentVal = 0;
         int *avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
@@ -98,7 +101,12 @@
             else if (round % 2 == 1)
             {
                 nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
-                if (nextMoveVal < currentVal)
+                /*if ([Utilities teamWon:newGameBoard] == opponent)
+                {
+                    NSLog(@"Opponent won");
+                    return -999;
+                }
+                else*/ if (nextMoveVal < currentVal)
                 {
                     currentVal = nextMoveVal;
                 }
@@ -106,7 +114,7 @@
             // our move go max
             else
             {
-                int nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
+                nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
                 if (nextMoveVal > currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -117,7 +125,7 @@
     }
     else
     {
-        NSLog(@"calling Heuristic");
+        //NSLog(@"calling Heuristic");
         int value = /*arc4random()%100;//*/[HeuristicFunctions getValue:gameBoard :team];
         return value;
     }
