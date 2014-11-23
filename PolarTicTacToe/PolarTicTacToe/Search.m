@@ -34,7 +34,7 @@
         }
         
         int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        int score = [self strictMinMaxSearch:newGameBoard :team :0];
+        int score = [self alphaBetaSearch:newGameBoard :team :0 :maxScore];  //[self strictMinMaxSearch:newGameBoard :team :0];
         NSString *helper = [[NSString alloc] initWithFormat:@"move:%i, %i, score: %i", move[0], move[1], score];
         NSLog(helper);
         if (i == 0)
@@ -56,7 +56,7 @@
     return nextSpot;
 }
 
-+(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round;
++(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round
 {
     if (round < searchDepth)
     {
@@ -100,13 +100,18 @@
             // opponents move go with min
             else if (round % 2 == 1)
             {
-                nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
-                /*if ([Utilities teamWon:newGameBoard] == opponent)
+                int teamThatWon = [Utilities checkWin:newGameBoard];
+                if (teamThatWon == opponent)
                 {
-                    NSLog(@"Opponent won");
                     return -999;
                 }
-                else*/ if (nextMoveVal < currentVal)
+                else if (teamThatWon == team)
+                {
+                    return 999;
+                }
+                
+                nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1)];
+                if (nextMoveVal < currentVal)
                 {
                     currentVal = nextMoveVal;
                 }
@@ -126,9 +131,100 @@
     else
     {
         //NSLog(@"calling Heuristic");
-        int value = /*arc4random()%100;//*/[HeuristicFunctions getValue:gameBoard :team];
+        int value = /*arc4random()%100;//*/ [HeuristicFunctions decisionTreeChecker:gameBoard :team]; //[HeuristicFunctions getValue:gameBoard :team];
         return value;
     }
+}
+
++(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore
+{
+    if (round < searchDepth)
+    {
+        //NSLog(@"going down recursively");
+        int size = 0;
+        int currentVal = 0;
+        int *avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
+        int opponent = 0;
+        if (team == 1)
+        {
+            opponent = 2;
+        }
+        else
+        {
+            opponent = 1;
+        }
+        
+        for (int i = 0; i < size; i++)
+        {
+            int *newGameBoard;
+            int *nextMove = (int *)malloc(sizeof(int) * 2);
+            nextMove[0] = avaliableMoves[i] / 4;
+            nextMove[1] = avaliableMoves[i] % 4;
+            // opponents move
+            if (round % 2 == 1)
+            {
+                newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :opponent];
+            }
+            // our move
+            else
+            {
+                newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :team];
+            }
+            
+            int nextMoveVal;
+            if (i == 0)
+            {
+                currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                nextMoveVal = currentVal;
+            }
+            // opponents move go with min
+            else if (round % 2 == 1)
+            {
+                int teamThatWon = [Utilities checkWin:newGameBoard];
+                if (teamThatWon == opponent)
+                {
+                    return -999;
+                }
+                else if (teamThatWon == team)
+                {
+                    return 999;
+                }
+                
+                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                if (nextMoveVal < currentVal)
+                {
+                    currentVal = nextMoveVal;
+                }
+                // if the parent (max-node) will go somewhere else stop searching this tree
+                if (parentScore > currentVal)
+                {
+                    return currentVal;
+                }
+            }
+            // our move go max
+            else
+            {
+                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                if (nextMoveVal > currentVal)
+                {
+                    currentVal = nextMoveVal;
+                }
+                // if the parent (min-node) will go somewhere else stop searching this tree
+                if (parentScore < currentVal)
+                {
+                    return currentVal;
+                }
+            }
+        }
+        return currentVal;
+    }
+    else
+    {
+        //NSLog(@"calling Heuristic");
+        int value = /*arc4random()%100;// [HeuristicFunctions decisionTreeChecker:gameBoard :team]; //*/[HeuristicFunctions getValue:gameBoard :team];
+        return value;
+    }
+
 }
 
 @end

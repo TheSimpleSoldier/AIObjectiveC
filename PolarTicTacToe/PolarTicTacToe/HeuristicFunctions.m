@@ -345,8 +345,8 @@
             return -999;
         }
     }
-    NSLog(@"First: %d,%d,%d,%d", teamOneWin[0], teamOneWin[1], teamOneWin[2], teamOneWin[3]);
-    NSLog(@"Second: %d,%d,%d,%d", teamTwoWin[0], teamTwoWin[1], teamTwoWin[2], teamTwoWin[3]);
+    //NSLog(@"First: %d,%d,%d,%d", teamOneWin[0], teamOneWin[1], teamOneWin[2], teamOneWin[3]);
+    //NSLog(@"Second: %d,%d,%d,%d", teamTwoWin[0], teamTwoWin[1], teamTwoWin[2], teamTwoWin[3]);
 
     //Plug in values to get guess for each team
     int teamOne = 0;
@@ -441,7 +441,7 @@
     }
 
     //Compare values and return prediction
-    NSLog(@"1: %d\t2: %d", teamOne, teamTwo);
+    //NSLog(@"1: %d\t2: %d", teamOne, teamTwo);
     if(teamOne == teamTwo)
     {
         for(k = 1; k < 4; k++)
