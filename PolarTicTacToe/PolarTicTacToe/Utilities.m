@@ -342,4 +342,135 @@
     return avaliableMoves;
 }
 
++(int) checkWin:(int *)gameBoard
+{
+    int k, a, t;
+    //Check for vertical lines
+    for(k = 0; k < 12; k++)
+    {
+        int winX = 0;
+        int winY = 0;
+        for(a = 0; a < 4; a++)
+        {
+            if(gameBoard[k*4 + a] == 1)
+            {
+                winX++;
+            }
+            else if(gameBoard[k*4 + a] == 2)
+            {
+                winY++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if(winX == 4)
+        {
+            return 1;
+        }
+        else if(winY == 4)
+        {
+            return 2;
+        }
+    }
+
+    //Check for diagonal lines
+    for(k = 0; k < 12; k++)
+    {
+        int winX = 0; 
+        int winY = 0;
+        for(a = 0; a < 4; a++)
+        {
+                if(gameBoard[((k + a) % 12)*4 + a] == 1)
+                {
+                    winX++;
+                }
+                else if(gameBoard[((k + a) % 12)*4 + a] == 2)
+                {
+                    winY++;
+                }
+                else
+                {
+                    break;
+                }
+        }
+
+        if(winX == 4)
+        {
+            return 1;
+        }
+        else if(winY == 4)
+        {
+            return 2;
+        }
+
+        winX = 0;
+        winY = 0;
+
+        for(a = 0; a < 4; a++)
+        {
+                if(gameBoard[((12 + k - a) % 12)*4 + a] == 1)
+                {
+                    winX++;
+                }
+                else if(gameBoard[((12 + k - a) % 12)*4 + a] == 2)
+                {
+                    winY++;
+                }
+                else
+                {
+                    break;
+                }
+        }
+
+        if(winX == 4)
+        {
+            return 1;
+        }
+        else if(winY == 4)
+        {
+            return 2;
+        }
+    }
+
+    //Check for horizontal
+    for(a = 0; a < 4; a++)
+    {
+        for(k = 0; k < 12; k++)
+        {
+            int winX = 0;
+            int winY = 0;
+
+            for(t = 0; t < 4; t++)
+            {
+                if(gameBoard[((k + t) % 12)*4 + a] == 1)
+                {
+                    winX++;
+                }
+                else if(gameBoard[((k + t) % 12)*4 + a] == 2)
+                {
+                    winY++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if(winX == 4)
+            {
+                return 1;
+            }
+            else if(winY == 4)
+            {
+                return 2;
+            }
+        }
+    }
+    
+    return 0;
+}
+
 @end

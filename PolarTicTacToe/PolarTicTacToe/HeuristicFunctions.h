@@ -11,5 +11,6 @@
 @interface HeuristicFunctions : NSObject
 
 +(int) getValue:(int *)gameBoard :(int)team;
++(int) decisionTreeChecker:(int *)gameboard :(int)team;
 
 @end
