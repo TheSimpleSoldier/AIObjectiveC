@@ -10,29 +10,29 @@
 	<string>PolarTicTacToe</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>BF8A9E85-652A-4A38-972D-F6F922A59BAE</key>
+		<key>51AC3818BEF9ACEE6E204B960E59FF90966C8115</key>
 		<string>https://github.com/fredkneeland/AIObjectiveC.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>PolarTicTacToe/PolarTicTacToe.xcodeproj/project.xcworkspace</string>
+	<string>PolarTicTacToe/PolarTicTacToe.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>BF8A9E85-652A-4A38-972D-F6F922A59BAE</key>
+		<key>51AC3818BEF9ACEE6E204B960E59FF90966C8115</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/fredkneeland/AIObjectiveC.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>BF8A9E85-652A-4A38-972D-F6F922A59BAE</string>
+	<string>51AC3818BEF9ACEE6E204B960E59FF90966C8115</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BF8A9E85-652A-4A38-972D-F6F922A59BAE</string>
+			<string>51AC3818BEF9ACEE6E204B960E59FF90966C8115</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AIObjectiveC</string>
 		</dict>

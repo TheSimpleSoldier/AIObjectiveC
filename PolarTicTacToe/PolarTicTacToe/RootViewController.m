@@ -263,19 +263,22 @@
         [current setTextColor:[NSColor redColor]];
     }
     
+    [current setStringValue:team];
+    [current display];
     
     int winner = [Utilities teamWon:board];
     
     if (winner != 0)
     {
         [label setStringValue:@"Winner"];
+        // do not continue!!
+        return;
     }
     
     //NSLog(@"Right before AI section");
     
     if (current != NULL)
     {
-        [current setStringValue:team];
          weRX = !weRX;
         
         if (weRX && !player1Human)
@@ -366,73 +369,126 @@
         player1Human = TRUE;
         player2Human = false;
     }
-    else
+    else if (index == 2)
     {
         player1Human = FALSE;
         player2Human = TRUE;
+    }
+    else
+    {
+        player1Human = FALSE;
+        player2Human = FALSE;
     }
     
     numbOfMoves = 0;
     weRX = true;
     [label0_0 setStringValue:@""];
+    [label0_0 display];
     [label0_1 setStringValue:@""];
+    [label0_1 display];
     [label0_2 setStringValue:@""];
+    [label0_2 display];
     [label0_3 setStringValue:@""];
+    [label0_3 display];
     
     [label1_0 setStringValue:@""];
+    [label1_0 display];
     [label1_1 setStringValue:@""];
+    [label1_1 display];
     [label1_2 setStringValue:@""];
+    [label1_2 display];
     [label1_3 setStringValue:@""];
+    [label1_3 display];
     
     [label2_0 setStringValue:@""];
+    [label2_0 display];
     [label2_1 setStringValue:@""];
+    [label2_1 display];
     [label2_2 setStringValue:@""];
+    [label2_2 display];
     [label2_3 setStringValue:@""];
+    [label2_3 display];
     
     [label3_0 setStringValue:@""];
+    [label3_0 display];
     [label3_1 setStringValue:@""];
+    [label3_1 display];
     [label3_2 setStringValue:@""];
+    [label3_2 display];
     [label3_3 setStringValue:@""];
+    [label3_3 display];
     
     [label4_0 setStringValue:@""];
+    [label4_0 display];
     [label4_1 setStringValue:@""];
+    [label4_1 display];
     [label4_2 setStringValue:@""];
+    [label4_2 display];
     [label4_3 setStringValue:@""];
+    [label4_3 display];
     
     [label5_0 setStringValue:@""];
+    [label5_0 display];
     [label5_1 setStringValue:@""];
+    [label5_1 display];
     [label5_2 setStringValue:@""];
+    [label5_2 display];
     [label5_3 setStringValue:@""];
+    [label5_3 display];
     
     [label6_0 setStringValue:@""];
+    [label6_0 display];
     [label6_1 setStringValue:@""];
+    [label6_1 display];
     [label6_2 setStringValue:@""];
+    [label6_2 display];
     [label6_3 setStringValue:@""];
+    [label6_3 display];
     
     [label7_0 setStringValue:@""];
+    [label7_0 display];
     [label7_1 setStringValue:@""];
+    [label7_1 display];
     [label7_2 setStringValue:@""];
+    [label7_2 display];
     [label7_3 setStringValue:@""];
+    [label7_3 display];
     
     [label8_0 setStringValue:@""];
+    [label8_0 display];
     [label8_1 setStringValue:@""];
+    [label8_1 display];
     [label8_2 setStringValue:@""];
+    [label8_2 display];
     [label8_3 setStringValue:@""];
+    [label8_3 display];
     
     [label9_0 setStringValue:@""];
+    [label9_0 display];
     [label9_1 setStringValue:@""];
+    [label9_1 display];
     [label9_2 setStringValue:@""];
+    [label9_2 display];
     [label9_3 setStringValue:@""];
+    [label9_3 display];
     
     [label10_0 setStringValue:@""];
+    [label10_0 display];
     [label10_1 setStringValue:@""];
+    [label10_1 display];
     [label10_2 setStringValue:@""];
+    [label10_2 display];
     [label10_3 setStringValue:@""];
+    [label10_3 display];
     
     [label11_0 setStringValue:@""];
+    [label11_0 display];
     [label11_1 setStringValue:@""];
+    [label11_1 display];
     [label11_2 setStringValue:@""];
+    [label11_2 display];
     [label11_3 setStringValue:@""];
+    [label11_3 display];
     
     board = (int *)malloc(sizeof(int) * 48);
     for (int i = 0; i < 48; i++)
