@@ -14,5 +14,6 @@ int searchDepth;
 +(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round;
 +(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team;
 +(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore;
++(int *) getNextSpotNearestNeighbor:(int *)gameBoard :(int)team;
 
 @end
