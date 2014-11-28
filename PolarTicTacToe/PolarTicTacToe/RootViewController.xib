@@ -979,14 +979,15 @@
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyd-Kg-iFJ">
                     <rect key="frame" x="788" y="721" width="186" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Random" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="tnC-Ce-kwK" id="Ib5-ug-y39">
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Alpha-Beta" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="TLc-bf-XxV" id="Ib5-ug-y39">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="Oez-XH-Rf1">
                             <items>
-                                <menuItem title="Random" state="on" id="tnC-Ce-kwK"/>
+                                <menuItem title="Random" id="tnC-Ce-kwK"/>
                                 <menuItem title="Min-max" id="Ybp-Pm-MZD"/>
-                                <menuItem title="Alpha-Beta" id="TLc-bf-XxV"/>
+                                <menuItem title="Alpha-Beta" state="on" id="TLc-bf-XxV"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
