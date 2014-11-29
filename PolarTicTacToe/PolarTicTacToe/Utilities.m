@@ -135,19 +135,19 @@
 				[knowledgeBase addObject: tempString];
 			}
 			//if they are vertically next to each other
-			else if(a < 3 && gameBoard[k*4 + a] != 0 &&gameBoard[k*4 + a] == gameBoard[k*4 + a + 1])
+			if(a < 3 && gameBoard[k*4 + a] != 0 &&gameBoard[k*4 + a] == gameBoard[k*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"w%c%c%c%c ", k + 97, a + 97, k + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
 			}
 			//if they are diagonalRight
-			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((k + 1) % 12)*4 + a + 1])
+			if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((k + 1) % 12)*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"z%c%c%c%c ", k + 97, a + 97, ((k + 1) % 12) + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
 			}
 			//if they are diagonalLeft
-			else if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((12 + k - 1) % 12)*4 + a + 1])
+			if(a < 3 && gameBoard[k*4 + a] != 0 && gameBoard[k*4 + a] == gameBoard[((12 + k - 1) % 12)*4 + a + 1])
 			{
 				NSString *tempString = [NSString stringWithFormat: @"y%c%c%c%c ", k + 97, a + 97, ((12 + k - 1) % 12) + 97, (a + 1) + 97];
 				[knowledgeBase addObject: tempString];
