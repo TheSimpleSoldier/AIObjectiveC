@@ -18,7 +18,7 @@
     
     if (gameBoard[x*4 + y] != 0)
     {
-        NSLog(@"already taken");
+        //NSLog(@"already taken");
         update = FALSE;
     }
     else
@@ -154,10 +154,6 @@
 			}
 		}
 	}
-    
-    NSLog(@"knowledge base: %@", knowledgeBase);
-	
-    NSLog(@"Knowledge base: %@", knowledgeBase);
 
 	//now we create our 8 negated queries to run
 	NSString *verticalX = [NSString stringWithString:

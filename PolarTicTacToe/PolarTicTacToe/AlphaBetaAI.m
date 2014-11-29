@@ -7,7 +7,13 @@
 //
 
 #import "AlphaBetaAI.h"
+#import "Search.h"
 
 @implementation AlphaBetaAI
+
++(int *) getNextMove:(int *)board :(int)team
+{
+    return [Search getNextSpotAlphaBeta:board :team];
+}
 
 @end
