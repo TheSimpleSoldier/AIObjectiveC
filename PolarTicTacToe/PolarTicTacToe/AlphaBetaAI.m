@@ -11,9 +11,9 @@
 
 @implementation AlphaBetaAI
 
-+(int *) getNextMove:(int *)board :(int)team
++(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepth
 {
-    return [Search getNextSpotAlphaBeta:board :team];
+    return [Search getNextSpotAlphaBeta:board :team :heuristicVal :searchDepth];
 }
 
 @end

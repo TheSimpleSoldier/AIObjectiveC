@@ -11,6 +11,7 @@
 #import "RandomAI.h"
 #import "MinMaxAI.h"
 #import "AlphaBetaAI.h"
+#import "NearestNeighbor.h"
 
 @interface RootViewController ()
 
@@ -21,7 +22,7 @@
 @synthesize label0_0, label0_1, label0_2, label0_3, label10_0, label10_1, label10_2, label10_3, label11_0, label11_1, label11_2, label11_3, label1_0, label1_1, label1_2, label1_3;
 @synthesize label2_0, label2_1, label2_2, label2_3, label3_0, label3_1, label3_2, label3_3, label4_0, label4_1, label4_2, label4_3, label5_0, label5_1, label5_2, label5_3, label6_0;
 @synthesize label6_1, label6_2, label6_3, label7_0, label7_1, label7_2, label7_3, label8_0, label8_1, label8_2, label8_3, label9_0, label9_1, label9_2, label9_3;
-@synthesize gameChooser, searchType;
+@synthesize gameChooser, searchType, heuristic, searchDepth;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,9 +66,17 @@
 
 -(void) upDateLabel:(int)x :(int)y
 {
+    // if someone has one don't update
+    if (winner)
+    {
+        return;
+    }
+    
     NSTextField *current;
     NSString *team = @"O";
-    //[self printBoard];
+    
+    // if the move is not valid stop wait for valid move from
+    // user
     if (![self validateUserMove:x:y])
     {
         NSLog(@"Failed Validation");
@@ -77,6 +86,8 @@
     
     numbOfMoves++;
     
+    // switch-case statement to determine which
+    // label to update based on (x,y)
     switch (y)
     {
         case 0:
@@ -266,11 +277,20 @@
     [current setStringValue:team];
     [current display];
     
-    int winner = [Utilities teamWon:board];
+    int winnerVal = [Utilities teamWon:board];
     
-    if (winner != 0)
+    if (winnerVal != 0)
     {
-        [label setStringValue:@"Winner"];
+        winner = true;
+        if (winnerVal == 1)
+        {
+            [label setStringValue:@"X Won"];
+        }
+        else
+        {
+            [label setStringValue:@"O Won"];
+        }
+        
         // do not continue!!
         return;
     }
@@ -293,9 +313,13 @@
             {
                 aiMove = [MinMaxAI getNextMove:board:1];
             }
+            else if (searchTypeVal == 2)
+            {
+                aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal];
+            }
             else
             {
-                aiMove = [AlphaBetaAI getNextMove:board:1];
+                aiMove = [NearestNeighbor getNextMove:board :1];
             }
             [self upDateLabel:aiMove[0] :aiMove[1]];
             NSLog(@"AI Move player1");
@@ -311,9 +335,13 @@
             {
                 aiMove = [MinMaxAI getNextMove:board:2];
             }
+            else if (searchTypeVal == 2)
+            {
+                aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal :searchDepthVal];
+            }
             else
             {
-                aiMove = [AlphaBetaAI getNextMove:board:2];
+                aiMove = [NearestNeighbor getNextMove:board :1];
             }
             [self upDateLabel:aiMove[0] :aiMove[1]];
             NSLog(@"AI Move player 2");
@@ -353,8 +381,12 @@
 
 -(void) reset
 {
+    winner = FALSE;
     NSInteger index = [gameChooser indexOfSelectedItem];
+    searchDepthVal = [[searchDepth stringValue] intValue];
+    NSLog(@"%i", searchDepthVal);
     searchTypeVal = (int) [searchType indexOfSelectedItem];
+    heuristicVal = (int) [heuristic indexOfSelectedItem];
     NSString *string = [[NSString alloc] initWithFormat:@"%li", (long)index];
     
     [label setStringValue:string];
