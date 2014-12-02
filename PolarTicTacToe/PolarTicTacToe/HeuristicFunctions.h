@@ -12,5 +12,6 @@
 
 +(int) getValue:(int *)gameBoard :(int)team;
 +(int) decisionTreeChecker:(int *)gameboard :(int)team;
++(int) evaluate:(int *)gameBoard :(int)team :(int)net;
 
 @end
