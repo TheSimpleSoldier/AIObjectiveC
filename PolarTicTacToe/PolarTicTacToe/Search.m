@@ -9,6 +9,7 @@
 #import "Search.h"
 #import "Utilities.h"
 #import "HeuristicFunctions.h"
+#import <pthread.h>
 
 @implementation Search
 
@@ -55,16 +56,20 @@
     return nextSpot;
 }
 
-+(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team
++(int *) d:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal
 {
     int *nextSpot = (int *)malloc(sizeof(int) * 2);
-    searchDepth = 7;
+    searchDepth = searchDepthVal;
     int size = 0;
     int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
     avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
     int maxScore = -1000;
     int *move = (int *)malloc(sizeof(int) * 2);
     NSLog(@"Next Round of Searching");
+
+    
+
+    int *score = (int *)malloc(sizeof(int) * size);
     
     for (int i = 0; i < size; i++)
     {
@@ -77,7 +82,69 @@
         }
         
         int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        int score = /*[self alphaBetaSearch:newGameBoard :team :1 :maxScore]; // */[self nearestNeighborPrunning:newGameBoard :team :1 :maxScore];
+        
+        pthread_t *tID = NULL;
+        int tArg;
+        
+        // prepare the test argument
+        tArg = 5120;
+        
+        // create a pthread
+        score[i] = pthread_create(tID, NULL, [self getNextSpotAlphaBeta:newGameBoard :team :heuristicVal :searchDepthVal], nil);
+        pthread_exit(NULL);
+    }
+    
+    
+    
+    for (int i = 0; i < size; i++)
+    {
+        
+        NSLog(@"move:%i, %i, score: %i", move[0], move[1], score[i]);
+        if (i == 0)
+        {
+            NSLog(@"Initialized Spot");
+            maxScore = score[i];
+            nextSpot[0] = move[0];
+            nextSpot[1] = move[1];
+        }
+        else if (score[i] > maxScore)
+        {
+            NSLog(@"Modifing Score");
+            maxScore = score[i];
+            nextSpot[0] = move[0];
+            nextSpot[1] = move[1];
+        }
+    }
+    
+    return nextSpot;
+
+}
+
+
++(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal
+{
+    int *nextSpot = (int *)malloc(sizeof(int) * 2);
+    searchDepth = searchDepthVal;
+    int size = 0;
+    int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
+    avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
+    int maxScore = -1000;
+    int *move = (int *)malloc(sizeof(int) * 2);
+    NSLog(@"Next Round of Searching");
+    
+    
+    for (int i = 0; i < size; i++)
+    {
+        move[0] = avaliableMoves[i] / 4;
+        move[1] = avaliableMoves[i] % 4;
+        if (![Utilities moveValid:move :gameBoard])
+        {
+            NSLog(@"Move not valid");
+            continue;
+        }
+        
+        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
+        int score = [self alphaBetaSearch:newGameBoard :team :1 :maxScore :heuristicVal]; // [self nearestNeighborPrunning:newGameBoard :team :1 :maxScore];
         NSLog(@"move:%i, %i, score: %i", move[0], move[1], score);
         if (i == 0)
         {
@@ -102,7 +169,7 @@
 +(int *) getNextSpotNearestNeighbor:(int *)gameBoard :(int)team
 {
     int *nextSpot = (int *)malloc(sizeof(int) * 2);
-    searchDepth = 5;
+    searchDepth = 9;
     int size = 0;
     int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
     avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
@@ -222,7 +289,7 @@
     }
 }
 
-+(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore
++(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal
 {
     if (round < searchDepth)
     {
@@ -260,7 +327,7 @@
             int nextMoveVal;
             if (i == 0)
             {
-                currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
                 nextMoveVal = currentVal;
             }
             // opponents move go with min
@@ -276,7 +343,7 @@
                     return 999 - round;
                 }
                 
-                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
                 if (nextMoveVal < currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -290,7 +357,7 @@
             // our move go max
             else
             {
-                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
                 if (nextMoveVal > currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -306,7 +373,22 @@
     }
     else
     {
-        int value = /*arc4random()%100;// [HeuristicFunctions decisionTreeChecker:gameBoard :team]; //*/[HeuristicFunctions getValue:gameBoard :team];
+        int value;
+        if (heuristicVal == 0)
+        {
+            value = [HeuristicFunctions getValue:gameBoard :team];
+            //NSLog(@"Base Heuristic");
+        }
+        else if (heuristicVal == 1)
+        {
+            //NSLog(@"Classifier");
+            value = [HeuristicFunctions decisionTreeChecker:gameBoard :team];
+        }
+        else
+        {
+            value = arc4random()%100;
+        }
+        
         int teamThatWon = [Utilities checkWin:gameBoard];
         if (teamThatWon != 0)
         {
@@ -460,7 +542,7 @@
             int nextMoveVal;
             if (i == 0)
             {
-                currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                currentVal = [self nearestNeighborPrunning:newGameBoard :team :(round+1) :currentVal];
                 nextMoveVal = currentVal;
             }
             // opponents move go with min
@@ -476,7 +558,7 @@
                     return 999;
                 }
                 
-                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                nextMoveVal = [self nearestNeighborPrunning:newGameBoard :team :(round+1) :currentVal];
                 if (nextMoveVal < currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -490,7 +572,7 @@
             // our move go max
             else
             {
-                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal];
+                nextMoveVal = [self nearestNeighborPrunning:newGameBoard :team :(round+1) :currentVal];
                 if (nextMoveVal > currentVal)
                 {
                     currentVal = nextMoveVal;

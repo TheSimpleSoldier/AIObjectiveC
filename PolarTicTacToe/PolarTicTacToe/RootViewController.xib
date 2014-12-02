@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="RootViewController">
             <connections>
                 <outlet property="gameChooser" destination="U9b-Yf-vAq" id="W40-kG-H07"/>
+                <outlet property="heuristic" destination="SvQ-bt-PAL" id="k11-pP-SPm"/>
                 <outlet property="label" destination="YTA-eN-XeS" id="Drp-RO-FpQ"/>
                 <outlet property="label0_0" destination="hVX-1S-spY" id="Q1P-kR-1c5"/>
                 <outlet property="label0_1" destination="i8E-AZ-bZK" id="T7g-lV-GvL"/>
@@ -57,6 +58,7 @@
                 <outlet property="label9_1" destination="2KL-CR-Fbu" id="t8p-zx-sTc"/>
                 <outlet property="label9_2" destination="5Tv-tZ-A3U" id="pVF-1w-V0Q"/>
                 <outlet property="label9_3" destination="TlN-Yp-Rt3" id="kL8-RY-g0D"/>
+                <outlet property="searchDepth" destination="iRR-Dp-uhe" id="eOb-oS-K0O"/>
                 <outlet property="searchType" destination="pyd-Kg-iFJ" id="gov-rc-AUE"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
@@ -979,7 +981,6 @@
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyd-Kg-iFJ">
                     <rect key="frame" x="788" y="721" width="186" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Alpha-Beta" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="TLc-bf-XxV" id="Ib5-ug-y39">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -988,24 +989,43 @@
                                 <menuItem title="Random" id="tnC-Ce-kwK"/>
                                 <menuItem title="Min-max" id="Ybp-Pm-MZD"/>
                                 <menuItem title="Alpha-Beta" state="on" id="TLc-bf-XxV"/>
+                                <menuItem title="Nearest Neighbor" id="EiS-s3-ico">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SvQ-bt-PAL">
                     <rect key="frame" x="788" y="690" width="186" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Neural Net" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Omf-9D-urR" id="RVg-ip-vap">
+                    <popUpButtonCell key="cell" type="push" title="Base Heuristic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="gQ7-G5-Tvt" id="RVg-ip-vap">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="8RX-Ke-adI">
                             <items>
-                                <menuItem title="Base Heuristic" id="gQ7-G5-Tvt"/>
+                                <menuItem title="Base Heuristic" state="on" id="gQ7-G5-Tvt"/>
                                 <menuItem title="Classifier" id="qMc-lw-Ar1"/>
-                                <menuItem title="Neural Net" state="on" id="Omf-9D-urR"/>
+                                <menuItem title="Neural Net" id="Omf-9D-urR"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZR-Ic-b6b">
+                    <rect key="frame" x="788" y="661" width="92" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search Depth:" id="mlZ-Ny-mtk">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iRR-Dp-uhe">
+                    <rect key="frame" x="928" y="658" width="43" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="DeD-1S-yHn">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
         </customView>
     </objects>

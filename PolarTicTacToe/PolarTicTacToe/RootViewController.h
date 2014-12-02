@@ -13,14 +13,19 @@
     IBOutlet NSTextField *label;
     IBOutlet NSPopUpButton *gameChooser;
     IBOutlet NSPopUpButton *searchType;
+    IBOutlet NSPopUpButton *heuristic;
+    IBOutlet NSTextField *searchDepth;
     BOOL weRX;
     BOOL player1Human;
     BOOL player2Human;
+    BOOL winner;
     int *board;
     int xTeamVal;
     int oTeamVal;
     int numbOfMoves;
     int searchTypeVal;
+    int heuristicVal;
+    int searchDepthVal;
     
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;
@@ -86,6 +91,8 @@
 @property(nonatomic, retain) NSTextField *label;
 @property(nonatomic, retain) NSPopUpButton *gameChooser;
 @property(nonatomic, retain) NSPopUpButton *searchType;
+@property(nonatomic, retain) NSPopUpButton *heuristic;
+@property(nonatomic, retain) NSTextField *searchDepth;
 
 @property(nonatomic, retain) NSTextField *label0_0;
 @property(nonatomic, retain) NSTextField *label0_1;

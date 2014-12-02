@@ -10,6 +10,6 @@
 
 @interface AlphaBetaAI : NSObject
 
-+(int *) getNextMove:(int *)board :(int)team;
++(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepth;
 
 @end
