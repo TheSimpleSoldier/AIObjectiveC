@@ -472,16 +472,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqA-Ud-Csm">
-                    <rect key="frame" x="699" y="755" width="76" height="19"/>
-                    <buttonCell key="cell" type="roundRect" title="New Game" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mYo-nh-74f">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="newGame:" target="-2" id="rM3-l5-ERt"/>
-                    </connections>
-                </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tVs-Ul-fa9">
                     <rect key="frame" x="427" y="667" width="48" height="48"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="hOF-Jn-Pn2">
@@ -1026,8 +1016,40 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ldc-D8-myh">
+                    <rect key="frame" x="653" y="727" width="122" height="19"/>
+                    <buttonCell key="cell" type="roundRect" title="Neural Net Test" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IHt-Rz-Wxt">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="controlContent"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="neuralNetTest:" target="-2" id="bG7-gf-Rjf"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqA-Ud-Csm">
+                    <rect key="frame" x="699" y="755" width="76" height="19"/>
+                    <buttonCell key="cell" type="roundRect" title="New Game" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mYo-nh-74f">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="newGame:" target="-2" id="rM3-l5-ERt"/>
+                    </connections>
+                </button>
             </subviews>
+            <point key="canvasLocation" x="537" y="587"/>
         </customView>
+        <popUpButtonCell type="bevel" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="jxs-63-H5W" id="7Qi-d1-8xM">
+            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+            <font key="font" metaFont="smallSystem"/>
+            <menu key="menu" id="9HA-eG-53F">
+                <items>
+                    <menuItem title="Item 1" state="on" id="jxs-63-H5W"/>
+                    <menuItem title="Item 2" id="9Bt-31-wIh"/>
+                    <menuItem title="Item 3" id="xRG-Wd-bwA"/>
+                </items>
+            </menu>
+        </popUpButtonCell>
     </objects>
     <resources>
         <image name="goodPolarImage" width="600" height="600"/>

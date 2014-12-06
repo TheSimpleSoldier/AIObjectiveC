@@ -11,9 +11,9 @@
 
 @implementation AlphaBetaAI
 
-+(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepth
++(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepth :(int)neuralNet
 {
-    return [Search getNextSpotAlphaBeta:board :team :heuristicVal :searchDepth];
+    return [Search getNextSpotAlphaBeta:board :team :heuristicVal :searchDepth :neuralNet];
 }
 
 @end

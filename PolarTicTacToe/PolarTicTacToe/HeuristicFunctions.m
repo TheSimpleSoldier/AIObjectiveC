@@ -480,6 +480,9 @@
     }
 }
 
+/**
+ * function returns values from neural net
+ */
 +(int) evaluate:(int *)gameBoard :(int)team :(int)net
 {
     int winner = [Utilities checkWin:gameBoard];
@@ -979,11 +982,11 @@
     int result;
     if(team == 1)
     {
-        result = int(outMin + (outMax - outMin) * (outputValues[0] - inMin) / (inMax - inMin));
+        result = (int) (outMin + (outMax - outMin) * (outputValues[0] - inMin) / (inMax - inMin));
     }
     else
     {
-        result = int(outMin + (outMax - outMin) * (outputValues[1] - inMin) / (inMax - inMin));
+        result = (int) (outMin + (outMax - outMin) * (outputValues[1] - inMin) / (inMax - inMin));
     }
 
     return result;

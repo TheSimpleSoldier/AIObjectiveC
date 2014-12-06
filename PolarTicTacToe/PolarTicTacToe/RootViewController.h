@@ -19,13 +19,19 @@
     BOOL player1Human;
     BOOL player2Human;
     BOOL winner;
+    BOOL training;
     int *board;
     int xTeamVal;
     int oTeamVal;
     int numbOfMoves;
     int searchTypeVal;
+    int searchTypeVal2;
     int heuristicVal;
+    int heuristicVal2;
     int searchDepthVal;
+    int searchDepthVal2;
+    int neuralNet;
+    int neuralNet2;
     
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;
@@ -155,6 +161,7 @@
 @property(nonatomic, retain) NSTextField *label11_3;
 
 -(IBAction) newGame:(id)sender;
+-(IBAction) neuralNetTest:(id)sender;
 
 -(IBAction) region0_0:(id)sender;
 -(IBAction) region0_1:(id)sender;
@@ -222,5 +229,6 @@
 -(void) upDateLabel:(int)x :(int)y;
 -(void) reset;
 -(void) printBoard;
+-(void) setVarsForNeuralNet;
 
 @end

@@ -315,36 +315,36 @@
             }
             else if (searchTypeVal == 2)
             {
-                aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal];
+                aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal :neuralNet];
             }
             else
             {
                 aiMove = [NearestNeighbor getNextMove:board :1];
             }
             [self upDateLabel:aiMove[0] :aiMove[1]];
-            NSLog(@"AI Move player1");
+            //NSLog(@"AI Move player1");
         }
         else if (!weRX && !player2Human)
         {
             int *aiMove;
-            if (searchTypeVal == 0)
+            if (searchTypeVal2 == 0)
             {
                 aiMove = [RandomAI getNextMove:board];
             }
-            else if (searchTypeVal == 1)
+            else if (searchTypeVal2 == 1)
             {
                 aiMove = [MinMaxAI getNextMove:board:2];
             }
-            else if (searchTypeVal == 2)
+            else if (searchTypeVal2 == 2)
             {
-                aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal :searchDepthVal];
+                aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2 :neuralNet2];
             }
             else
             {
                 aiMove = [NearestNeighbor getNextMove:board :1];
             }
             [self upDateLabel:aiMove[0] :aiMove[1]];
-            NSLog(@"AI Move player 2");
+            //NSLog(@"AI Move player 2");
         }
         else
         {
@@ -356,9 +356,7 @@
         NSLog(@"current == null");
     }
     
-    NSLog(@"End of func");
-    
-    //NSLog(@"Right After AI Section");
+    //NSLog(@"End of func");
 }
 
 -(void) printBoard
@@ -369,24 +367,132 @@
     for (int i = 0; i < 12; i++)
     {
         helper = [[NSString alloc] initWithFormat:@"%i %i %i %i", board[4*i], board[4*i+1], board[4*i+2], board[4*i+3]];
-        NSLog(helper);
+        NSLog(@"%@", helper);
     }
     NSLog(@"End Printing");
 }
 
 -(IBAction) newGame:(id)sender
 {
+    training = false;
     [self reset];
+}
+
+/**
+ * In this method we will test the various neural nets against each other and against alpha beta
+ */
+-(IBAction) neuralNetTest:(id)sender
+{
+    int *wins = (int *)malloc(sizeof(int) * 42);
+    training = true;
+    
+    // run test for each neural net
+    for (int i = 0; i < 42; i++)
+    {
+        wins[i] = 0;
+        // run each neural net against every other neural net
+        for (int j = i; j < 42; j++)
+        {
+            // don't test against ourselves
+            if (j == i)
+            {
+                continue;
+            }
+            
+            [self reset];
+            [self setVarsForNeuralNet];
+            
+            neuralNet = i + 1;
+            neuralNet2 = j + 1;
+            
+            [self upDateLabel:0 :1];
+            
+            int winnerVal = [Utilities teamWon:board];
+            
+            if (winnerVal == 1)
+            {
+                wins[i]++;
+            }
+            else if (winnerVal == 2)
+            {
+                wins[j]++;
+            }
+        }
+        
+        // run with every other neural net going first
+        for (int j = i; j < 42; j++)
+        {
+            if (j == i)
+            {
+                continue;
+            }
+            
+            [self reset];
+            [self setVarsForNeuralNet];
+            
+            neuralNet = j+1;
+            neuralNet2 = i+1;
+            
+            [self upDateLabel:0 :1];
+            
+            int winnerVal = [Utilities teamWon:board];
+            
+            if (winnerVal == 1)
+            {
+                wins[j]++;
+            }
+            else if (winnerVal == 2)
+            {
+                wins[i]++;
+            }
+        }
+    }
+    
+    
+    int maxWins = 0;
+    int winningIndex = 0;
+    for (int i = 0; i < 48; i++)
+    {
+        NSLog(@"%i: %i", (i+1), wins[i]);
+        if (wins[i] > maxWins)
+        {
+            maxWins = wins[i];
+            winningIndex = i;
+        }
+    }
+    
+    NSLog(@"%i", (winningIndex+1));
+}
+
+-(void) setVarsForNeuralNet
+{
+    // initialize vars for test
+    searchTypeVal = 2;
+    searchTypeVal2 = 2;
+    
+    heuristicVal = 2;
+    heuristicVal2 = 2;
+    
+    searchDepthVal = 4;
+    searchDepthVal2 = 4;
+    
+    player1Human = false;
+    player2Human = false;
 }
 
 -(void) reset
 {
+    neuralNet2 = 0;
+    neuralNet = 1;
     winner = FALSE;
     NSInteger index = [gameChooser indexOfSelectedItem];
     searchDepthVal = [[searchDepth stringValue] intValue];
+    searchDepthVal2 = 5;
     NSLog(@"%i", searchDepthVal);
     searchTypeVal = (int) [searchType indexOfSelectedItem];
+    searchTypeVal2 = searchTypeVal;
     heuristicVal = (int) [heuristic indexOfSelectedItem];
+    heuristicVal2 = heuristicVal;
     NSString *string = [[NSString alloc] initWithFormat:@"%li", (long)index];
     
     [label setStringValue:string];
@@ -528,7 +634,7 @@
         board[i] = 0;
     }
     
-    if (!player1Human)
+    if (!player1Human && !training)
     {
         //first move for ai
         [self upDateLabel:0 :1];

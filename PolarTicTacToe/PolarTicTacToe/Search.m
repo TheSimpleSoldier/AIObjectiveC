@@ -56,6 +56,7 @@
     return nextSpot;
 }
 
+/*
 +(int *) d:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal
 {
     int *nextSpot = (int *)malloc(sizeof(int) * 2);
@@ -118,10 +119,10 @@
     
     return nextSpot;
 
-}
+}*/
 
 
-+(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal
++(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal :(int) neuralNet
 {
     int *nextSpot = (int *)malloc(sizeof(int) * 2);
     searchDepth = searchDepthVal;
@@ -130,7 +131,7 @@
     avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
     int maxScore = -1000;
     int *move = (int *)malloc(sizeof(int) * 2);
-    NSLog(@"Next Round of Searching");
+    //NSLog(@"Next Round of Searching");
     
     
     for (int i = 0; i < size; i++)
@@ -144,23 +145,29 @@
         }
         
         int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        int score = [self alphaBetaSearch:newGameBoard :team :1 :maxScore :heuristicVal]; // [self nearestNeighborPrunning:newGameBoard :team :1 :maxScore];
-        NSLog(@"move:%i, %i, score: %i", move[0], move[1], score);
+        int score = [self alphaBetaSearch:newGameBoard :team :1 :maxScore :heuristicVal :neuralNet];
+        //NSLog(@"move:%i, %i, score: %i", move[0], move[1], score);
         if (i == 0)
         {
-            NSLog(@"Initialized Spot");
+           // NSLog(@"Initialized Spot");
             maxScore = score;
             nextSpot[0] = move[0];
             nextSpot[1] = move[1];
         }
         else if (score > maxScore)
         {
-            NSLog(@"Modifing Score");
+        //    NSLog(@"Modifing Score");
             maxScore = score;
             nextSpot[0] = move[0];
             nextSpot[1] = move[1];
         }
+        
+        free(newGameBoard);
     }
+    
+    
+    free(avaliableMoves);
+    free(move);
     
     return nextSpot;
 }
@@ -289,7 +296,7 @@
     }
 }
 
-+(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal
++(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal :(int)neuralNet
 {
     if (round < searchDepth)
     {
@@ -327,7 +334,7 @@
             int nextMoveVal;
             if (i == 0)
             {
-                currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
+                currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
                 nextMoveVal = currentVal;
             }
             // opponents move go with min
@@ -343,7 +350,7 @@
                     return 999 - round;
                 }
                 
-                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
+                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
                 if (nextMoveVal < currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -357,7 +364,7 @@
             // our move go max
             else
             {
-                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
+                nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
                 if (nextMoveVal > currentVal)
                 {
                     currentVal = nextMoveVal;
@@ -368,7 +375,11 @@
                     return currentVal;
                 }
             }
+            
+            free(newGameBoard);
+            free(nextMove);
         }
+        free(avaliableMoves);
         return currentVal;
     }
     else
@@ -386,7 +397,7 @@
         }
         else
         {
-            value = arc4random()%100;
+            value = [HeuristicFunctions evaluate:gameBoard :team :neuralNet];
         }
         
         int teamThatWon = [Utilities checkWin:gameBoard];
