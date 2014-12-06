@@ -61,12 +61,13 @@
         allowedMove = FALSE;
     }
     
+    free(move);
     return allowedMove;
 }
 
 -(void) upDateLabel:(int)x :(int)y
 {
-    // if someone has one don't update
+    // if someone has won don't update
     if (winner)
     {
         return;
@@ -295,6 +296,20 @@
         return;
     }
     
+    int size = 0;
+    int *avalaibleMoves = [Utilities getAllAvaliableMoves:board :&size];
+    
+    if (size == 0)
+    {
+        [label setStringValue:@"Draw"];
+        free(avalaibleMoves);
+        // so we don't try again
+        winner = true;
+        return;
+    }
+    
+    free(avalaibleMoves);
+    
     //NSLog(@"Right before AI section");
     
     if (current != NULL)
@@ -406,6 +421,7 @@
             neuralNet2 = j + 1;
             
             [self upDateLabel:0 :1];
+            NSLog(@"%i, %i", i,j);
             
             int winnerVal = [Utilities teamWon:board];
             
@@ -434,6 +450,7 @@
             neuralNet2 = i+1;
             
             [self upDateLabel:0 :1];
+            NSLog(@"opposite: %i, %i", i,j);
             
             int winnerVal = [Utilities teamWon:board];
             
@@ -482,6 +499,7 @@
 
 -(void) reset
 {
+    free(board);
     neuralNet2 = 0;
     neuralNet = 1;
     winner = FALSE;

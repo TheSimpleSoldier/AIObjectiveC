@@ -338,6 +338,9 @@
         k++;
     }
     
+    free(newArray);
+    free(move);
+    
     *size = totalSize;
     return avaliableMoves;
 }

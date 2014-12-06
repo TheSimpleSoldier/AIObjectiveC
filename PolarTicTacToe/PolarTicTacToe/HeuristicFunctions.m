@@ -485,7 +485,7 @@
  */
 +(int) evaluate:(int *)gameBoard :(int)team :(int)net
 {
-    int winner = [Utilities checkWin:gameBoard];
+    /*int winner = [Utilities checkWin:gameBoard];
     if(winner == 1)
     {
         if(team == 1)
@@ -507,7 +507,7 @@
         {
             return 999;
         }
-    }
+    }*/
 
 
     int inputLayer = 48;
