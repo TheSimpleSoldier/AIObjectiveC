@@ -218,6 +218,7 @@
 
 +(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round
 {
+    
     if (round < searchDepth)
     {
         //NSLog(@"going down recursively");
@@ -298,6 +299,18 @@
 
 +(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal :(int)neuralNet
 {
+    int teamThatWon = [Utilities checkWin:gameBoard];
+    if (teamThatWon != 0)
+    {
+        if (teamThatWon == team)
+        {
+            return 999 - round;
+        }
+        else
+        {
+            return -999 + round;
+        }
+    }
     if (round < searchDepth)
     {
         //NSLog(@"going down recursively");
@@ -340,16 +353,6 @@
             // opponents move go with min
             else if (round % 2 == 1)
             {
-                int teamThatWon = [Utilities checkWin:newGameBoard];
-                if (teamThatWon == opponent)
-                {
-                    return -999 + round;
-                }
-                else if (teamThatWon == team)
-                {
-                    return 999 - round;
-                }
-                
                 nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
                 if (nextMoveVal < currentVal)
                 {
@@ -398,19 +401,6 @@
         else
         {
             value = [HeuristicFunctions evaluate:gameBoard :team :neuralNet];
-        }
-        
-        int teamThatWon = [Utilities checkWin:gameBoard];
-        if (teamThatWon != 0)
-        {
-            if (teamThatWon == team)
-            {
-                return 999 - round;
-            }
-            else
-            {
-                return -999 + round;
-            }
         }
         return value;
     }

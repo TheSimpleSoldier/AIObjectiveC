@@ -278,7 +278,7 @@
     [current setStringValue:team];
     [current display];
     
-    int winnerVal = [Utilities teamWon:board];
+    int winnerVal = [Utilities checkWin:board];//[Utilities teamWon:board];
     
     if (winnerVal != 0)
     {
@@ -452,7 +452,7 @@
             [self upDateLabel:0 :1];
             NSLog(@"opposite: %i, %i", i,j);
             
-            int winnerVal = [Utilities teamWon:board];
+            int winnerVal = [Utilities checkWin:board];
             
             if (winnerVal == 1)
             {
@@ -468,7 +468,7 @@
     
     int maxWins = 0;
     int winningIndex = 0;
-    for (int i = 0; i < 48; i++)
+    for (int i = 0; i < 42; i++)
     {
         NSLog(@"%i: %i", (i+1), wins[i]);
         if (wins[i] > maxWins)
@@ -490,8 +490,8 @@
     heuristicVal = 2;
     heuristicVal2 = 2;
     
-    searchDepthVal = 4;
-    searchDepthVal2 = 4;
+    searchDepthVal = 1;
+    searchDepthVal2 = 1;
     
     player1Human = false;
     player2Human = false;
@@ -500,12 +500,12 @@
 -(void) reset
 {
     free(board);
-    neuralNet2 = 0;
-    neuralNet = 1;
+    neuralNet2 = 7;
+    neuralNet = 7;
     winner = FALSE;
     NSInteger index = [gameChooser indexOfSelectedItem];
     searchDepthVal = [[searchDepth stringValue] intValue];
-    searchDepthVal2 = 5;
+    searchDepthVal2 = searchDepthVal;
     NSLog(@"%i", searchDepthVal);
     searchTypeVal = (int) [searchType indexOfSelectedItem];
     searchTypeVal2 = searchTypeVal;
