@@ -180,6 +180,11 @@
     NSArray *knowledge = [knowledgeBase copy];
 	NSArray *queries = [NSArray arrayWithObjects:verticalX, horizontalX, diagRightX, diagLeftX, verticalO, horizontalO, diagRightO, diagLeftO, nil];
 
+    for(k = 0; k < [knowledge count]; k++)
+    {
+        NSLog(@"%@", [Utilities printString: [knowledge objectAtIndex: k]]);
+    }
+
 
 	//now we run resolution on all the queries and the first to return true we use to return the answer
 	//if none of them return, we return 0 since there is no winner
@@ -190,6 +195,10 @@
         NSArray *clauses = [NSArray arrayWithObjects:[queries objectAtIndex:k], nil];
         while(true)
         {
+            for(a = 0; a < [clauses count]; a++)
+            {
+                NSLog(@"%@", [Utilities printString: [clauses objectAtIndex: a]]);
+            }
             NSMutableSet *new = [[NSMutableSet alloc] init];
             int kcount = [knowledge count];
             int ncount = [clauses count];
@@ -223,7 +232,6 @@
                 break;
             }
             clauses = [NSArray arrayWithArray:[new allObjects]];
-            //[NSThread sleepForTimeInterval:5];
         }
 
 	}
@@ -265,6 +273,7 @@
             {
                 NSMutableString *resolved = [NSMutableString stringWithString:@""];
                 int inserted = 0;
+                //go through and replace where neccessary
                 for(t = 0; t < [secondArray count]; t++)
                 {
                     if(t != k)
@@ -293,6 +302,7 @@
                     }
                 }
 
+                //if query has been reduced to a size of 0
                 if(inserted == 0)
                 {
                     [resolved appendString:@" "];
@@ -350,6 +360,7 @@
     }
 }
 
+//Does a brute force search looking for a win.
 +(int) checkWin:(int *)gameBoard
 {
     @autoreleasepool {
@@ -481,6 +492,71 @@
         
         return 0;
     }
+}
+
+//This function turns the 6 letter statements from the resolution algorithm and return a human readable form
++(NSString *) printString:(NSString *)string
+{
+    NSMutableString *toReturn = [NSMutableString stringWithString:@""];
+    int done = 0;
+    int nextIndex = 0;
+    while(!done)
+    {
+        if([string characterAtIndex:(nextIndex + 5)] == '~')
+        {
+            [toReturn appendString:@"~"];
+        }
+        if([string characterAtIndex:nextIndex] == 'u')
+        {
+            [toReturn appendString:@"isX("];
+        }
+        else if([string characterAtIndex:nextIndex] == 'v')
+        {
+            [toReturn appendString:@"isO("];
+        }
+        else if([string characterAtIndex:nextIndex] == 'w')
+        {
+            [toReturn appendString:@"vertical("];
+        }
+        else if([string characterAtIndex:nextIndex] == 'x')
+        {
+            [toReturn appendString:@"horizontal("];
+        }
+        else if([string characterAtIndex:nextIndex] == 'y')
+        {
+            [toReturn appendString:@"diagonalLeft("];
+        }
+        else if([string characterAtIndex:nextIndex] == 'z')
+        {
+            [toReturn appendString:@"diagonalRight("];
+        }
+
+        int a;
+        for(a = nextIndex; a < nextIndex + 4; a++)
+        {
+            if([string characterAtIndex:(1 + a)] >= 'a' && [string characterAtIndex:(1 + a)] <= 'l')
+            {
+                [toReturn appendFormat:@"%i,",  [string characterAtIndex:(1 + a)] - 97];
+            }
+            else if([string characterAtIndex:(1 + a)] != 'N')
+            {
+                [toReturn appendFormat:@"%c,", [string characterAtIndex:(1 + a)]];
+            }
+        }
+        [toReturn replaceCharactersInRange:NSMakeRange(([toReturn length] - 1), 1) withString:@")"];
+
+        if([string length] > nextIndex + 6)
+        {
+            [toReturn appendString:@" v "];
+            nextIndex += 7;
+        }
+        else
+        {
+            done = 1;
+        }
+    }
+
+    return toReturn;
 }
 
 @end
