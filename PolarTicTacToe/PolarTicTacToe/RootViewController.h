@@ -15,6 +15,9 @@
     IBOutlet NSPopUpButton *searchType;
     IBOutlet NSPopUpButton *heuristic;
     IBOutlet NSTextField *searchDepth;
+    IBOutlet NSPopUpButton *searchType2;
+    IBOutlet NSPopUpButton *heuristic2;
+    IBOutlet NSTextField *searchDepth2;
     BOOL weRX;
     BOOL player1Human;
     BOOL player2Human;
@@ -99,6 +102,9 @@
 @property(nonatomic, retain) NSPopUpButton *searchType;
 @property(nonatomic, retain) NSPopUpButton *heuristic;
 @property(nonatomic, retain) NSTextField *searchDepth;
+@property(nonatomic, retain) NSPopUpButton *searchType2;
+@property(nonatomic, retain) NSPopUpButton *heuristic2;
+@property(nonatomic, retain) NSTextField *searchDepth2;
 
 @property(nonatomic, retain) NSTextField *label0_0;
 @property(nonatomic, retain) NSTextField *label0_1;

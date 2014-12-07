@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="gameChooser" destination="U9b-Yf-vAq" id="W40-kG-H07"/>
                 <outlet property="heuristic" destination="SvQ-bt-PAL" id="k11-pP-SPm"/>
+                <outlet property="heuristic2" destination="oqp-S4-hNU" id="q6o-7W-XWN"/>
                 <outlet property="label" destination="YTA-eN-XeS" id="Drp-RO-FpQ"/>
                 <outlet property="label0_0" destination="hVX-1S-spY" id="Q1P-kR-1c5"/>
                 <outlet property="label0_1" destination="i8E-AZ-bZK" id="T7g-lV-GvL"/>
@@ -59,7 +60,9 @@
                 <outlet property="label9_2" destination="5Tv-tZ-A3U" id="pVF-1w-V0Q"/>
                 <outlet property="label9_3" destination="TlN-Yp-Rt3" id="kL8-RY-g0D"/>
                 <outlet property="searchDepth" destination="iRR-Dp-uhe" id="eOb-oS-K0O"/>
+                <outlet property="searchDepth2" destination="0BE-re-bWF" id="5gI-zH-zZz"/>
                 <outlet property="searchType" destination="pyd-Kg-iFJ" id="gov-rc-AUE"/>
+                <outlet property="searchType2" destination="s04-Tr-TdO" id="bRs-Io-7iS"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -970,7 +973,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyd-Kg-iFJ">
-                    <rect key="frame" x="788" y="721" width="186" height="26"/>
+                    <rect key="frame" x="788" y="682" width="186" height="26"/>
                     <popUpButtonCell key="cell" type="push" title="Alpha-Beta" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="TLc-bf-XxV" id="Ib5-ug-y39">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -987,7 +990,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SvQ-bt-PAL">
-                    <rect key="frame" x="788" y="690" width="186" height="26"/>
+                    <rect key="frame" x="788" y="648" width="186" height="26"/>
                     <popUpButtonCell key="cell" type="push" title="Base Heuristic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="gQ7-G5-Tvt" id="RVg-ip-vap">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -1001,7 +1004,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZR-Ic-b6b">
-                    <rect key="frame" x="788" y="661" width="92" height="17"/>
+                    <rect key="frame" x="788" y="612" width="92" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search Depth:" id="mlZ-Ny-mtk">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1009,7 +1012,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iRR-Dp-uhe">
-                    <rect key="frame" x="928" y="658" width="43" height="22"/>
+                    <rect key="frame" x="928" y="607" width="43" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="DeD-1S-yHn">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1017,10 +1020,10 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ldc-D8-myh">
-                    <rect key="frame" x="653" y="727" width="122" height="19"/>
+                    <rect key="frame" x="556" y="755" width="122" height="19"/>
                     <buttonCell key="cell" type="roundRect" title="Neural Net Test" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IHt-Rz-Wxt">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="controlContent"/>
+                        <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
                         <action selector="neuralNetTest:" target="-2" id="bG7-gf-Rjf"/>
@@ -1036,6 +1039,69 @@
                         <action selector="newGame:" target="-2" id="rM3-l5-ERt"/>
                     </connections>
                 </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s04-Tr-TdO">
+                    <rect key="frame" x="788" y="520" width="186" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Alpha-Beta" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ehB-oH-Qs8" id="G6y-uA-1V1">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="cyD-T2-ptV">
+                            <items>
+                                <menuItem title="Random" id="5iZ-SL-263">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Min-max" id="lgA-YH-bod"/>
+                                <menuItem title="Alpha-Beta" state="on" id="ehB-oH-Qs8"/>
+                                <menuItem title="Nearest Neighbor" id="7AA-bo-yyN"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oqp-S4-hNU">
+                    <rect key="frame" x="788" y="483" width="186" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Base Heurisitc" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="MaL-3Q-e3F" id="VDz-ol-diE">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="u22-yW-CWk">
+                            <items>
+                                <menuItem title="Base Heurisitc" state="on" id="MaL-3Q-e3F"/>
+                                <menuItem title="Classifier" id="oc1-oJ-fwL"/>
+                                <menuItem title="Neural Net" id="szg-M5-I0n"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xYb-SE-Nun">
+                    <rect key="frame" x="790" y="568" width="35" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="O AI:" id="ARH-p9-kfv">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JFA-Ae-3RF">
+                    <rect key="frame" x="792" y="723" width="33" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X AI:" id="d0a-Mm-nGp">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uxl-IU-7B5">
+                    <rect key="frame" x="794" y="429" width="92" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search Depth:" id="2j3-36-hcB">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0BE-re-bWF">
+                    <rect key="frame" x="927" y="424" width="44" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="cfb-zX-Wvf">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="537" y="587"/>
         </customView>

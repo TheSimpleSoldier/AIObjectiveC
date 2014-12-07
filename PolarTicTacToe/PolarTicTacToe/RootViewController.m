@@ -22,7 +22,7 @@
 @synthesize label0_0, label0_1, label0_2, label0_3, label10_0, label10_1, label10_2, label10_3, label11_0, label11_1, label11_2, label11_3, label1_0, label1_1, label1_2, label1_3;
 @synthesize label2_0, label2_1, label2_2, label2_3, label3_0, label3_1, label3_2, label3_3, label4_0, label4_1, label4_2, label4_3, label5_0, label5_1, label5_2, label5_3, label6_0;
 @synthesize label6_1, label6_2, label6_3, label7_0, label7_1, label7_2, label7_3, label8_0, label8_1, label8_2, label8_3, label9_0, label9_1, label9_2, label9_3;
-@synthesize gameChooser, searchType, heuristic, searchDepth;
+@synthesize gameChooser, searchType, heuristic, searchDepth, searchType2, heuristic2, searchDepth2;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,311 +67,310 @@
 
 -(void) upDateLabel:(int)x :(int)y
 {
-    // if someone has won don't update
-    if (winner)
-    {
-        return;
-    }
-    
-    NSTextField *current;
-    NSString *team = @"O";
-    
-    // if the move is not valid stop wait for valid move from
-    // user
-    if (![self validateUserMove:x:y])
-    {
-        NSLog(@"Failed Validation");
-        return;
-    }
-    //[self printBoard];
-    
-    numbOfMoves++;
-    
-    // switch-case statement to determine which
-    // label to update based on (x,y)
-    switch (y)
-    {
-        case 0:
-            switch (x)
-            {
-                case 0:
-                    current = label0_0;
-                    break;
-                case 1:
-                    current = label1_0;
-                    break;
-                case 2:
-                    current = label2_0;
-                    break;
-                case 3:
-                    current = label3_0;
-                    break;
-                case 4:
-                    current = label4_0;
-                    break;
-                case 5:
-                    current = label5_0;
-                    break;
-                case 6:
-                    current = label6_0;
-                    break;
-                case 7:
-                    current = label7_0;
-                    break;
-                case 8:
-                    current = label8_0;
-                    break;
-                case 9:
-                    current = label9_0;
-                    break;
-                case 10:
-                    current = label10_0;
-                    break;
-                case 11:
-                    current = label11_0;
-                    break;
-                default:
-                    NSLog(@"x failure");
-            }
-            break;
-        case 1:
-            switch (x)
-            {
-                case 0:
-                    current = label0_1;
-                    break;
-                case 1:
-                    current = label1_1;
-                    break;
-                case 2:
-                    current = label2_1;
-                    break;
-                case 3:
-                    current = label3_1;
-                    break;
-                case 4:
-                    current = label4_1;
-                    break;
-                case 5:
-                    current = label5_1;
-                    break;
-                case 6:
-                    current = label6_1;
-                    break;
-                case 7:
-                    current = label7_1;
-                    break;
-                case 8:
-                    current = label8_1;
-                    break;
-                case 9:
-                    current = label9_1;
-                    break;
-                case 10:
-                    current = label10_1;
-                    break;
-                case 11:
-                    current = label11_1;
-                    break;
-                default:
-                    NSLog(@"x failure");
-            }
-            break;
-        case 2:
-            switch (x)
-            {
-                case 0:
-                    current = label0_2;
-                    break;
-                case 1:
-                    current = label1_2;
-                    break;
-                case 2:
-                    current = label2_2;
-                    break;
-                case 3:
-                    current = label3_2;
-                    break;
-                case 4:
-                    current = label4_2;
-                    break;
-                case 5:
-                    current = label5_2;
-                    break;
-                case 6:
-                    current = label6_2;
-                    break;
-                case 7:
-                    current = label7_2;
-                    break;
-                case 8:
-                    current = label8_2;
-                    break;
-                case 9:
-                    current = label9_2;
-                    break;
-                case 10:
-                    current = label10_2;
-                    break;
-                case 11:
-                    current = label11_2;
-                    break;
-                default:
-                    NSLog(@"x failure");
-            }
-            break;
-        case 3:
-            switch (x)
-            {
-                case 0:
-                    current = label0_3;
-                    break;
-                case 1:
-                    current = label1_3;
-                    break;
-                case 2:
-                    current = label2_3;
-                    break;
-                case 3:
-                    current = label3_3;
-                    break;
-                case 4:
-                    current = label4_3;
-                    break;
-                case 5:
-                    current = label5_3;
-                    break;
-                case 6:
-                    current = label6_3;
-                    break;
-                case 7:
-                    current = label7_3;
-                    break;
-                case 8:
-                    current = label8_3;
-                    break;
-                case 9:
-                    current = label9_3;
-                    break;
-                case 10:
-                    current = label10_3;
-                    break;
-                case 11:
-                    current = label11_3;
-                    break;
-                default:
-                    NSLog(@"x failure");
-            }
-            break;
-        default:
-            NSLog(@"y Failure");
-    }
-    
-    [current setTextColor:[NSColor blueColor]];
-    
-    if (weRX)
-    {
-        team = @"X";
-        [current setTextColor:[NSColor redColor]];
-    }
-    
-    [current setStringValue:team];
-    [current display];
-    
-    int winnerVal = [Utilities checkWin:board];//[Utilities teamWon:board];
-    
-    if (winnerVal != 0)
-    {
-        winner = true;
-        if (winnerVal == 1)
+    @autoreleasepool {
+        // if someone has won don't update
+        if (winner)
         {
-            [label setStringValue:@"X Won"];
-        }
-        else
-        {
-            [label setStringValue:@"O Won"];
+            return;
         }
         
-        // do not continue!!
-        return;
-    }
-    
-    int size = 0;
-    int *avalaibleMoves = [Utilities getAllAvaliableMoves:board :&size];
-    
-    if (size == 0)
-    {
-        [label setStringValue:@"Draw"];
-        free(avalaibleMoves);
-        // so we don't try again
-        winner = true;
-        return;
-    }
-    
-    free(avalaibleMoves);
-    
-    //NSLog(@"Right before AI section");
-    
-    if (current != NULL)
-    {
-         weRX = !weRX;
+        NSTextField *current;
+        NSString *team = @"O";
         
-        if (weRX && !player1Human)
+        // if the move is not valid stop wait for valid move from
+        // user
+        if (![self validateUserMove:x:y])
         {
+            NSLog(@"Failed Validation");
+            return;
+        }
+        //[self printBoard];
+        
+        numbOfMoves++;
+        
+        // switch-case statement to determine which
+        // label to update based on (x,y)
+        switch (y)
+        {
+            case 0:
+                switch (x)
+                {
+                    case 0:
+                        current = label0_0;
+                        break;
+                    case 1:
+                        current = label1_0;
+                        break;
+                    case 2:
+                        current = label2_0;
+                        break;
+                    case 3:
+                        current = label3_0;
+                        break;
+                    case 4:
+                        current = label4_0;
+                        break;
+                    case 5:
+                        current = label5_0;
+                        break;
+                    case 6:
+                        current = label6_0;
+                        break;
+                    case 7:
+                        current = label7_0;
+                        break;
+                    case 8:
+                        current = label8_0;
+                        break;
+                    case 9:
+                        current = label9_0;
+                        break;
+                    case 10:
+                        current = label10_0;
+                        break;
+                    case 11:
+                        current = label11_0;
+                        break;
+                    default:
+                        NSLog(@"x failure");
+                }
+                break;
+            case 1:
+                switch (x)
+                {
+                    case 0:
+                        current = label0_1;
+                        break;
+                    case 1:
+                        current = label1_1;
+                        break;
+                    case 2:
+                        current = label2_1;
+                        break;
+                    case 3:
+                        current = label3_1;
+                        break;
+                    case 4:
+                        current = label4_1;
+                        break;
+                    case 5:
+                        current = label5_1;
+                        break;
+                    case 6:
+                        current = label6_1;
+                        break;
+                    case 7:
+                        current = label7_1;
+                        break;
+                    case 8:
+                        current = label8_1;
+                        break;
+                    case 9:
+                        current = label9_1;
+                        break;
+                    case 10:
+                        current = label10_1;
+                        break;
+                    case 11:
+                        current = label11_1;
+                        break;
+                    default:
+                        NSLog(@"x failure");
+                }
+                break;
+            case 2:
+                switch (x)
+                {
+                    case 0:
+                        current = label0_2;
+                        break;
+                    case 1:
+                        current = label1_2;
+                        break;
+                    case 2:
+                        current = label2_2;
+                        break;
+                    case 3:
+                        current = label3_2;
+                        break;
+                    case 4:
+                        current = label4_2;
+                        break;
+                    case 5:
+                        current = label5_2;
+                        break;
+                    case 6:
+                        current = label6_2;
+                        break;
+                    case 7:
+                        current = label7_2;
+                        break;
+                    case 8:
+                        current = label8_2;
+                        break;
+                    case 9:
+                        current = label9_2;
+                        break;
+                    case 10:
+                        current = label10_2;
+                        break;
+                    case 11:
+                        current = label11_2;
+                        break;
+                    default:
+                        NSLog(@"x failure");
+                }
+                break;
+            case 3:
+                switch (x)
+                {
+                    case 0:
+                        current = label0_3;
+                        break;
+                    case 1:
+                        current = label1_3;
+                        break;
+                    case 2:
+                        current = label2_3;
+                        break;
+                    case 3:
+                        current = label3_3;
+                        break;
+                    case 4:
+                        current = label4_3;
+                        break;
+                    case 5:
+                        current = label5_3;
+                        break;
+                    case 6:
+                        current = label6_3;
+                        break;
+                    case 7:
+                        current = label7_3;
+                        break;
+                    case 8:
+                        current = label8_3;
+                        break;
+                    case 9:
+                        current = label9_3;
+                        break;
+                    case 10:
+                        current = label10_3;
+                        break;
+                    case 11:
+                        current = label11_3;
+                        break;
+                    default:
+                        NSLog(@"x failure");
+                }
+                break;
+            default:
+                NSLog(@"y Failure");
+        }
+        
+        [current setTextColor:[NSColor blueColor]];
+        
+        if (weRX)
+        {
+            team = @"X";
+            [current setTextColor:[NSColor redColor]];
+        }
+        
+        [current setStringValue:team];
+        [current display];
+        
+        int winnerVal = [Utilities checkWin:board];//[Utilities teamWon:board];
+        
+        if (winnerVal != 0)
+        {
+            winner = true;
+            if (winnerVal == 1)
+            {
+                [label setStringValue:@"X Won"];
+            }
+            else
+            {
+                [label setStringValue:@"O Won"];
+            }
             
-            int *aiMove;
-            if (searchTypeVal == 0)
-            {
-                aiMove = [RandomAI getNextMove:board];
-            }
-            else if (searchTypeVal == 1)
-            {
-                aiMove = [MinMaxAI getNextMove:board:1];
-            }
-            else if (searchTypeVal == 2)
-            {
-                aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal :neuralNet];
-            }
-            else
-            {
-                aiMove = [NearestNeighbor getNextMove:board :1];
-            }
-            [self upDateLabel:aiMove[0] :aiMove[1]];
-            //NSLog(@"AI Move player1");
+            // do not continue!!
+            return;
         }
-        else if (!weRX && !player2Human)
+        
+        int size = 0;
+        int *avalaibleMoves = [Utilities getAllAvaliableMoves:board :&size];
+        
+        if (size == 0)
         {
-            int *aiMove;
-            if (searchTypeVal2 == 0)
+            [label setStringValue:@"Draw"];
+            free(avalaibleMoves);
+            // so we don't try again
+            winner = true;
+            return;
+        }
+        
+        free(avalaibleMoves);
+        
+        //NSLog(@"Right before AI section");
+        
+        if (current != NULL)
+        {
+             weRX = !weRX;
+            
+            if (weRX && !player1Human)
             {
-                aiMove = [RandomAI getNextMove:board];
+                
+                int *aiMove;
+                if (searchTypeVal == 0)
+                {
+                    aiMove = [RandomAI getNextMove:board];
+                }
+                else if (searchTypeVal == 1)
+                {
+                    aiMove = [MinMaxAI getNextMove:board:1];
+                }
+                else if (searchTypeVal == 2)
+                {
+                    aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal :neuralNet];
+                }
+                else
+                {
+                    aiMove = [NearestNeighbor getNextMove:board :1];
+                }
+                [self upDateLabel:aiMove[0] :aiMove[1]];
+                //NSLog(@"AI Move player1");
             }
-            else if (searchTypeVal2 == 1)
+            else if (!weRX && !player2Human)
             {
-                aiMove = [MinMaxAI getNextMove:board:2];
-            }
-            else if (searchTypeVal2 == 2)
-            {
-                aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2 :neuralNet2];
+                int *aiMove;
+                if (searchTypeVal2 == 0)
+                {
+                    aiMove = [RandomAI getNextMove:board];
+                }
+                else if (searchTypeVal2 == 1)
+                {
+                    aiMove = [MinMaxAI getNextMove:board:2];
+                }
+                else if (searchTypeVal2 == 2)
+                {
+                    aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2 :neuralNet2];
+                }
+                else
+                {
+                    aiMove = [NearestNeighbor getNextMove:board :1];
+                }
+                [self upDateLabel:aiMove[0] :aiMove[1]];
             }
             else
             {
-                aiMove = [NearestNeighbor getNextMove:board :1];
+                NSLog(@"Human Move");
             }
-            [self upDateLabel:aiMove[0] :aiMove[1]];
-            //NSLog(@"AI Move player 2");
         }
         else
         {
-            NSLog(@"Human Move");
+            NSLog(@"current == null");
         }
     }
-    else
-    {
-        NSLog(@"current == null");
-    }
-    
-    //NSLog(@"End of func");
 }
 
 -(void) printBoard
@@ -490,8 +489,8 @@
     heuristicVal = 2;
     heuristicVal2 = 2;
     
-    searchDepthVal = 1;
-    searchDepthVal2 = 1;
+    searchDepthVal = 5;
+    searchDepthVal2 = 5;
     
     player1Human = false;
     player2Human = false;
@@ -505,12 +504,12 @@
     winner = FALSE;
     NSInteger index = [gameChooser indexOfSelectedItem];
     searchDepthVal = [[searchDepth stringValue] intValue];
-    searchDepthVal2 = searchDepthVal;
+    searchDepthVal2 = [[searchDepth2 stringValue] intValue];
     NSLog(@"%i", searchDepthVal);
     searchTypeVal = (int) [searchType indexOfSelectedItem];
-    searchTypeVal2 = searchTypeVal;
+    searchTypeVal2 = (int) [searchType2 indexOfSelectedItem];
     heuristicVal = (int) [heuristic indexOfSelectedItem];
-    heuristicVal2 = heuristicVal;
+    heuristicVal2 = (int) [heuristic2 indexOfSelectedItem];
     NSString *string = [[NSString alloc] initWithFormat:@"%li", (long)index];
     
     [label setStringValue:string];

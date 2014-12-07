@@ -12,89 +12,92 @@
 
 +(BOOL) moveValid:(int *)move :(int *)gameBoard
 {
-    int x = move[0];
-    int y = move[1];
-    BOOL update = FALSE;
-    
-    if (gameBoard[x*4 + y] != 0)
-    {
-        //NSLog(@"already taken");
-        update = FALSE;
-    }
-    else
-    {
-        for (int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
-            {
-                if ((x + i) < 0 || (x + i) > 11)
-                {
-                }
-                else if ((y + j) < 0 || (y + j) > 3)
-                {
-                }
-                else if (gameBoard[((x+i) * 4) + (y+j)] != 0)
-                {
-                    update = TRUE;
-                }
-            }
-        }
+    @autoreleasepool {
+        int x = move[0];
+        int y = move[1];
+        BOOL update = FALSE;
         
-        if (!update)
+        if (gameBoard[x*4 + y] != 0)
         {
-            if (x == 0)
+            //NSLog(@"already taken");
+            update = FALSE;
+        }
+        else
+        {
+            for (int i = -1; i <= 1; i++)
             {
-                for (int i = -1; i <= 1; i++)
+                for (int j = -1; j <= 1; j++)
                 {
-                    if ((y + i) < 0 || (y + i) > 3)
+                    if ((x + i) < 0 || (x + i) > 11)
                     {
-                        
                     }
-                    else if (gameBoard[44 + y + i] != 0)
+                    else if ((y + j) < 0 || (y + j) > 3)
+                    {
+                    }
+                    else if (gameBoard[((x+i) * 4) + (y+j)] != 0)
                     {
                         update = TRUE;
                     }
                 }
             }
-            else if (x == 11)
+            
+            if (!update)
             {
-                for (int i = -1; i <= 1; i++)
+                if (x == 0)
                 {
-                    if ((y + i) < 0 || (y + i) > 3)
+                    for (int i = -1; i <= 1; i++)
                     {
-                        
+                        if ((y + i) < 0 || (y + i) > 3)
+                        {
+                            
+                        }
+                        else if (gameBoard[44 + y + i] != 0)
+                        {
+                            update = TRUE;
+                        }
                     }
-                    else if (gameBoard[y + i] != 0)
+                }
+                else if (x == 11)
+                {
+                    for (int i = -1; i <= 1; i++)
                     {
-                        update = TRUE;
+                        if ((y + i) < 0 || (y + i) > 3)
+                        {
+                            
+                        }
+                        else if (gameBoard[y + i] != 0)
+                        {
+                            update = TRUE;
+                        }
                     }
                 }
             }
         }
+        return update;
     }
-    
-    return update;
 }
 
 +(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team
 {
-    int *newGameBoard = (int *)malloc(sizeof(int) * 48);
-    for (int i = 0; i < 48; i++)
-    {
-        newGameBoard[i] = gameBoard[i];
+    @autoreleasepool {
+        int *newGameBoard = (int *)malloc(sizeof(int) * 48);
+        for (int i = 0; i < 48; i++)
+        {
+            newGameBoard[i] = gameBoard[i];
+        }
+        
+        if (((move[0] * 4) + move[1]) > 47)
+        {
+            NSLog(@"going off the board");
+        }
+        else
+        {
+            int x = move[0];
+            int y = move[1];
+            newGameBoard[(x * 4) + (y)] = team;
+        }
+        return newGameBoard;
     }
-    
-    if (((move[0] * 4) + move[1]) > 47)
-    {
-        NSLog(@"going off the board");
-    }
-    else
-    {
-        int x = move[0];
-        int y = move[1];
-        newGameBoard[(x * 4) + (y)] = team;
-    }
-    return newGameBoard;
 }
 
 //a-l represent the first 12 numbers for the variables
@@ -306,153 +309,63 @@
 
 +(int *) getAllAvaliableMoves:(int *)board :(int *)size
 {
-    int *newArray = (int *)malloc(sizeof(int) * 48);
-    for (int a = 0; a < 48; a++)
-    {
-        newArray[a] = 0;
-    }
-    int *move = (int *)malloc(sizeof(int) * 2);
-    int totalSize = 0;
-    for (int i = 0; i < 48; i++)
-    {
-        int x = i / 4;
-        int y = i % 4;
-        move[0] = x;
-        move[1] = y;
-        if ([Utilities moveValid:move :board])
+    @autoreleasepool {
+        int *newArray = (int *)malloc(sizeof(int) * 48);
+        for (int a = 0; a < 48; a++)
         {
-            newArray[i] = 1;
-            totalSize++;
+            newArray[a] = 0;
         }
-    }
-    
-    int *avaliableMoves = (int *)malloc(sizeof(int) * totalSize);
-    int k = 0;
-    for (int j = 0; j < totalSize; j++)
-    {
-        while (newArray[k] != 1 && k < 48)
+        int *move = (int *)malloc(sizeof(int) * 2);
+        int totalSize = 0;
+        for (int i = 0; i < 48; i++)
         {
+            int x = i / 4;
+            int y = i % 4;
+            move[0] = x;
+            move[1] = y;
+            if ([Utilities moveValid:move :board])
+            {
+                newArray[i] = 1;
+                totalSize++;
+            }
+        }
+        
+        int *avaliableMoves = (int *)malloc(sizeof(int) * totalSize);
+        int k = 0;
+        for (int j = 0; j < totalSize; j++)
+        {
+            while (newArray[k] != 1 && k < 48)
+            {
+                k++;
+            }
+            avaliableMoves[j] = k;
             k++;
         }
-        avaliableMoves[j] = k;
-        k++;
+        
+        free(newArray);
+        free(move);
+        
+        *size = totalSize;
+        return avaliableMoves;
     }
-    
-    free(newArray);
-    free(move);
-    
-    *size = totalSize;
-    return avaliableMoves;
 }
 
 +(int) checkWin:(int *)gameBoard
 {
-    int k, a, t;
-    //Check for vertical lines
-    for(k = 0; k < 12; k++)
-    {
-        int winX = 0;
-        int winY = 0;
-        for(a = 0; a < 4; a++)
-        {
-            if(gameBoard[k*4 + a] == 1)
-            {
-                winX++;
-            }
-            else if(gameBoard[k*4 + a] == 2)
-            {
-                winY++;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        if(winX == 4)
-        {
-            return 1;
-        }
-        else if(winY == 4)
-        {
-            return 2;
-        }
-    }
-
-    //Check for diagonal lines
-    for(k = 0; k < 12; k++)
-    {
-        int winX = 0; 
-        int winY = 0;
-        for(a = 0; a < 4; a++)
-        {
-                if(gameBoard[((k + a) % 12)*4 + a] == 1)
-                {
-                    winX++;
-                }
-                else if(gameBoard[((k + a) % 12)*4 + a] == 2)
-                {
-                    winY++;
-                }
-                else
-                {
-                    break;
-                }
-        }
-
-        if(winX == 4)
-        {
-            return 1;
-        }
-        else if(winY == 4)
-        {
-            return 2;
-        }
-
-        winX = 0;
-        winY = 0;
-
-        for(a = 0; a < 4; a++)
-        {
-                if(gameBoard[((12 + k - a) % 12)*4 + a] == 1)
-                {
-                    winX++;
-                }
-                else if(gameBoard[((12 + k - a) % 12)*4 + a] == 2)
-                {
-                    winY++;
-                }
-                else
-                {
-                    break;
-                }
-        }
-
-        if(winX == 4)
-        {
-            return 1;
-        }
-        else if(winY == 4)
-        {
-            return 2;
-        }
-    }
-
-    //Check for horizontal
-    for(a = 0; a < 4; a++)
-    {
+    @autoreleasepool {
+        int k, a, t;
+        //Check for vertical lines
         for(k = 0; k < 12; k++)
         {
             int winX = 0;
             int winY = 0;
-
-            for(t = 0; t < 4; t++)
+            for(a = 0; a < 4; a++)
             {
-                if(gameBoard[((k + t) % 12)*4 + a] == 1)
+                if(gameBoard[k*4 + a] == 1)
                 {
                     winX++;
                 }
-                else if(gameBoard[((k + t) % 12)*4 + a] == 2)
+                else if(gameBoard[k*4 + a] == 2)
                 {
                     winY++;
                 }
@@ -471,9 +384,103 @@
                 return 2;
             }
         }
+
+        //Check for diagonal lines
+        for(k = 0; k < 12; k++)
+        {
+            int winX = 0; 
+            int winY = 0;
+            for(a = 0; a < 4; a++)
+            {
+                    if(gameBoard[((k + a) % 12)*4 + a] == 1)
+                    {
+                        winX++;
+                    }
+                    else if(gameBoard[((k + a) % 12)*4 + a] == 2)
+                    {
+                        winY++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+            }
+
+            if(winX == 4)
+            {
+                return 1;
+            }
+            else if(winY == 4)
+            {
+                return 2;
+            }
+
+            winX = 0;
+            winY = 0;
+
+            for(a = 0; a < 4; a++)
+            {
+                    if(gameBoard[((12 + k - a) % 12)*4 + a] == 1)
+                    {
+                        winX++;
+                    }
+                    else if(gameBoard[((12 + k - a) % 12)*4 + a] == 2)
+                    {
+                        winY++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+            }
+
+            if(winX == 4)
+            {
+                return 1;
+            }
+            else if(winY == 4)
+            {
+                return 2;
+            }
+        }
+
+        //Check for horizontal
+        for(a = 0; a < 4; a++)
+        {
+            for(k = 0; k < 12; k++)
+            {
+                int winX = 0;
+                int winY = 0;
+
+                for(t = 0; t < 4; t++)
+                {
+                    if(gameBoard[((k + t) % 12)*4 + a] == 1)
+                    {
+                        winX++;
+                    }
+                    else if(gameBoard[((k + t) % 12)*4 + a] == 2)
+                    {
+                        winY++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if(winX == 4)
+                {
+                    return 1;
+                }
+                else if(winY == 4)
+                {
+                    return 2;
+                }
+            }
+        }
+        
+        return 0;
     }
-    
-    return 0;
 }
 
 @end
