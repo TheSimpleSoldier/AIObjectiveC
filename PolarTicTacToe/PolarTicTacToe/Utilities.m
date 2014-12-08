@@ -19,8 +19,7 @@
         
         if (gameBoard[x*4 + y] != 0)
         {
-            //NSLog(@"already taken");
-            update = FALSE;
+            return FALSE;
         }
         else
         {
@@ -36,7 +35,7 @@
                     }
                     else if (gameBoard[((x+i) * 4) + (y+j)] != 0)
                     {
-                        update = TRUE;
+                        return TRUE;
                     }
                 }
             }
@@ -53,7 +52,7 @@
                         }
                         else if (gameBoard[44 + y + i] != 0)
                         {
-                            update = TRUE;
+                            return TRUE;
                         }
                     }
                 }
@@ -67,7 +66,7 @@
                         }
                         else if (gameBoard[y + i] != 0)
                         {
-                            update = TRUE;
+                            return TRUE;
                         }
                     }
                 }
