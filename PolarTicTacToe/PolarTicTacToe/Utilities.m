@@ -180,6 +180,7 @@
     NSArray *knowledge = [knowledgeBase copy];
 	NSArray *queries = [NSArray arrayWithObjects:verticalX, horizontalX, diagRightX, diagLeftX, verticalO, horizontalO, diagRightO, diagLeftO, nil];
 
+    NSLog(@"Knowledge Base");
     for(k = 0; k < [knowledge count]; k++)
     {
         NSLog(@"%@", [Utilities printString: [knowledge objectAtIndex: k]]);
@@ -190,11 +191,13 @@
 	//if none of them return, we return 0 since there is no winner
 	for(k = 0; k < 8; k++)
 	{
+        NSLog(@"New Query");
         //start of resolution algorithm
         //In order to optimize, we will only deal with the newest iteration of clauses.
         NSArray *clauses = [NSArray arrayWithObjects:[queries objectAtIndex:k], nil];
         while(true)
         {
+            NSLog(@"New Round");
             for(a = 0; a < [clauses count]; a++)
             {
                 NSLog(@"%@", [Utilities printString: [clauses objectAtIndex: a]]);
