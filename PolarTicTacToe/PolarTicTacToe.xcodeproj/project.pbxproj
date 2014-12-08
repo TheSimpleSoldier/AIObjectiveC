@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B01B513619E86DCA00AEC066 /* RandomAI.m in Sources */ = {isa = PBXBuildFile; fileRef = B01B513519E86DCA00AEC066 /* RandomAI.m */; };
-		B034EAA619D9AE6D005A8751 /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B034EAA519D9AE6D005A8751 /* goodPolarImage.png */; };
 		B034EAA919D9B060005A8751 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAA819D9B060005A8751 /* Utilities.m */; };
 		B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */; };
 		B034EAAF19D9B093005A8751 /* Search.m in Sources */ = {isa = PBXBuildFile; fileRef = B034EAAE19D9B093005A8751 /* Search.m */; };
+		B047392C1A3642E100D601F4 /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B047392B1A3642E100D601F4 /* goodPolarImage.png */; };
 		B07350941A06F3B400936E42 /* MinMaxAI.m in Sources */ = {isa = PBXBuildFile; fileRef = B07350931A06F3B400936E42 /* MinMaxAI.m */; };
 		B07350971A06F40000936E42 /* AlphaBetaAI.m in Sources */ = {isa = PBXBuildFile; fileRef = B07350961A06F40000936E42 /* AlphaBetaAI.m */; };
 		B0E29EB31A22710B003E2F08 /* NearestNeighbor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E29EB21A22710B003E2F08 /* NearestNeighbor.m */; };
@@ -43,13 +43,13 @@
 /* Begin PBXFileReference section */
 		B01B513419E86DCA00AEC066 /* RandomAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomAI.h; sourceTree = "<group>"; };
 		B01B513519E86DCA00AEC066 /* RandomAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomAI.m; sourceTree = "<group>"; };
-		B034EAA519D9AE6D005A8751 /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = ../../../../Documents/goodPolarImage.png; sourceTree = "<group>"; };
 		B034EAA719D9B060005A8751 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		B034EAA819D9B060005A8751 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		B034EAAA19D9B077005A8751 /* HeuristicFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeuristicFunctions.h; sourceTree = "<group>"; };
 		B034EAAB19D9B077005A8751 /* HeuristicFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeuristicFunctions.m; sourceTree = "<group>"; };
 		B034EAAD19D9B093005A8751 /* Search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Search.h; sourceTree = "<group>"; };
 		B034EAAE19D9B093005A8751 /* Search.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Search.m; sourceTree = "<group>"; };
+		B047392B1A3642E100D601F4 /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = ../../../../../Documents/goodPolarImage.png; sourceTree = "<group>"; };
 		B07350921A06F3B400936E42 /* MinMaxAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinMaxAI.h; sourceTree = "<group>"; };
 		B07350931A06F3B400936E42 /* MinMaxAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinMaxAI.m; sourceTree = "<group>"; };
 		B07350951A06F40000936E42 /* AlphaBetaAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphaBetaAI.h; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 				B07350961A06F40000936E42 /* AlphaBetaAI.m */,
 				B0E29EB11A22710B003E2F08 /* NearestNeighbor.h */,
 				B0E29EB21A22710B003E2F08 /* NearestNeighbor.m */,
-				B034EAA519D9AE6D005A8751 /* goodPolarImage.png */,
+				B047392B1A3642E100D601F4 /* goodPolarImage.png */,
 				B0E6E18519C68F2E00F5B0EA /* Images.xcassets */,
 				B0E6E17419C68F2E00F5B0EA /* Supporting Files */,
 			);
@@ -277,8 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E6E17819C68F2E00F5B0EA /* InfoPlist.strings in Resources */,
+				B047392C1A3642E100D601F4 /* goodPolarImage.png in Resources */,
 				B0E6E18619C68F2E00F5B0EA /* Images.xcassets in Resources */,
-				B034EAA619D9AE6D005A8751 /* goodPolarImage.png in Resources */,
 				B0E6E1A519C6903500F5B0EA /* RootViewController.xib in Resources */,
 				B0E6E17E19C68F2E00F5B0EA /* Credits.rtf in Resources */,
 				B0E6E18419C68F2E00F5B0EA /* MainMenu.xib in Resources */,

@@ -279,7 +279,7 @@
         [current setStringValue:team];
         [current display];
         
-        int winnerVal = [Utilities checkWin:board];//[Utilities teamWon:board];
+        int winnerVal = /*[Utilities checkWin:board];*/[Utilities teamWon:board];
         
         if (winnerVal != 0)
         {
