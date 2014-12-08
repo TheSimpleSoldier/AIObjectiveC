@@ -18,11 +18,13 @@
     IBOutlet NSPopUpButton *searchType2;
     IBOutlet NSPopUpButton *heuristic2;
     IBOutlet NSTextField *searchDepth2;
+    IBOutlet NSButton *verbose;
     BOOL weRX;
     BOOL player1Human;
     BOOL player2Human;
     BOOL winner;
     BOOL training;
+    int verboseVal;
     int *board;
     int xTeamVal;
     int oTeamVal;
@@ -105,6 +107,7 @@
 @property(nonatomic, retain) NSPopUpButton *searchType2;
 @property(nonatomic, retain) NSPopUpButton *heuristic2;
 @property(nonatomic, retain) NSTextField *searchDepth2;
+@property(nonatomic, retain) NSButton *verbose;
 
 @property(nonatomic, retain) NSTextField *label0_0;
 @property(nonatomic, retain) NSTextField *label0_1;
@@ -168,6 +171,8 @@
 
 -(IBAction) newGame:(id)sender;
 -(IBAction) neuralNetTest:(id)sender;
+-(IBAction) printHeuristic:(id)sender;
+-(IBAction) printAvalaibleSpots:(id)sender;
 
 -(IBAction) region0_0:(id)sender;
 -(IBAction) region0_1:(id)sender;

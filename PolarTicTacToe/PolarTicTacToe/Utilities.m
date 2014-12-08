@@ -238,6 +238,7 @@
 
 	}
 
+    NSLog(@"Something");
     return 0;
 }
 
