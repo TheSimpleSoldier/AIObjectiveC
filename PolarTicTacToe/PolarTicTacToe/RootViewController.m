@@ -331,7 +331,7 @@
                 }
                 else if (searchTypeVal == 2)
                 {
-                    aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal :neuralNet];
+                    aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal];
                 }
                 else
                 {
@@ -353,7 +353,7 @@
                 }
                 else if (searchTypeVal2 == 2)
                 {
-                    aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2 :neuralNet2];
+                    aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2];
                 }
                 else
                 {

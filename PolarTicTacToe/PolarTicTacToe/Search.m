@@ -122,7 +122,7 @@
 }*/
 
 
-+(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal :(int) neuralNet
++(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal
 {
     @autoreleasepool {
         int *nextSpot = (int *)malloc(sizeof(int) * 2);
@@ -146,8 +146,9 @@
             }
             
             int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-            int score = [self alphaBetaSearch:newGameBoard :team :1 :maxScore :heuristicVal :neuralNet];
-            //NSLog(@"move:%i, %i, score: %i", move[0], move[1], score);
+            NSLog(@"Searching next move max node: %i, %i", move[0], move[1]);
+            int score = [self alphaBetaSearch:newGameBoard :team :1 :maxScore :heuristicVal];
+            NSLog(@"Move Score:%i, %i, score: %i", move[0], move[1], score);
             if (i == 0)
             {
                // NSLog(@"Initialized Spot");
@@ -299,7 +300,7 @@
     }
 }
 
-+(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal :(int)neuralNet
++(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal
 {
     @autoreleasepool {
         int teamThatWon = [Utilities checkWin:gameBoard];
@@ -339,24 +340,29 @@
                 // opponents move
                 if (round % 2 == 1)
                 {
+                    NSLog(@"Min node");
                     newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :opponent];
                 }
                 // our move
                 else
                 {
+                    NSLog(@"Max node");
                     newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :team];
                 }
+                
                 
                 int nextMoveVal;
                 if (i == 0)
                 {
-                    currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
+                    NSLog(@"Searching: %i, %i ", nextMove[0], nextMove[1]);
+                    currentVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
                     nextMoveVal = currentVal;
                 }
                 // opponents move go with min
                 else if (round % 2 == 1)
                 {
-                    nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
+                    NSLog(@"Searching: %i, %i ", nextMove[0], nextMove[1]);
+                    nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
                     if (nextMoveVal < currentVal)
                     {
                         currentVal = nextMoveVal;
@@ -364,13 +370,15 @@
                     // if the parent (max-node) will go somewhere else stop searching this tree
                     if (parentScore > currentVal)
                     {
+                        NSLog(@"Prunning: %i", round);
                         return currentVal;
                     }
                 }
                 // our move go max
                 else
                 {
-                    nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal :neuralNet];
+                    NSLog(@"Searching: %i, %i ", nextMove[0], nextMove[1]);
+                    nextMoveVal = [self alphaBetaSearch:newGameBoard :team :(round+1) :currentVal :heuristicVal];
                     if (nextMoveVal > currentVal)
                     {
                         currentVal = nextMoveVal;
@@ -378,6 +386,7 @@
                     // if the parent (min-node) will go somewhere else stop searching this tree
                     if (parentScore < currentVal)
                     {
+                        NSLog(@"Prunning: %i", round);
                         return currentVal;
                     }
                 }
@@ -403,8 +412,9 @@
             }
             else
             {
-                value = [HeuristicFunctions evaluate:gameBoard :team :neuralNet];
+                value = [HeuristicFunctions evaluate:gameBoard :team];
             }
+            NSLog(@"calculating heuristic, %i", value);
             return value;
         }
     }
