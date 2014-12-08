@@ -108,7 +108,7 @@
 //y represents if two points are on the same diagonal left
 //z represents if two points are on the same diagonal right
 //anything else means unknown
-+(int) teamWon:(int *)gameBoard
++(int) teamWon:(int *)gameBoard :(int)verbose
 {
 	//The following takes the game board to make the knowledge base
 	NSMutableArray *knowledgeBase = [[NSMutableArray alloc] init];
@@ -179,10 +179,13 @@
     NSArray *knowledge = [knowledgeBase copy];
 	NSArray *queries = [NSArray arrayWithObjects:verticalX, horizontalX, diagRightX, diagLeftX, verticalO, horizontalO, diagRightO, diagLeftO, nil];
 
-    NSLog(@"Knowledge Base");
-    for(k = 0; k < [knowledge count]; k++)
+    if(verbose)
     {
-        NSLog(@"%@", [Utilities printString: [knowledge objectAtIndex: k]]);
+        NSLog(@"Knowledge Base");
+        for(k = 0; k < [knowledge count]; k++)
+        {
+            NSLog(@"%@", [Utilities printString: [knowledge objectAtIndex: k]]);
+        }
     }
 
 
@@ -190,16 +193,22 @@
 	//if none of them return, we return 0 since there is no winner
 	for(k = 0; k < 8; k++)
 	{
-        NSLog(@"New Query");
+        if(verbose)
+        {
+            NSLog(@"New Query");
+        }
         //start of resolution algorithm
         //In order to optimize, we will only deal with the newest iteration of clauses.
         NSArray *clauses = [NSArray arrayWithObjects:[queries objectAtIndex:k], nil];
         while(true)
         {
-            NSLog(@"New Round");
-            for(a = 0; a < [clauses count]; a++)
+            if(verbose)
             {
-                NSLog(@"%@", [Utilities printString: [clauses objectAtIndex: a]]);
+                NSLog(@"New Round");
+                for(a = 0; a < [clauses count]; a++)
+                {
+                    NSLog(@"%@", [Utilities printString: [clauses objectAtIndex: a]]);
+                }
             }
             NSMutableSet *new = [[NSMutableSet alloc] init];
             int kcount = [knowledge count];
