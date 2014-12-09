@@ -11,9 +11,9 @@
 
 @implementation NearestNeighbor
 
-+(int *) getNextMove:(int *)board :(int)team
++(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepthVal
 {
-    return [Search getNextSpotNearestNeighbor:board :team];
+    return [Search getNextSpotNearestNeighbor:board :team :heuristicVal :searchDepthVal];
 }
 
 @end

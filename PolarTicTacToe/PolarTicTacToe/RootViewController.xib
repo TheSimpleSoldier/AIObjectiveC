@@ -97,7 +97,7 @@
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X" id="arX-LC-LQz">
                         <font key="font" metaFont="systemBold" size="30"/>
                         <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i8E-AZ-bZK">
@@ -1020,16 +1020,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ldc-D8-myh">
-                    <rect key="frame" x="556" y="755" width="122" height="19"/>
-                    <buttonCell key="cell" type="roundRect" title="Neural Net Test" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IHt-Rz-Wxt">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="neuralNetTest:" target="-2" id="bG7-gf-Rjf"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqA-Ud-Csm">
                     <rect key="frame" x="699" y="755" width="76" height="19"/>
                     <buttonCell key="cell" type="roundRect" title="New Game" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mYo-nh-74f">
@@ -1125,7 +1115,7 @@
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nv7-N7-ure">
                     <rect key="frame" x="825" y="209" width="73" height="18"/>
-                    <buttonCell key="cell" type="check" title="Verbose" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zuO-8Z-jZP">
+                    <buttonCell key="cell" type="check" title="Verbose" bezelStyle="regularSquare" imagePosition="left" inset="2" id="zuO-8Z-jZP">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

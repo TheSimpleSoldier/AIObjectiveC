@@ -11,9 +11,9 @@
 
 @implementation MinMaxAI
 
-+(int *) getNextMove:(int *)board :(int)team
++(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepthVal
 {
-    return [Search getNextSpot:board :team];
+    return [Search getNextSpot:board :team :heuristicVal :searchDepthVal];
 }
 
 @end

@@ -37,6 +37,7 @@
     int searchDepthVal2;
     int neuralNet;
     int neuralNet2;
+    NSTextField *current;
     
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;

@@ -10,6 +10,6 @@
 
 @interface MinMaxAI : NSObject
 
-+(int *) getNextMove:(int *)board :(int)team;
++(int *) getNextMove:(int *)board :(int)team :(int)heuristicVal :(int)searchDepthVal;
 
 @end

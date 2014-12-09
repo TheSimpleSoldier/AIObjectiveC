@@ -75,7 +75,11 @@
             return;
         }
         
-        NSTextField *current;
+        [current setBackgroundColor:[NSColor clearColor]];
+        [current setDrawsBackground:YES];
+        [current display];
+        
+        //NSTextField *current;
         NSString *team = @"O";
         
         // if the move is not valid stop wait for valid move from
@@ -277,10 +281,13 @@
             [current setTextColor:[NSColor redColor]];
         }
         
+        [current setBackgroundColor:[NSColor yellowColor]];
+        [current setDrawsBackground:YES];
+        
         [current setStringValue:team];
         [current display];
         
-        int winnerVal = /*[Utilities checkWin:board];*/[Utilities teamWon:board];
+        int winnerVal = /*[Utilities checkWin:board];*/[Utilities teamWon:board:verboseVal];
         
         if (winnerVal != 0)
         {
@@ -318,7 +325,11 @@
             }
         }
         
-        NSLog(@"Done with win checking");
+        if (verboseVal)
+        {
+            NSLog(@"Done with win checking");
+        }
+        
         
         int size = 0;
         int *avalaibleMoves = [Utilities getAllAvaliableMoves:board :&size];
@@ -342,7 +353,9 @@
             
             if (weRX && !player1Human)
             {
-                
+                NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970] * 1000;
+                NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+
                 int *aiMove;
                 if (searchTypeVal == 0)
                 {
@@ -350,48 +363,71 @@
                 }
                 else if (searchTypeVal == 1)
                 {
-                    aiMove = [MinMaxAI getNextMove:board:1];
+                    aiMove = [MinMaxAI getNextMove:board :1 :heuristicVal :searchDepthVal];
                 }
                 else if (searchTypeVal == 2)
                 {
-                    aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal];
+                    aiMove = [AlphaBetaAI getNextMove:board :1 :heuristicVal :searchDepthVal :verboseVal];
                 }
                 else
                 {
-                    aiMove = [NearestNeighbor getNextMove:board :1];
+                    aiMove = [NearestNeighbor getNextMove:board :1 :heuristicVal :searchDepthVal];
                 }
+                
+                NSTimeInterval timeStamp2 = [[NSDate date] timeIntervalSince1970] * 1000;
+                NSNumber *timeStampObj2 = [NSNumber numberWithDouble: timeStamp2];
+                
+                int diff = [timeStampObj2 intValue] - [timeStampObj intValue];
+                NSLog(@"X time: %i", diff);
+                
                 [self upDateLabel:aiMove[0] :aiMove[1]];
                 //NSLog(@"AI Move player1");
             }
             else if (!weRX && !player2Human)
             {
                 int *aiMove;
+                
+                NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970] * 1000;
+                NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+                
                 if (searchTypeVal2 == 0)
                 {
                     aiMove = [RandomAI getNextMove:board];
                 }
                 else if (searchTypeVal2 == 1)
                 {
-                    aiMove = [MinMaxAI getNextMove:board:2];
+                    aiMove = [MinMaxAI getNextMove :board :2 :heuristicVal2 :searchDepthVal];
                 }
                 else if (searchTypeVal2 == 2)
                 {
-                    aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2];
+                    aiMove = [AlphaBetaAI getNextMove:board :2 :heuristicVal2 :searchDepthVal2 :verboseVal];
                 }
                 else
                 {
-                    aiMove = [NearestNeighbor getNextMove:board :1];
+                    aiMove = [NearestNeighbor getNextMove:board :1 :heuristicVal :searchDepthVal];
                 }
+                
+                NSTimeInterval timeStamp2 = [[NSDate date] timeIntervalSince1970] * 1000;
+                NSNumber *timeStampObj2 = [NSNumber numberWithDouble: timeStamp2];
+                
+                int diff = [timeStampObj2 intValue] - [timeStampObj intValue];
+                NSLog(@"O time: %i", diff);
                 [self upDateLabel:aiMove[0] :aiMove[1]];
             }
             else
             {
-                NSLog(@"Human Move");
+                if (verboseVal)
+                {
+                    NSLog(@"Human Move");
+                }
             }
         }
         else
         {
-            NSLog(@"current == null");
+            if (verboseVal)
+            {
+                NSLog(@"current == null");
+            }
         }
     }
 }
@@ -472,7 +508,7 @@
             [self upDateLabel:0 :1];
             NSLog(@"%i, %i", i,j);
             
-            int winnerVal = [Utilities teamWon:board];
+            int winnerVal = [Utilities teamWon:board:verboseVal];
             
             if (winnerVal == 1)
             {
@@ -548,6 +584,10 @@
 
 -(void) reset
 {
+    if (current)
+    {
+        [current setDrawsBackground:NO];
+    }
     free(board);
     neuralNet2 = 7;
     neuralNet = 7;
