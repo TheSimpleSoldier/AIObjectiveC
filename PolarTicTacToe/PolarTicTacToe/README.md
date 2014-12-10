@@ -4,6 +4,7 @@ How to Run:
 	3. open PolarTicTacToe.xcodeproj with xcode and run it natively as OS X app
 
 How to Train Neural Net:
+The neural net training is run separately through the command line. Compile TrainNet.m. run the executable with two parameters for your in game alpha and post game alpha. It will run 5,000,000 matches, taking 1 - 3 hours depending on the machine. It will then print out the resulting net.
 
 
 What we did:

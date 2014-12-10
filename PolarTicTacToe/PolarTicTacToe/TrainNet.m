@@ -20,10 +20,10 @@
     float originalOutputValues[2];
     float newOutputValues[2] = {-100, -100};
     int newLocation = -1;
-    
+
     //Get current score
     [TrainNet evaluate:netWeights :gameBoard :originalInputValues :originalInnerValues :originalOutputValues];
-    
+
     //Look at all possible next states and choose best one based on neural net evaluation
     int size = 0;
     int *spots = [TrainNet getAllAvaliableMoves:gameBoard :&size];
@@ -33,7 +33,7 @@
         float tempInputValues[48];
         float tempInnerValues[40];
         float tempOutputValues[2];
-        
+
         if(team == 1)
         {
             gameBoard[spots[k]] = 1;
@@ -42,9 +42,9 @@
         {
             gameBoard[spots[k]] = 2;
         }
-        
+
         [TrainNet evaluate:netWeights :gameBoard :tempInputValues :tempInnerValues :tempOutputValues];
-        
+
         int compare = 0;
         if(team == 2)
         {
@@ -56,11 +56,11 @@
             newOutputValues[0] = tempOutputValues[0];
             newOutputValues[1] = tempOutputValues[1];
         }
-        
+
         gameBoard[spots[k]] = 0;
     }
     free(spots);
-    
+
     //Update gameboard with selected move
     if(newLocation != -1)
     {
@@ -73,17 +73,19 @@
             gameBoard[newLocation] = 2;
         }
     }
-    
-    //Update neural net weights through back propogation
+
+    //Update neural net weights through back propogation using the new state's output as expected value
     [TrainNet backProp:netWeights :originalInputValues :originalInnerValues :originalOutputValues :newOutputValues :alpha];
 }
 
+//runs the update rule after each game with the expected output either {1,0} or {0,1}
 +(void) updateAfterGame:(float *)netWeights :(int *)gameBoard :(int)winner :(float)alpha
 {
     float inputValues[48];
     float innerValues[40];
     float outputValues[2];
     float correctOutput[2] = {1,0};
+    //determine expected output
     if(winner == 2)
     {
         correctOutput[0] = 0;
@@ -94,20 +96,22 @@
         correctOutput[0] = 0;
         correctOutput[1] = 0;
     }
-    
+
     //Get current score
     [TrainNet evaluate:netWeights :gameBoard :inputValues :innerValues :outputValues];
-    
+
+    //update neural net
     [TrainNet backProp:netWeights :inputValues :innerValues :outputValues :correctOutput :alpha];
     
 }
 
+//applies the neural net to get an output to evaluate board positions
 +(void) evaluate:(float *)netWeights :(int *)gameBoard :(float *)inputValues :(float *)innerValues :(float *)outputValues
 {
     int inputLayer = 48;
     int innerLayer = 40;
     int outputLayer = 2;
-    
+
     //Initialize inputs
     int k, a;
     for(k = 0; k < inputLayer; k++)
@@ -121,7 +125,7 @@
             inputValues[k] = gameBoard[k];
         }
     }
-    
+
     //Calculate values for inner layer
     for(k = 0; k < innerLayer; k++)
     {
@@ -132,7 +136,8 @@
         }
         innerValues[k] = 1. / (1. + pow(M_E,sum * -1));
     }
-    
+
+    //calculate output layer
     for(k = 0; k < outputLayer; k++)
     {
         float sum = 0;
@@ -144,15 +149,17 @@
     }
 }
 
+//update neural net
 +(void) backProp:(float *)netWeights :(float *)firstInputValues :(float *)firstInnerValues :(float *)firstOutputValues :(float *)secondOutputValues :(float)alpha
 {
     int inputLayer = 48;
     int innerLayer = 40;
     int outputLayer = 2;
-    
+
     float outputError[2];
     float innerError[40] = {0};
-    
+
+    //find error at output
     int k, a;
     for(k = 0; k < outputLayer; k++)
     {
@@ -163,7 +170,8 @@
         }
         outputError[k] = (pow(M_E, sum) / pow(pow(M_E, sum) + 1, 2)) * (secondOutputValues[k] - firstOutputValues[k]);
     }
-    
+
+    //find error at inner layer
     for(k = 0; k < innerLayer; k++)
     {
         float sum = 0;
@@ -177,7 +185,8 @@
         }
         innerError[k] *= (pow(M_E, sum) / pow(pow(M_E, sum) + 1, 2));
     }
-    
+
+    //correct weights between input and inner layer
     for(k = 0; k < inputLayer; k++)
     {
         for(a = 0; a < innerLayer; a++)
@@ -185,7 +194,8 @@
             netWeights[(k * innerLayer) + a] += alpha * firstInputValues[k] * innerError[a];
         }
     }
-    
+
+    //correct weights between inner and outer layer
     for(k = 0; k < innerLayer; k++)
     {
         for(a = 0; a < outputLayer; a++)
@@ -195,6 +205,8 @@
     }
 }
 
+//iterative check win
+//copy, look in Utilites file for original
 +(int) checkWin:(int *)gameBoard
 {
     int k, a, t;
@@ -218,7 +230,7 @@
                 break;
             }
         }
-        
+
         if(winX == 4)
         {
             return 1;
@@ -228,28 +240,28 @@
             return 2;
         }
     }
-    
+
     //Check for diagonal lines
     for(k = 0; k < 12; k++)
     {
-        int winX = 0;
+        int winX = 0; 
         int winY = 0;
         for(a = 0; a < 4; a++)
         {
-            if(gameBoard[((k + a) % 12)*4 + a] == 1)
-            {
-                winX++;
-            }
-            else if(gameBoard[((k + a) % 12)*4 + a] == 2)
-            {
-                winY++;
-            }
-            else
-            {
-                break;
-            }
+                if(gameBoard[((k + a) % 12)*4 + a] == 1)
+                {
+                    winX++;
+                }
+                else if(gameBoard[((k + a) % 12)*4 + a] == 2)
+                {
+                    winY++;
+                }
+                else
+                {
+                    break;
+                }
         }
-        
+
         if(winX == 4)
         {
             return 1;
@@ -258,26 +270,26 @@
         {
             return 2;
         }
-        
+
         winX = 0;
         winY = 0;
-        
+
         for(a = 0; a < 4; a++)
         {
-            if(gameBoard[((12 + k - a) % 12)*4 + a] == 1)
-            {
-                winX++;
-            }
-            else if(gameBoard[((12 + k - a) % 12)*4 + a] == 2)
-            {
-                winY++;
-            }
-            else
-            {
-                break;
-            }
+                if(gameBoard[((12 + k - a) % 12)*4 + a] == 1)
+                {
+                    winX++;
+                }
+                else if(gameBoard[((12 + k - a) % 12)*4 + a] == 2)
+                {
+                    winY++;
+                }
+                else
+                {
+                    break;
+                }
         }
-        
+
         if(winX == 4)
         {
             return 1;
@@ -287,7 +299,7 @@
             return 2;
         }
     }
-    
+
     //Check for horizontal
     for(a = 0; a < 4; a++)
     {
@@ -295,7 +307,7 @@
         {
             int winX = 0;
             int winY = 0;
-            
+
             for(t = 0; t < 4; t++)
             {
                 if(gameBoard[((k + t) % 12)*4 + a] == 1)
@@ -311,7 +323,7 @@
                     break;
                 }
             }
-            
+
             if(winX == 4)
             {
                 return 1;
@@ -326,6 +338,8 @@
     return 0;
 }
 
+//checks if move is valid
+//copy, look in Utilites file for original
 +(BOOL) moveValid:(int *)move :(int *)gameBoard
 {
     int x = move[0];
@@ -392,6 +406,8 @@
     return update;
 }
 
+//gets all moves available given a state
+//copy, look in Utilites file for original
 +(int *) getAllAvaliableMoves:(int *)board :(int *)size
 {
     int newArray[48] = {0};
@@ -430,22 +446,23 @@
 
 @end
 
-/*
 int main (int argc, const char * argv[])
 {
-    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    //get alpha values
     float alpha1 = atof(argv[1]);
     float alpha2 = atof(argv[2]);
     int netWeightSize = 48 * 40 + 40 * 2;
     float netWeights[netWeightSize];
+    //initialize weights randomly
     int k;
     for(k = 0; k < netWeightSize; k++)
     {
         netWeights[k] = (drand48() * 2) - 1;
     }
-    
-    
+
+
+    //run through games number of games
     int games = 5000000;
     for(k = 0; k < games; k++)
     {
@@ -454,6 +471,7 @@ int main (int argc, const char * argv[])
         int player = 2;
         int move = 0;
         int done = 0;
+        //individual move
         while(done == 0)
         {
             [TrainNet updateInGame:netWeights :board :player :alpha1];
@@ -462,25 +480,27 @@ int main (int argc, const char * argv[])
             {
                 player = 1;
             }
-            
+
             done = [TrainNet checkWin:board];
-            
+
             if(move > 48)
             {
                 done = -1;
             }
             move++;
         }
-        
+
+        //post game update rule
         [TrainNet updateAfterGame:netWeights :board :done :alpha2];
     }
-    
+
+    //print the final weights
     printf("{");
     for(k = 0; k < netWeightSize - 1; k++)
     {
         printf("%f,", netWeights[k]);
     }
     printf("%f}", netWeights[netWeightSize - 1]);
-    
+
     return 0;
-}*/
+}
