@@ -430,8 +430,10 @@
 
 @end
 
+/*
 int main (int argc, const char * argv[])
 {
+    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     float alpha1 = atof(argv[1]);
     float alpha2 = atof(argv[2]);
@@ -481,4 +483,4 @@ int main (int argc, const char * argv[])
     printf("%f}", netWeights[netWeightSize - 1]);
     
     return 0;
-}
+}*/

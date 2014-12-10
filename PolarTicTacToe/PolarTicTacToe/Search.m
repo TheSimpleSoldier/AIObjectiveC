@@ -18,50 +18,52 @@
  */
 +(int *) getNextSpot:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal;
 {
-    // create some vars
-    int *nextSpot = (int *)malloc(sizeof(int) * 2);
-    searchDepth = searchDepthVal;
-    int size = 0;
-    int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
-    // grab all avalaible moves to iterate over
-    avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
-    int maxScore = -1000;
-    int *move = (int *)malloc(sizeof(int) * 2);
-    
-    // loop through all moves to find the one with the highest score
-    for (int i = 0; i < size; i++)
-    {
-        // set up next move on list
-        move[0] = avaliableMoves[i] / 4;
-        move[1] = avaliableMoves[i] % 4;
-        // validate that move is indeed valid
-        if (![Utilities moveValid:move :gameBoard])
+    @autoreleasepool {
+        // create some vars
+        int *nextSpot = (int *)malloc(sizeof(int) * 2);
+        searchDepth = searchDepthVal;
+        int size = 0;
+        int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
+        // grab all avalaible moves to iterate over
+        avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
+        int maxScore = -1000;
+        int *move = (int *)malloc(sizeof(int) * 2);
+        
+        // loop through all moves to find the one with the highest score
+        for (int i = 0; i < size; i++)
         {
-            continue;
+            // set up next move on list
+            move[0] = avaliableMoves[i] / 4;
+            move[1] = avaliableMoves[i] % 4;
+            // validate that move is indeed valid
+            if (![Utilities moveValid:move :gameBoard])
+            {
+                continue;
+            }
+            
+            // create a new game board with updated move
+            int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
+            // pass new game board to min-max search for a score
+            int score = [self strictMinMaxSearch:newGameBoard :team :1 :heuristicVal];
+            // set as score if first round
+            if (i == 0)
+            {
+                maxScore = score;
+                nextSpot[0] = move[0];
+                nextSpot[1] = move[1];
+            }
+            // otherwise if it is best move so far update
+            else if (score > maxScore)
+            {
+                maxScore = score;
+                nextSpot[0] = move[0];
+                nextSpot[1] = move[1];
+            }
         }
         
-        // create a new game board with updated move
-        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        // pass new game board to min-max search for a score
-        int score = [self strictMinMaxSearch:newGameBoard :team :1 :heuristicVal];
-        // set as score if first round
-        if (i == 0)
-        {
-            maxScore = score;
-            nextSpot[0] = move[0];
-            nextSpot[1] = move[1];
-        }
-        // otherwise if it is best move so far update
-        else if (score > maxScore)
-        {
-            maxScore = score;
-            nextSpot[0] = move[0];
-            nextSpot[1] = move[1];
-        }
+        // return the best move
+        return nextSpot;
     }
-    
-    // return the best move
-    return nextSpot;
 }
 
 /**
@@ -187,102 +189,104 @@
  */
 +(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round :(int)heuristicVal
 {
-    // if we are not at depth call ourself for all of our children pick best (highest for max node, lowest for min node)
-    if (round < searchDepth)
-    {
-        // set up vars
-        int size = 0;
-        int currentVal = 0;
-        // get all valid moves
-        int *avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
-        int opponent = 0;
-        if (team == 1)
-        {
-            opponent = 2;
-        }
-        else
-        {
-            opponent = 1;
-        }
-        
-        // make sure that no one has won the game
-        int teamThatWon = [Utilities checkWin:gameBoard];
-        if (teamThatWon == opponent)
-        {
-            return -999;
-        }
-        else if (teamThatWon == team)
-        {
-            return 999;
-        }
-
-        // if no one has won iterate over all valid moves
-        for (int i = 0; i < size; i++)
+    @autoreleasepool {
+        // if we are not at depth call ourself for all of our children pick best (highest for max node, lowest for min node)
+        if (round < searchDepth)
         {
             // set up vars
-            int *newGameBoard;
-            int *nextMove = (int *)malloc(sizeof(int) * 2);
-            nextMove[0] = avaliableMoves[i] / 4;
-            nextMove[1] = avaliableMoves[i] % 4;
-            // opponents move
-            if (round % 2 == 1)
+            int size = 0;
+            int currentVal = 0;
+            // get all valid moves
+            int *avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
+            int opponent = 0;
+            if (team == 1)
             {
-                newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :opponent];
+                opponent = 2;
             }
-            // our move
             else
             {
-                newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :team];
+                opponent = 1;
             }
-        
-            int nextMoveVal;
-            // if it is first move set it to best
-            if (i == 0)
+            
+            // make sure that no one has won the game
+            int teamThatWon = [Utilities checkWin:gameBoard];
+            if (teamThatWon == opponent)
             {
-                currentVal = [self strictMinMaxSearch:newGameBoard :team :(round+1) :heuristicVal];
-                nextMoveVal = currentVal;
+                return -999;
             }
-            // opponents move go with min
-            else if (round % 2 == 1)
+            else if (teamThatWon == team)
             {
-                nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1) :heuristicVal];
-                // pick move with lowest score as we are min node
-                if (nextMoveVal < currentVal)
+                return 999;
+            }
+
+            // if no one has won iterate over all valid moves
+            for (int i = 0; i < size; i++)
+            {
+                // set up vars
+                int *newGameBoard;
+                int *nextMove = (int *)malloc(sizeof(int) * 2);
+                nextMove[0] = avaliableMoves[i] / 4;
+                nextMove[1] = avaliableMoves[i] % 4;
+                // opponents move
+                if (round % 2 == 1)
                 {
-                    currentVal = nextMoveVal;
+                    newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :opponent];
+                }
+                // our move
+                else
+                {
+                    newGameBoard = [Utilities upDateGameBoard:nextMove :gameBoard :team];
+                }
+            
+                int nextMoveVal;
+                // if it is first move set it to best
+                if (i == 0)
+                {
+                    currentVal = [self strictMinMaxSearch:newGameBoard :team :(round+1) :heuristicVal];
+                    nextMoveVal = currentVal;
+                }
+                // opponents move go with min
+                else if (round % 2 == 1)
+                {
+                    nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1) :heuristicVal];
+                    // pick move with lowest score as we are min node
+                    if (nextMoveVal < currentVal)
+                    {
+                        currentVal = nextMoveVal;
+                    }
+                }
+                // our move go max
+                else
+                {
+                    nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1) :heuristicVal];
+                    // pick move with highest score as we are max node
+                    if (nextMoveVal > currentVal)
+                    {
+                        currentVal = nextMoveVal;
+                    }
                 }
             }
-            // our move go max
-            else
-            {
-                nextMoveVal = [self strictMinMaxSearch:newGameBoard :team :(round+1) :heuristicVal];
-                // pick move with highest score as we are max node
-                if (nextMoveVal > currentVal)
-                {
-                    currentVal = nextMoveVal;
-                }
-            }
-        }
-        return currentVal;
-    }
-    else
-    {
-        // if we have reached bottom depth call the given heuristic val
-        int value;
-        if (heuristicVal == 0)
-        {
-            value = [HeuristicFunctions getValue:gameBoard :team];
-        }
-        else if (heuristicVal == 1)
-        {
-            value = [HeuristicFunctions decisionTreeChecker:gameBoard :team];
+            return currentVal;
         }
         else
         {
-            value = [HeuristicFunctions evaluate:gameBoard :team];
+            // if we have reached bottom depth call the given heuristic val
+            int value;
+            if (heuristicVal == 0)
+            {
+                value = [HeuristicFunctions getValue:gameBoard :team];
+            }
+            else if (heuristicVal == 1)
+            {
+                value = [HeuristicFunctions decisionTreeChecker:gameBoard :team];
+            }
+            else
+            {
+                value = [HeuristicFunctions evaluate:gameBoard :team];
+            }
+            
+            return value;
         }
-        
-        return value;
     }
 }
 
