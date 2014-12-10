@@ -49,7 +49,7 @@
         j = (j + 1) % size;
         if (j == 0)
         {
-            NSLog(@"J == 0");
+        //    NSLog(@"J == 0");
         }
     }
     stringer = [[NSString alloc] initWithFormat:@"%i, %i", nextMove[0], nextMove[1]];

@@ -10,6 +10,10 @@
 
 @implementation Utilities
 
+/**
+ * This method validates an attempted move
+ * by checking all of the adjacent nodes to determine if any of them are taken
+ */
 +(BOOL) moveValid:(int *)move :(int *)gameBoard
 {
     @autoreleasepool {
@@ -76,19 +80,26 @@
     }
 }
 
+/**
+ * This function updates the gameboard with a new move, however for alpha-beta we don't
+ * want to modify the original board so we create space with malloc for a new array
+ */
 +(int *) upDateGameBoard:(int *)move :(int *)gameBoard :(int)team
 {
     @autoreleasepool {
+        // create a new game board identical to current one
         int *newGameBoard = (int *)malloc(sizeof(int) * 48);
         for (int i = 0; i < 48; i++)
         {
             newGameBoard[i] = gameBoard[i];
         }
         
+        // don't add move that is off the board
         if (((move[0] * 4) + move[1]) > 47)
         {
             NSLog(@"going off the board");
         }
+        // otherwise add move to gameboard
         else
         {
             int x = move[0];
@@ -328,9 +339,14 @@
     return returned;
 }
 
+/**
+ * This method returns an array of all the x,y values for valid moves and sets the size pointer
+ * to the length of the array
+ */
 +(int *) getAllAvaliableMoves:(int *)board :(int *)size
 {
     @autoreleasepool {
+        // create new array for flagging all moves that are legal
         int *newArray = (int *)malloc(sizeof(int) * 48);
         for (int a = 0; a < 48; a++)
         {
@@ -338,12 +354,14 @@
         }
         int *move = (int *)malloc(sizeof(int) * 2);
         int totalSize = 0;
+        // loop through all 48 locations calling moveValid function for all of them
         for (int i = 0; i < 48; i++)
         {
             int x = i / 4;
             int y = i % 4;
             move[0] = x;
             move[1] = y;
+            // if move is valid set flag in newArray
             if ([Utilities moveValid:move :board])
             {
                 newArray[i] = 1;
@@ -351,8 +369,10 @@
             }
         }
         
+        // create a new array with length of the # of valid moves
         int *avaliableMoves = (int *)malloc(sizeof(int) * totalSize);
         int k = 0;
+        // loop through adding all valid moves to array
         for (int j = 0; j < totalSize; j++)
         {
             while (newArray[k] != 1 && k < 48)
@@ -363,6 +383,7 @@
             k++;
         }
         
+        // release used mallocs
         free(newArray);
         free(move);
         

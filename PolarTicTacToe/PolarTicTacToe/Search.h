@@ -14,7 +14,6 @@ int searchDepth;
 +(int) strictMinMaxSearch:(int *)gameBoard :(int)team :(int)round :(int)heuristicVal;
 +(int *) getNextSpotAlphaBeta:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal :(int)verboseVal;
 +(int) alphaBetaSearch:(int *)gameBoard :(int)team :(int)round :(int)parentScore :(int)heuristicVal :(int) verboseVal;
-+(int *) getNextSpotAlphaBetaMultiThreading:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal;
 +(int *) getNextSpotNearestNeighbor:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal;
 
 @end

@@ -37,8 +37,13 @@
     int searchDepthVal2;
     int neuralNet;
     int neuralNet2;
+    long time;
+    long trials;
+    long time2;
+    long trials2;
     NSTextField *current;
     
+    // text fields to hold the x and o in the game
     IBOutlet NSTextField *label0_0;
     IBOutlet NSTextField *label0_1;
     IBOutlet NSTextField *label0_2;
@@ -174,7 +179,11 @@
 -(IBAction) neuralNetTest:(id)sender;
 -(IBAction) printHeuristic:(id)sender;
 -(IBAction) printAvalaibleSpots:(id)sender;
+-(IBAction) heuristicTest:(id)sender;
+-(IBAction) aiTests:(id)sender;
 
+// every move on the board has a button
+// which triggers these actions
 -(IBAction) region0_0:(id)sender;
 -(IBAction) region0_1:(id)sender;
 -(IBAction) region0_2:(id)sender;
@@ -234,8 +243,6 @@
 -(IBAction) region11_1:(id)sender;
 -(IBAction) region11_2:(id)sender;
 -(IBAction) region11_3:(id)sender;
-
-//-(void) upDateChangedStates();
 
 -(BOOL) validateUserMove:(int)x :(int)y;
 -(void) upDateLabel:(int)x :(int)y;
