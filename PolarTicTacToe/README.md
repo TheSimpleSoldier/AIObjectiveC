@@ -11,6 +11,7 @@ The neural net training is run separately through the command line. Compile Trai
 
 What we did:
 	This application is the polar tic-tac-toe game created in objective c for CSCI 446 at Montana State University.  In this program we implemented strict min-max, alpha-beta, and nearest-neighbor search techniques.  We also implemented several different heuristic functions with a basic heuristic, a classifier using a decision tree, and a neural net.  We created a training program for the neural net which used 40 internal nodes and trained on 5 million matches using back propogation to improve to the point of being capable of consistently defeating college students.  In the actual app itself you can play against yourself, or against an AI as either the X or O player.  You can set the search depth, the heuristic used, and the search type.  Additionally you can kick back and watch the AI play itself or you can run various tests to see which heuristic performs better against random or if you wanted to see how the neural net at depth 3 with min-max does against the classifier at depth 4 with nearest neighbor then you are set! 
+
 Where it is all at:
 	Training/
 		TrainNet.m contains the methods required to train the neural net, running main will train the net over 5 million matches with the alpha values you give it
