@@ -59,7 +59,11 @@
                 nextSpot[0] = move[0];
                 nextSpot[1] = move[1];
             }
+            free(newGameBoard);
         }
+        
+        free(avaliableMoves);
+        free(move);
         
         // return the best move
         return nextSpot;
@@ -139,49 +143,54 @@
  */
 +(int *) getNextSpotNearestNeighbor:(int *)gameBoard :(int)team :(int)heuristicVal :(int)searchDepthVal
 {
-    // setup vars
-    int *nextSpot = (int *)malloc(sizeof(int) * 2);
-    searchDepth = searchDepthVal;
-    int size = 0;
-    int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
-    // grab all valid moves to iterate over
-    avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
-    int maxScore = -1000;
-    int *move = (int *)malloc(sizeof(int) * 2);
-    
-    // iterate over all moves
-    for (int i = 0; i < size; i++)
-    {
-        move[0] = avaliableMoves[i] / 4;
-        move[1] = avaliableMoves[i] % 4;
-        // make sure move is valid before continuing search
-        if (![Utilities moveValid:move :gameBoard])
+    @autoreleasepool {
+        // setup vars
+        int *nextSpot = (int *)malloc(sizeof(int) * 2);
+        searchDepth = searchDepthVal;
+        int size = 0;
+        int *avaliableMoves = (int *)malloc(sizeof(int) * 48);
+        // grab all valid moves to iterate over
+        avaliableMoves = [Utilities getAllAvaliableMoves:gameBoard :&size];
+        int maxScore = -1000;
+        int *move = (int *)malloc(sizeof(int) * 2);
+        
+        // iterate over all moves
+        for (int i = 0; i < size; i++)
         {
-            continue;
+            move[0] = avaliableMoves[i] / 4;
+            move[1] = avaliableMoves[i] % 4;
+            // make sure move is valid before continuing search
+            if (![Utilities moveValid:move :gameBoard])
+            {
+                continue;
+            }
+            
+            // create new game board with current move
+            int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
+            // calculate score based on move
+            int score = [self nearestNeighborPrunning:newGameBoard :team :1 :maxScore :heuristicVal];
+            // if first move then set as best move
+            if (i == 0)
+            {
+                maxScore = score;
+                nextSpot[0] = move[0];
+                nextSpot[1] = move[1];
+            }
+            // if current move is best found so far update
+            else if (score > maxScore)
+            {
+                maxScore = score;
+                nextSpot[0] = move[0];
+                nextSpot[1] = move[1];
+            }
         }
         
-        // create new game board with current move
-        int *newGameBoard = [Utilities upDateGameBoard:move :gameBoard :team];
-        // calculate score based on move
-        int score = [self nearestNeighborPrunning:newGameBoard :team :1 :maxScore :heuristicVal];
-        // if first move then set as best move
-        if (i == 0)
-        {
-            maxScore = score;
-            nextSpot[0] = move[0];
-            nextSpot[1] = move[1];
-        }
-        // if current move is best found so far update
-        else if (score > maxScore)
-        {
-            maxScore = score;
-            nextSpot[0] = move[0];
-            nextSpot[1] = move[1];
-        }
+        free(avaliableMoves);
+        free(move);
+        
+        // return the best move
+        return nextSpot;
     }
-    
-    // return the best move
-    return nextSpot;
 }
 
 /**
@@ -265,7 +274,10 @@
                         currentVal = nextMoveVal;
                     }
                 }
+                free(newGameBoard);
+                free(nextMove);
             }
+            free(avaliableMoves);
             return currentVal;
         }
         else

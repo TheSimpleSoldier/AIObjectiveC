@@ -543,8 +543,8 @@
         // test the 3 different heuristic functions: basic, classifier, and neural net, player 1
         for (int j = 0; j < 3; j++)
         {
-            // test search depths from 1 to 6, player 1
-            for (int k = 1; k < 7; k++)
+            // test search depths from 1 to 5, player 1
+            for (int k = 1; k < 6; k++)
             {
                 // test all 3 search methods: min-max, alpha-beta, and nearest neighbor, player 2
                 for (int l = 1; l < 4; l++)
@@ -552,22 +552,22 @@
                     // test all 3 heuristic functions: basic, classifier, and neural net, player 2
                     for (int m = 0; m < 3; m++)
                     {
-                        // test search depths 1 to 6 for player 2
-                        for (int n = 1; n < 7; n++)
+                        // test search depths 1 to 5 for player 2
+                        for (int n = 1; n < 6; n++)
                         {
                             // memory management
                             @autoreleasepool {
                                 // if player 1 or player 2 is nearest neighbor, run 100 matches
                                 if (i == 3 || l == 3)
                                 {
-                                    /*
+                                    
                                     int player1Wins = 0;
                                     int player2Wins = 0;
                                     long averageTimes = 0;
                                     long averageTrials = 0;
                                     long averageTimes2 = 0;
                                     long averageTrials2 = 0;
-                                    for (int o = 0; o < 100; o++)
+                                    for (int o = 0; o < 50; o++)
                                     {
                                         [self reset];
                                         searchTypeVal = i;
@@ -603,11 +603,12 @@
                                     }
                                     
                                     NSLog(@"Player 1: searchType: %i, heuristic: %i, searchDepth: %i, average Move Time: %li, moves:%li, wins: %i, Player 2: searchType: %i, heuristic: %i, searchDepth: %i, average Move Time: %li, number of moves: %li wins:%i",i,j,k,(averageTimes/averageTrials),averageTrials,player1Wins,l,m,n,(averageTimes2/averageTrials2),averageTrials2,player2Wins);
-                                    */
+                                    
                                 }
                                 // otherwise we only need to run 1 match as there are no random aspects
                                 else
                                 {
+                                    /*
                                     [self reset];
                                     searchTypeVal = i;
                                     searchTypeVal2 = l;
@@ -625,6 +626,7 @@
                                     
                                     int winners = [Utilities checkWin:board];
                                     NSLog(@"Player 1: searchType: %i, heuristic: %i, searchDepth: %i, average Time: %li, moves: %li Player 2: searchType: %i, heuristic: %i, searchDepth: %i, average Time: %li, moves: %li, winner:%i",i,j,k,(time/trials),trials,l,m,n,(time2/trials2), trials2,winners);
+                                     */
                                 }
                             }
                         }
