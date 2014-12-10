@@ -27,8 +27,7 @@
 		B0E6E19819C68F2E00F5B0EA /* PolarTicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E6E19719C68F2E00F5B0EA /* PolarTicTacToeTests.m */; };
 		B0E6E1A419C6903500F5B0EA /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E6E1A219C6903500F5B0EA /* RootViewController.m */; };
 		B0E6E1A519C6903500F5B0EA /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E6E1A319C6903500F5B0EA /* RootViewController.xib */; };
-		B61566EC1A36915B00B6D3B1 /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B61566EB1A36915B00B6D3B1 /* goodPolarImage.png */; };
-		B61566F01A3815AB00B6D3B1 /* TrainNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B61566EF1A3815AB00B6D3B1 /* TrainNet.m */; };
+		B61566F31A38988F00B6D3B1 /* goodPolarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B61566F21A38988F00B6D3B1 /* goodPolarImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,9 +77,7 @@
 		B0E6E1A119C6903500F5B0EA /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		B0E6E1A219C6903500F5B0EA /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		B0E6E1A319C6903500F5B0EA /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
-		B61566EB1A36915B00B6D3B1 /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = ../../../../Documents/goodPolarImage.png; sourceTree = "<group>"; };
-		B61566EF1A3815AB00B6D3B1 /* TrainNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainNet.m; sourceTree = "<group>"; };
-		B61566F11A3815B800B6D3B1 /* TrainNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainNet.h; sourceTree = "<group>"; };
+		B61566F21A38988F00B6D3B1 /* goodPolarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodPolarImage.png; path = Images/goodPolarImage.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,9 +163,7 @@
 				B07350961A06F40000936E42 /* AlphaBetaAI.m */,
 				B0E29EB11A22710B003E2F08 /* NearestNeighbor.h */,
 				B0E29EB21A22710B003E2F08 /* NearestNeighbor.m */,
-				B61566F11A3815B800B6D3B1 /* TrainNet.h */,
-				B61566EF1A3815AB00B6D3B1 /* TrainNet.m */,
-				B61566EB1A36915B00B6D3B1 /* goodPolarImage.png */,
+				B61566F21A38988F00B6D3B1 /* goodPolarImage.png */,
 				B0E6E18519C68F2E00F5B0EA /* Images.xcassets */,
 				B0E6E17419C68F2E00F5B0EA /* Supporting Files */,
 			);
@@ -282,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E6E17819C68F2E00F5B0EA /* InfoPlist.strings in Resources */,
-				B61566EC1A36915B00B6D3B1 /* goodPolarImage.png in Resources */,
+				B61566F31A38988F00B6D3B1 /* goodPolarImage.png in Resources */,
 				B0E6E18619C68F2E00F5B0EA /* Images.xcassets in Resources */,
 				B0E6E1A519C6903500F5B0EA /* RootViewController.xib in Resources */,
 				B0E6E17E19C68F2E00F5B0EA /* Credits.rtf in Resources */,
@@ -310,7 +305,6 @@
 				B0E29EB31A22710B003E2F08 /* NearestNeighbor.m in Sources */,
 				B034EAAC19D9B077005A8751 /* HeuristicFunctions.m in Sources */,
 				B0E6E17A19C68F2E00F5B0EA /* main.m in Sources */,
-				B61566F01A3815AB00B6D3B1 /* TrainNet.m in Sources */,
 				B01B513619E86DCA00AEC066 /* RandomAI.m in Sources */,
 				B034EAAF19D9B093005A8751 /* Search.m in Sources */,
 				B034EAA919D9B060005A8751 /* Utilities.m in Sources */,
